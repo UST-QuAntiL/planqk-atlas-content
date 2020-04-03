@@ -1,0 +1,18 @@
+{
+    "name":"Quantum Support Vector Machine Algorithm 1",
+    "content": {
+        "description":"Havlicek et al. show that a quantum version of the SVM can be implemented in the following way. Two distinct approaches are available for this problem. The first method uses a variational circuit to compute the separating hyperplane while the second method estimates the kernel function in order to optimize the classifier directly. The latter method is then used used as part of a conventional SVM. In both methods the data is provided classically while the quantum state space is used as the feature space. It is furthermore noted that in order to obtain a quantum advantage, the kernel cannot be estimated classically, i.e., if the kernel is too simple, the quantum SVM does not show a quantum advantage over a normal SVM. [Supervised learning with quantum enhanced feature spaces, Havlicek et al.]"
+    },
+    "tags": [
+        {
+        "id": ...,
+        "key":"Algorithm class",
+        "value": "Classification"
+        },
+        {
+        "id":...,
+        "key":"Quantum computing model",
+        "value": "Quantum gate model"
+        }
+    ]
+}
