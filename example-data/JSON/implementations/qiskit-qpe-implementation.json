@@ -1,0 +1,14 @@
+{
+    "name": "qiksit-qpe",
+    "programmingLanguage": "Python",
+    "fileLocation": "https://github.com/Qiskit/qiskit-community-tutorials/blob/b9e487126dbd3f4f65696261fa85a7bd769b3ee8/algorithms/iterative_phase_estimation_algorithm.ipynb",
+    "selectionRule": "executable(dim_U, forest-qpe) :- dim_U <= 2.",
+    "sdk": "Qiskit",
+    "tags": [
+        {
+        "id": ...,
+        "key": "Subroutine",
+        "value": "PhaseEstimation"
+        }
+    ]
+}
