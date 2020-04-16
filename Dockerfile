@@ -4,9 +4,6 @@ LABEL MAINTAINER Manuela Weigold <manuela.weigold@iaas.uni-stuttgart.de>
 
 ENV QC_ATLAS_CONTENT_REPOSITORY_URL "git@github.com:PlanQK/planqk-atlas-content.git"
 ENV QC_ATLAS_CONTENT_REPOSITORY_PATH "/var/qc-atlas/testdata"
-# this private SSH key can be set via an overwrite file
-# it is used to pull data from the private planqk-atlas-content repo
-ENV SSH_PRIVATE_KEY ""
 ENV POSTGRES_PASSWORD postgres
 ENV POSTGRES_USER postgres
 ENV JDBC_DATABASE_PORT 5432
