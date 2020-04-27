@@ -31,13 +31,13 @@ Before adding an **implementation**:
 - Make sure you have inserted the data that you want to backup into the database
 - "Refresh" the database (right-click on your database instance (e.g. "PlanQk Atlas postgres database"))
 - Choose "Backup..." (right-click on postgres, which is located at "PlanQk Atlas postgres database" > Databases (1) > postgres
+In general, we store the schema separately from the data because this allows pgAdmin to preserve the insertion dependencies between tables. 
+If the schema changed, you should backup a new version of the schema as well. 
 ![backup](docs/pictures/backup-click.PNG)
-    - General:  
-        - _Filename_: Enter "data-qc-atlas-with-tabledef.sql" to be able to use it in the docker setup
-        - _Format_: Choose "Plain"
-    - Dump options: 
-        - Take default values (_Type of objects_ - Blob and _Miscellaneous_ - Verbose messages are selected as "YES") 
-        - In _Queries_ set "Use Column Inserts" and "Use Insert Commands" to "YES"
- ![dump options](docs/pictures/backup-dump-options.PNG)
- - Replace the data-qc-atlas-with-tabledef.sql File in the [planqk-atlas-content repository](https://github.com/PlanQK/planqk-atlas-content) located under planqk-atlas-content/example-data/SQL/ with the new backup file
+    - To back up the schema, choose the following setup: 
+![backup](docs/pictures/backup_schema.PNG)
+    - To back up the data, choose the following setup: 
+![backup](docs/pictures/backup_data.PNG)
+ - Rename the files such that schema files starts with "0_" and the data file starts with "1_" (this alphabetical ordering is needed so the schema file is loaded first)
+ - Replace both files in the [planqk-atlas-content repository](https://github.com/PlanQK/planqk-atlas-content) located under planqk-atlas-content/example-data/SQL/backup-files/
   
