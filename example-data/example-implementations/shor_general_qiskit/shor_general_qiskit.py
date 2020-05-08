@@ -1,4 +1,4 @@
-from qiskit.aqua.algorithms.single_sample import Shor
+from qiskit.aqua.algorithms.factorizers import Shor
 
 
 def get_circuit_for_input(n):
