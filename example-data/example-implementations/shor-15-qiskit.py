@@ -25,3 +25,8 @@ qc.h(q[2])
 qc.measure(q[0], c[0])
 qc.measure(q[1], c[1])
 qc.measure(q[2], c[2])
+
+def get_circuit(**kwargs):
+    """Get circuit of Shor with input 15."""
+    return qc
+  
