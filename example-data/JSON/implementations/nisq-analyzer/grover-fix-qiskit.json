@@ -1,7 +1,7 @@
 {
     "name": "grover-fix-qiskit",
     "programmingLanguage": "Python",
-    "fileLocation": "https://github.com/PlanQK/planqk-atlas-content/blob/master/example-data/example-implementations/grover-fix-SAT-qiskit.py",
+    "fileLocation": "https://github.com/PlanQK/planqk-atlas-content/blob/master/example-data/example-implementations/grover-fix-qiskit.py",
     "selectionRule": "executable(O, grover-fix-sat-qiskit) :- O = '0010000000000000'.",
     "sdk": "Qiskit",
     "inputParameters": {
