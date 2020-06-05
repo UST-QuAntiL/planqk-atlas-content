@@ -2,7 +2,7 @@
     "name": "grover-general-logicalexpression-qiskit",
     "programmingLanguage": "Python",
     "fileLocation": "https://github.com/PlanQK/planqk-atlas-content/blob/master/example-data/example-implementations/grover-general-logicalexpression-qiskit.py",
-    "selectionRule": "executable(Oracle, grover-fix-sat-qiskit) :- not(Oracle == null).",
+    "selectionRule": "executable(Oracle, grover-general-logicalexpression-qiskit) :- not(Oracle == null).",
     "sdk": "Qiskit",
     "inputParameters": {
         "parameters": [
@@ -24,6 +24,6 @@
             }
         ]
     },
-    "widthRule": "expectedWidth(W, grover-fix-sat-qiskit) :- W >= 2.",
-    "depthRule": "expectedDepth(D, grover-fix-sat-qiskit) :- D >= 5."
+    "widthRule": "expectedWidth(W, grover-general-logicalexpression-qiskit) :- W >= 2.",
+    "depthRule": "expectedDepth(D, grover-general-logicalexpression-qiskit) :- D >= 5."
 }
