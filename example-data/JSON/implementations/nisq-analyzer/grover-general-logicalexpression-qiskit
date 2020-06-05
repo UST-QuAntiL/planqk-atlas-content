@@ -1,0 +1,29 @@
+{
+    "name": "grover-general-logicalexpression-qiskit",
+    "programmingLanguage": "Python",
+    "fileLocation": "https://github.com/PlanQK/planqk-atlas-content/blob/master/example-data/example-implementations/grover-general-logicalexpression-qiskit.py",
+    "selectionRule": "executable(Oracle, grover-fix-sat-qiskit) :- not(Oracle == null).",
+    "sdk": "Qiskit",
+    "inputParameters": {
+        "parameters": [
+            {
+                "name": "Oracle",
+                "type": "Boolean Function",
+                "restriction": "Oracle has to be a Boolean function",
+                "description": "Oracle for grover"
+            }
+        ]
+    },
+    "outputParameters": {
+        "parameters": [
+            {
+                "name": "assignment",
+                "type": "String",
+                "restriction": "",
+                "description": "Assignment of Boolean variables such that f evaluates to true"
+            }
+        ]
+    },
+    "widthRule": "expectedWidth(W, grover-fix-sat-qiskit) :- W >= 2.",
+    "depthRule": "expectedDepth(D, grover-fix-sat-qiskit) :- D >= 5."
+}
