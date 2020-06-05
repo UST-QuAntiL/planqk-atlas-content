@@ -1,0 +1,32 @@
+{
+    "name": "grover-fix-qiskit",
+    "programmingLanguage": "Python",
+    "fileLocation": "https://github.com/PlanQK/planqk-atlas-content/blob/master/example-data/example-implementations/grover-fix-SAT-qiskit.py",
+    "selectionRule": "executable(O, grover-fix-sat-qiskit) :- O = '0010000000000000'.",
+    "sdk": "Qiskit",
+    "inputParameters": {
+        "parameters": [
+            {
+                "name": "O",
+                "type": "String",
+                "restriction": "O = '0010000000000000'",
+                "description": "Truth table oracle for grover"
+            }
+        ]
+    },
+    "outputParameters": {
+        "parameters": [
+            {
+                "name": "assignment",
+                "type": "String",
+                "restriction": "",
+                "description": "Assignment of Boolean variables such that f evaluates to true"
+            }
+        ]
+    },
+    "widthRule": "expectedWidth(W, grover-fix-sat-qiskit) :- W is 4.",
+    "depthRule": "expectedDepth(D, grover-fix-sat-qiskit) :- D is 35.",
+    "content": {
+        "reference": "https://quantum-circuit.com/app_details/about/LFQv9PKwerh3EzrLw"
+    }
+}
