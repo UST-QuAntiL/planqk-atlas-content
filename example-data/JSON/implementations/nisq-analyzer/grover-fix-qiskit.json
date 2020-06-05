@@ -2,14 +2,14 @@
     "name": "grover-fix-qiskit",
     "programmingLanguage": "Python",
     "fileLocation": "https://github.com/PlanQK/planqk-atlas-content/blob/master/example-data/example-implementations/grover-fix-qiskit.py",
-    "selectionRule": "executable(O, grover-fix-sat-qiskit) :- O = '0010000000000000'.",
+    "selectionRule": "executable(Oracle, grover-fix-qiskit) :- Oracle = '0010000000000000'.",
     "sdk": "Qiskit",
     "inputParameters": {
         "parameters": [
             {
-                "name": "O",
+                "name": "Oracle",
                 "type": "String",
-                "restriction": "O = '0010000000000000'",
+                "restriction": "Oracle = '0010000000000000'",
                 "description": "Truth table oracle for grover"
             }
         ]
@@ -24,8 +24,8 @@
             }
         ]
     },
-    "widthRule": "expectedWidth(W, grover-fix-sat-qiskit) :- W is 4.",
-    "depthRule": "expectedDepth(D, grover-fix-sat-qiskit) :- D is 35.",
+    "widthRule": "expectedWidth(W, grover-fix-qiskit) :- W is 4.",
+    "depthRule": "expectedDepth(D, grover-fix-qiskit) :- D is 35.",
     "content": {
         "reference": "https://quantum-circuit.com/app_details/about/LFQv9PKwerh3EzrLw"
     }
