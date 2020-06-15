@@ -1,0 +1,7 @@
+{
+    "name": "Rigetti 8Q",
+    "numberOfQubits": 8,
+    "t1": 13406.25,
+    "maxGateTime": 198,
+    "supportedSdkIds": [...]
+}
