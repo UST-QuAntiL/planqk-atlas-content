@@ -8,7 +8,7 @@
         "parameters": [
             {
                 "name": "Oracle",
-                "type": "Boolean Function",
+                "type": "String",
                 "restriction": "Oracle = (A | B) & (A | ~B) & (~A | B)",
                 "description": "Oracle for grover"
             }
