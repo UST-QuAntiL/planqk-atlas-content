@@ -8,7 +8,7 @@
         "parameters": [
             {
                 "name": "Oracle",
-                "type": "Boolean Function",
+                "type": "String",
                 "restriction": "Oracle has to be a Boolean function",
                 "description": "Oracle for grover"
             }
