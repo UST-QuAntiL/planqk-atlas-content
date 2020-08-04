@@ -1,7 +1,7 @@
 {
     "name": "grover-general-logicalexpression-qiskit",
     "programmingLanguage": "Python",
-    "fileLocation": "https://github.com/PlanQK/planqk-atlas-content/blob/master/example-data/example-implementations/grover-general-logicalexpression-qiskit.py",
+    "fileLocation": "https://raw.githubusercontent.com/PlanQK/nisq-analyzer-content/master/example-implementations/grover-general-logicalexpression-qiskit.py",
     "selectionRule": "executable(Oracle, grover-general-logicalexpression-qiskit) :- not(Oracle == null).",
     "sdk": "Qiskit",
     "inputParameters": {
