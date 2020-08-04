@@ -1,7 +1,7 @@
 {
     "name": "shor-general-qiskit",
     "programmingLanguage": "Python",
-    "fileLocation": "https://github.com/PlanQK/planqk-atlas-content/blob/master/example-data/example-implementations/shor-general-qiskit.py",
+    "fileLocation": "https://raw.githubusercontent.com/PlanQK/nisq-analyzer-content/master/example-implementations/shor-general-qiskit.py",
     "selectionRule": "executable(N, shor-general-qiskit) :- N > 2.",
     "sdk": "Qiskit",
     "inputParameters": {
