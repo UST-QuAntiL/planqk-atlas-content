@@ -30,10 +30,16 @@ Before adding an **implementation**:
 In general, we store the schema separately from the data because this allows pgAdmin to preserve the insertion dependencies between tables. 
 If the schema changed, you should backup a new version of the schema as well. 
 ![backup](docs/pictures/backup-click.PNG)
+
+    - First select the appropriate file (schema or data) and chose "Plain" in the "Format" row
+![plain](docs/pictures/format_plain.PNG)
+
     - To back up the schema, choose the following setup: 
 ![backup](docs/pictures/backup_schema.PNG)
+
     - To back up the data, choose the following setup: 
 ![backup](docs/pictures/backup_data.PNG)
+
  - Rename the files such that schema files starts with "0_" and the data file starts with "1_" (this alphabetical ordering is needed so the schema file is loaded first)
  - Replace both files in the [planqk-atlas-content repository](https://github.com/PlanQK/planqk-atlas-content) located under planqk-atlas-content/example-data/SQL/backup-files/
   
