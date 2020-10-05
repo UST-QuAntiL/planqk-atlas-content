@@ -1,7 +1,0 @@
-{
-    "name": "Rigetti 19Q",
-    "numberOfQubits": 20,
-    "t1": 20330,
-    "maxGateTime": 214,
-    "supportedSdkIds": [...]
-}
