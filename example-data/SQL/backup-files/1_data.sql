@@ -5,7 +5,7 @@
 -- Dumped from database version 12.2 (Debian 12.2-2.pgdg100+1)
 -- Dumped by pg_dump version 12.4 (Ubuntu 12.4-1.pgdg18.04+1)
 
--- Started on 2020-10-02 12:53:31 CEST
+-- Started on 2020-10-06 11:31:20 CEST
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -19,7 +19,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 3187 (class 0 OID 16521)
+-- TOC entry 3187 (class 0 OID 25220)
 -- Dependencies: 224
 -- Data for Name: knowledge_artifact; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -37,10 +37,20 @@ INSERT INTO public.knowledge_artifact VALUES ('f05c9136-2f9f-433f-9c35-85009111e
 INSERT INTO public.knowledge_artifact VALUES ('87d697a4-6256-4f84-b545-c2024ab380c2', NULL, NULL);
 INSERT INTO public.knowledge_artifact VALUES ('3aac6a37-10de-4a95-a2bd-381d357df2a4', NULL, NULL);
 INSERT INTO public.knowledge_artifact VALUES ('ae6bdf6f-2656-45bd-9b96-0820eea3cdab', NULL, NULL);
+INSERT INTO public.knowledge_artifact VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', NULL, NULL);
+INSERT INTO public.knowledge_artifact VALUES ('8179d686-afa1-4f03-8ec9-95899002488a', NULL, NULL);
+INSERT INTO public.knowledge_artifact VALUES ('7de45de7-aca2-4966-a5f9-8ef018688722', NULL, NULL);
+INSERT INTO public.knowledge_artifact VALUES ('0e5af2cf-f3c8-48dd-9743-cfdea65f320f', NULL, NULL);
+INSERT INTO public.knowledge_artifact VALUES ('10bc87a9-9317-41c8-8d19-fc6594d23383', NULL, NULL);
+INSERT INTO public.knowledge_artifact VALUES ('e7a33256-0ab4-4baa-a805-0296b97960d6', NULL, NULL);
+INSERT INTO public.knowledge_artifact VALUES ('c293bbf4-b8cf-4393-a403-a359a77b868c', NULL, NULL);
+INSERT INTO public.knowledge_artifact VALUES ('816a96fc-696d-419f-8bd4-98752cc72aac', NULL, NULL);
+INSERT INTO public.knowledge_artifact VALUES ('871f7eea-4722-4728-8cd9-1e61fe2dd285', NULL, NULL);
+INSERT INTO public.knowledge_artifact VALUES ('649859eb-7709-4beb-9738-d57f11d80455', NULL, NULL);
 
 
 --
--- TOC entry 3165 (class 0 OID 16390)
+-- TOC entry 3165 (class 0 OID 25089)
 -- Dependencies: 202
 -- Data for Name: algorithm; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -50,10 +60,13 @@ INSERT INTO public.algorithm VALUES ('QPE', 'U: Unitary Matrix; Eigenvector: Eig
 INSERT INTO public.algorithm VALUES ('QRL1', NULL, NULL, 1, NULL, 'Reinforcement learning', 'Quantum Reinforcement Learning 1', NULL, 'With this algorithm, Dong et al. introduce an approach to quantum reinforcement learning (QRL) that takes advantage of effects from quantum physics and works fundamentally different than any classical RL method, however, some similarities still remain. For example, QRL, like classical RL methods, also contain a policy, reward function and an environment. However, Dong et al. note that their QRL algorithm differs to classical RL algorithms in intrinsic parts like representation, policy, parallelism and update operation. States and actions are also different in both approaches. In this QRL method, states are referred to as eigen states and actions as eigen actions and are able to be in a superposition state. Superposition allows the algorithm, among other things, to better balance exploration and exploitation. Recall that in quantum physics, whenever a qubit in superposition is measured, it collapses and takes on one state according to some probability. The algorithm takes advantage of this behaviour in the action selection policy. More specifically, an action is measured in relation to some state and hence collapses to one of its eigen actions according to some probability this action is then selected. This means that the probability of actions that are considered good should be amplified. The probability amplitudes must be updated throughout the algorithm. The method to update the probability amplitude is based on the Grover iteration from Grover’s algorithm, a famous quantum algorithm for database search. The method contains a oracle or black box that is used to tell whether an action is good or bad. Loosely formulated, the complete algorithm works as follows. The first step is to initialize the state and action. After this an action is observed and executed to receive the next state and reward. Then the state value and probability amplitudes are updated accordingly. The probability amplitudes are updated in such a way that the probability for good actions is amplified and shrunk for bad ones. This process is done repeatedly. And so, after a number of episodes, the algorithm is able to learn a policy.', NULL, '4ab28e22-cdf9-45f8-b872-f4d9d2757b6d');
 INSERT INTO public.algorithm VALUES ('QSVM1', NULL, NULL, 1, NULL, 'Classification', 'Quantum Support Vector Machine 1', NULL, 'Havlicek et al. show that a quantum version of the SVM can be implemented in the following way. Two distinct approaches are available for this problem. The first method uses a variational circuit to compute the separating hyperplane while the second method estimates the kernel function in order to optimize the classifier directly. The latter method is then used used as part of a conventional SVM. In both methods the data is provided classically while the quantum state space is used as the feature space. It is furthermore noted that in order to obtain a quantum advantage, the kernel cannot be estimated classically, i.e., if the kernel is too simple, the quantum SVM does not show a quantum advantage over a normal SVM. [Supervised learning with quantum enhanced feature spaces, Havlicek et al.]', NULL, '16aa96c5-b668-4df9-a03f-96d323708676');
 INSERT INTO public.algorithm VALUES ('QSVM2', NULL, NULL, 1, NULL, 'Classification', 'Quantum Support Vector Machine 2', NULL, 'The training of quantum support vector machines (QSVM) can also be run on a quantum annealer, as demonstrated by Willsch et al. in a recent paper. To achieve this, the problem, like any problem solved via quantum annealing (QA), must first be formulated as a QUBO. However, the training of SVMs entails solving equations that contain real numbers whereas a QUBO consists of binary values. Willsch et al. use a special encoding to overcome this and thus are able to formulate the problem as a QUBO. Willsch et al. investigate the performance of their QSVM on a DW2000Q quantum annealer. They note that the quantum annealer returns in addition to the global optimum, a range of solutions that are close to the optimal. They furthermore note that this is advantageous as the generalization ability may potentially be improved by using a combination of the produced solutions. In summary, a QVSM can be trained using via QA by formulating the problem as a QUBO. A QA device, such as the DW2000Q, produces optimal and near-optimal solutions and a combination of these solutions can potentially improve the generalization behaviour.', NULL, '9aa16271-6ea1-4e15-ad9d-6e6e264a0ad0');
+INSERT INTO public.algorithm VALUES (NULL, NULL, NULL, 1, NULL, NULL, 'Grover-SAT', NULL, NULL, NULL, '3c7722e2-09c3-4667-9a0d-a45d3ddc42ae');
+INSERT INTO public.algorithm VALUES (NULL, NULL, NULL, 1, NULL, NULL, 'Grover-Truthtable', NULL, NULL, NULL, '0e5af2cf-f3c8-48dd-9743-cfdea65f320f');
+INSERT INTO public.algorithm VALUES (NULL, NULL, NULL, 1, NULL, NULL, 'Simon', NULL, NULL, NULL, '871f7eea-4722-4728-8cd9-1e61fe2dd285');
 
 
 --
--- TOC entry 3172 (class 0 OID 16428)
+-- TOC entry 3172 (class 0 OID 25127)
 -- Dependencies: 209
 -- Data for Name: application_area; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -64,7 +77,7 @@ INSERT INTO public.application_area VALUES ('da982d08-30a8-48f7-8db1-204c0b4f186
 
 
 --
--- TOC entry 3166 (class 0 OID 16398)
+-- TOC entry 3166 (class 0 OID 25097)
 -- Dependencies: 203
 -- Data for Name: algorithm_application_area; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -79,7 +92,7 @@ INSERT INTO public.algorithm_application_area VALUES ('9aa16271-6ea1-4e15-ad9d-6
 
 
 --
--- TOC entry 3190 (class 0 OID 16539)
+-- TOC entry 3190 (class 0 OID 25238)
 -- Dependencies: 227
 -- Data for Name: problem_type; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -88,7 +101,7 @@ INSERT INTO public.problem_type VALUES ('76d773b5-4635-4d67-877c-e565b9f08496', 
 
 
 --
--- TOC entry 3167 (class 0 OID 16403)
+-- TOC entry 3167 (class 0 OID 25102)
 -- Dependencies: 204
 -- Data for Name: algorithm_problem_type; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -97,7 +110,7 @@ INSERT INTO public.algorithm_problem_type VALUES ('b5df6c13-e619-496c-ada0-80fc3
 
 
 --
--- TOC entry 3191 (class 0 OID 16544)
+-- TOC entry 3191 (class 0 OID 25243)
 -- Dependencies: 228
 -- Data for Name: publication; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -109,7 +122,7 @@ INSERT INTO public.publication VALUES ('10.1016/j.cpc.2019.107006', 'Support vec
 
 
 --
--- TOC entry 3168 (class 0 OID 16408)
+-- TOC entry 3168 (class 0 OID 25107)
 -- Dependencies: 205
 -- Data for Name: algorithm_publication; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -122,7 +135,7 @@ INSERT INTO public.algorithm_publication VALUES ('9aa16271-6ea1-4e15-ad9d-6e6e26
 
 
 --
--- TOC entry 3171 (class 0 OID 16423)
+-- TOC entry 3171 (class 0 OID 25122)
 -- Dependencies: 208
 -- Data for Name: algorithm_relation_type; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -130,7 +143,7 @@ INSERT INTO public.algorithm_publication VALUES ('9aa16271-6ea1-4e15-ad9d-6e6e26
 
 
 --
--- TOC entry 3170 (class 0 OID 16418)
+-- TOC entry 3170 (class 0 OID 25117)
 -- Dependencies: 207
 -- Data for Name: algorithm_relation; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -138,7 +151,7 @@ INSERT INTO public.algorithm_publication VALUES ('9aa16271-6ea1-4e15-ad9d-6e6e26
 
 
 --
--- TOC entry 3199 (class 0 OID 16591)
+-- TOC entry 3199 (class 0 OID 25290)
 -- Dependencies: 236
 -- Data for Name: tag; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -150,7 +163,7 @@ INSERT INTO public.tag VALUES ('Factorization', 'Algorithm class');
 
 
 --
--- TOC entry 3169 (class 0 OID 16413)
+-- TOC entry 3169 (class 0 OID 25112)
 -- Dependencies: 206
 -- Data for Name: algorithm_tag; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -163,7 +176,7 @@ INSERT INTO public.algorithm_tag VALUES ('b5df6c13-e619-496c-ada0-80fc3486f733',
 
 
 --
--- TOC entry 3173 (class 0 OID 16433)
+-- TOC entry 3173 (class 0 OID 25132)
 -- Dependencies: 210
 -- Data for Name: classic_algorithm; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -171,7 +184,7 @@ INSERT INTO public.algorithm_tag VALUES ('b5df6c13-e619-496c-ada0-80fc3486f733',
 
 
 --
--- TOC entry 3183 (class 0 OID 16498)
+-- TOC entry 3183 (class 0 OID 25197)
 -- Dependencies: 220
 -- Data for Name: implementation; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -180,10 +193,17 @@ INSERT INTO public.implementation VALUES (NULL, NULL, 'Python3', NULL, 'U: Float
 INSERT INTO public.implementation VALUES (NULL, NULL, 'Python3', NULL, 'N: Integer', NULL, NULL, 'forest-shor', 'Factors: Integer Array', 'N: N > 2', NULL, NULL, 'e07898e3-280f-4701-9d54-7d051af8d448', 'b5df6c13-e619-496c-ada0-80fc3486f733');
 INSERT INTO public.implementation VALUES (NULL, NULL, 'Python3', NULL, 'N: Integer', NULL, NULL, 'qiskit-aqua-shor', 'Factors: Integer Array', 'N: N > 2', NULL, NULL, '170eff66-733f-4043-a56b-3189bf474d62', 'b5df6c13-e619-496c-ada0-80fc3486f733');
 INSERT INTO public.implementation VALUES (NULL, NULL, 'Python3', NULL, NULL, NULL, NULL, 'qiskit-qpe', NULL, NULL, NULL, NULL, '1066e01c-e3ac-4830-b610-eb613187850c', 'b61578ed-df66-44ec-954c-9bcf9906f490');
+INSERT INTO public.implementation VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'grover-fix-sat-qiskit', NULL, NULL, NULL, NULL, '8179d686-afa1-4f03-8ec9-95899002488a', '3c7722e2-09c3-4667-9a0d-a45d3ddc42ae');
+INSERT INTO public.implementation VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'grover-general-sat-qiskit', NULL, NULL, NULL, NULL, '7de45de7-aca2-4966-a5f9-8ef018688722', '3c7722e2-09c3-4667-9a0d-a45d3ddc42ae');
+INSERT INTO public.implementation VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'grover-fix-truthtable-qiskit', NULL, NULL, NULL, NULL, '10bc87a9-9317-41c8-8d19-fc6594d23383', '0e5af2cf-f3c8-48dd-9743-cfdea65f320f');
+INSERT INTO public.implementation VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'grover-general-truthtable-qiskit', NULL, NULL, NULL, NULL, 'e7a33256-0ab4-4baa-a805-0296b97960d6', '0e5af2cf-f3c8-48dd-9743-cfdea65f320f');
+INSERT INTO public.implementation VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'shor-fix-15-qiskit', NULL, NULL, NULL, NULL, 'c293bbf4-b8cf-4393-a403-a359a77b868c', 'b5df6c13-e619-496c-ada0-80fc3486f733');
+INSERT INTO public.implementation VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'shor-general-qiskit', NULL, NULL, NULL, NULL, '816a96fc-696d-419f-8bd4-98752cc72aac', 'b5df6c13-e619-496c-ada0-80fc3486f733');
+INSERT INTO public.implementation VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'simon-general-qiskit', NULL, NULL, NULL, NULL, '649859eb-7709-4beb-9738-d57f11d80455', '871f7eea-4722-4728-8cd9-1e61fe2dd285');
 
 
 --
--- TOC entry 3174 (class 0 OID 16438)
+-- TOC entry 3174 (class 0 OID 25137)
 -- Dependencies: 211
 -- Data for Name: classic_implementation; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -191,7 +211,7 @@ INSERT INTO public.implementation VALUES (NULL, NULL, 'Python3', NULL, NULL, NUL
 
 
 --
--- TOC entry 3176 (class 0 OID 16448)
+-- TOC entry 3176 (class 0 OID 25147)
 -- Dependencies: 213
 -- Data for Name: cloud_service; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -201,7 +221,7 @@ INSERT INTO public.cloud_service VALUES ('bac9b43d-6ced-41c6-ae85-ef065e280d8b',
 
 
 --
--- TOC entry 3177 (class 0 OID 16456)
+-- TOC entry 3177 (class 0 OID 25155)
 -- Dependencies: 214
 -- Data for Name: compute_resource; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -213,7 +233,7 @@ INSERT INTO public.compute_resource VALUES ('ComputeResource', '82df8861-b7de-46
 
 
 --
--- TOC entry 3175 (class 0 OID 16443)
+-- TOC entry 3175 (class 0 OID 25142)
 -- Dependencies: 212
 -- Data for Name: cloud_services_compute_resources; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -225,7 +245,7 @@ INSERT INTO public.cloud_services_compute_resources VALUES ('bac9b43d-6ced-41c6-
 
 
 --
--- TOC entry 3179 (class 0 OID 16469)
+-- TOC entry 3179 (class 0 OID 25168)
 -- Dependencies: 216
 -- Data for Name: compute_resource_property_type; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -236,7 +256,7 @@ INSERT INTO public.compute_resource_property_type VALUES ('ff58dc2e-b805-4d32-b2
 
 
 --
--- TOC entry 3178 (class 0 OID 16464)
+-- TOC entry 3178 (class 0 OID 25163)
 -- Dependencies: 215
 -- Data for Name: compute_resource_property; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -256,7 +276,7 @@ INSERT INTO public.compute_resource_property VALUES ('dde0fa28-a69d-4e51-83c7-5e
 
 
 --
--- TOC entry 3181 (class 0 OID 16482)
+-- TOC entry 3181 (class 0 OID 25181)
 -- Dependencies: 218
 -- Data for Name: discussion_topic; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -264,7 +284,7 @@ INSERT INTO public.compute_resource_property VALUES ('dde0fa28-a69d-4e51-83c7-5e
 
 
 --
--- TOC entry 3180 (class 0 OID 16477)
+-- TOC entry 3180 (class 0 OID 25176)
 -- Dependencies: 217
 -- Data for Name: discussion_comment; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -272,7 +292,7 @@ INSERT INTO public.compute_resource_property VALUES ('dde0fa28-a69d-4e51-83c7-5e
 
 
 --
--- TOC entry 3195 (class 0 OID 16565)
+-- TOC entry 3195 (class 0 OID 25264)
 -- Dependencies: 232
 -- Data for Name: sketch; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -280,7 +300,7 @@ INSERT INTO public.compute_resource_property VALUES ('dde0fa28-a69d-4e51-83c7-5e
 
 
 --
--- TOC entry 3182 (class 0 OID 16490)
+-- TOC entry 3182 (class 0 OID 25189)
 -- Dependencies: 219
 -- Data for Name: image; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -288,7 +308,7 @@ INSERT INTO public.compute_resource_property VALUES ('dde0fa28-a69d-4e51-83c7-5e
 
 
 --
--- TOC entry 3184 (class 0 OID 16506)
+-- TOC entry 3184 (class 0 OID 25205)
 -- Dependencies: 221
 -- Data for Name: implementation_publication; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -298,7 +318,7 @@ INSERT INTO public.implementation_publication VALUES ('170eff66-733f-4043-a56b-3
 
 
 --
--- TOC entry 3198 (class 0 OID 16583)
+-- TOC entry 3198 (class 0 OID 25282)
 -- Dependencies: 235
 -- Data for Name: software_platform; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -308,7 +328,7 @@ INSERT INTO public.software_platform VALUES ('41299c3c-297a-4d61-be24-cc95718630
 
 
 --
--- TOC entry 3185 (class 0 OID 16511)
+-- TOC entry 3185 (class 0 OID 25210)
 -- Dependencies: 222
 -- Data for Name: implementation_software_platforms; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -317,10 +337,17 @@ INSERT INTO public.implementation_software_platforms VALUES ('b3b616b6-6e4a-49b1
 INSERT INTO public.implementation_software_platforms VALUES ('e07898e3-280f-4701-9d54-7d051af8d448', '7c2c4b2e-5b4e-421c-a487-54fd897bfe41');
 INSERT INTO public.implementation_software_platforms VALUES ('170eff66-733f-4043-a56b-3189bf474d62', '41299c3c-297a-4d61-be24-cc957186306e');
 INSERT INTO public.implementation_software_platforms VALUES ('1066e01c-e3ac-4830-b610-eb613187850c', '41299c3c-297a-4d61-be24-cc957186306e');
+INSERT INTO public.implementation_software_platforms VALUES ('8179d686-afa1-4f03-8ec9-95899002488a', '41299c3c-297a-4d61-be24-cc957186306e');
+INSERT INTO public.implementation_software_platforms VALUES ('7de45de7-aca2-4966-a5f9-8ef018688722', '41299c3c-297a-4d61-be24-cc957186306e');
+INSERT INTO public.implementation_software_platforms VALUES ('10bc87a9-9317-41c8-8d19-fc6594d23383', '41299c3c-297a-4d61-be24-cc957186306e');
+INSERT INTO public.implementation_software_platforms VALUES ('e7a33256-0ab4-4baa-a805-0296b97960d6', '41299c3c-297a-4d61-be24-cc957186306e');
+INSERT INTO public.implementation_software_platforms VALUES ('c293bbf4-b8cf-4393-a403-a359a77b868c', '41299c3c-297a-4d61-be24-cc957186306e');
+INSERT INTO public.implementation_software_platforms VALUES ('816a96fc-696d-419f-8bd4-98752cc72aac', '41299c3c-297a-4d61-be24-cc957186306e');
+INSERT INTO public.implementation_software_platforms VALUES ('649859eb-7709-4beb-9738-d57f11d80455', '41299c3c-297a-4d61-be24-cc957186306e');
 
 
 --
--- TOC entry 3186 (class 0 OID 16516)
+-- TOC entry 3186 (class 0 OID 25215)
 -- Dependencies: 223
 -- Data for Name: implementation_tag; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -332,7 +359,7 @@ INSERT INTO public.implementation_tag VALUES ('1066e01c-e3ac-4830-b610-eb6131878
 
 
 --
--- TOC entry 3189 (class 0 OID 16534)
+-- TOC entry 3189 (class 0 OID 25233)
 -- Dependencies: 226
 -- Data for Name: pattern_relation_type; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -340,7 +367,7 @@ INSERT INTO public.implementation_tag VALUES ('1066e01c-e3ac-4830-b610-eb6131878
 
 
 --
--- TOC entry 3188 (class 0 OID 16526)
+-- TOC entry 3188 (class 0 OID 25225)
 -- Dependencies: 225
 -- Data for Name: pattern_relation; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -348,7 +375,7 @@ INSERT INTO public.implementation_tag VALUES ('1066e01c-e3ac-4830-b610-eb6131878
 
 
 --
--- TOC entry 3192 (class 0 OID 16552)
+-- TOC entry 3192 (class 0 OID 25251)
 -- Dependencies: 229
 -- Data for Name: publication_authors; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -372,7 +399,7 @@ INSERT INTO public.publication_authors VALUES ('ae6bdf6f-2656-45bd-9b96-0820eea3
 
 
 --
--- TOC entry 3193 (class 0 OID 16555)
+-- TOC entry 3193 (class 0 OID 25254)
 -- Dependencies: 230
 -- Data for Name: quantum_algorithm; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -382,10 +409,13 @@ INSERT INTO public.quantum_algorithm VALUES (false, 0, NULL, '4ab28e22-cdf9-45f8
 INSERT INTO public.quantum_algorithm VALUES (false, 0, NULL, '16aa96c5-b668-4df9-a03f-96d323708676');
 INSERT INTO public.quantum_algorithm VALUES (false, 2, NULL, '9aa16271-6ea1-4e15-ad9d-6e6e264a0ad0');
 INSERT INTO public.quantum_algorithm VALUES (false, 0, 'exponential', 'b5df6c13-e619-496c-ada0-80fc3486f733');
+INSERT INTO public.quantum_algorithm VALUES (false, 0, NULL, '3c7722e2-09c3-4667-9a0d-a45d3ddc42ae');
+INSERT INTO public.quantum_algorithm VALUES (false, 0, NULL, '0e5af2cf-f3c8-48dd-9743-cfdea65f320f');
+INSERT INTO public.quantum_algorithm VALUES (false, 0, NULL, '871f7eea-4722-4728-8cd9-1e61fe2dd285');
 
 
 --
--- TOC entry 3194 (class 0 OID 16560)
+-- TOC entry 3194 (class 0 OID 25259)
 -- Dependencies: 231
 -- Data for Name: quantum_implementation; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -393,7 +423,7 @@ INSERT INTO public.quantum_algorithm VALUES (false, 0, 'exponential', 'b5df6c13-
 
 
 --
--- TOC entry 3196 (class 0 OID 16573)
+-- TOC entry 3196 (class 0 OID 25272)
 -- Dependencies: 233
 -- Data for Name: software_platform_cloud_services; Type: TABLE DATA; Schema: public; Owner: planqk
 --
@@ -401,14 +431,14 @@ INSERT INTO public.quantum_algorithm VALUES (false, 0, 'exponential', 'b5df6c13-
 
 
 --
--- TOC entry 3197 (class 0 OID 16578)
+-- TOC entry 3197 (class 0 OID 25277)
 -- Dependencies: 234
 -- Data for Name: software_platforms_compute_resources; Type: TABLE DATA; Schema: public; Owner: planqk
 --
 
 
 
--- Completed on 2020-10-02 12:53:31 CEST
+-- Completed on 2020-10-06 11:31:20 CEST
 
 --
 -- PostgreSQL database dump complete
