@@ -283,6 +283,7 @@ ALTER TABLE public.discussion_topic OWNER TO planqk;
 CREATE TABLE public.image (
     image bytea,
     id uuid NOT NULL,
+    mime_type character varying(255),
     sketch_id uuid
 );
 
