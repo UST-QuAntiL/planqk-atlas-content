@@ -304,6 +304,7 @@ CREATE TABLE public.implementation (
     license character varying(255),
     link character varying(255),
     name character varying(255),
+    technology character varying(255),
     output_format text,
     parameter character varying(255),
     problem_statement text,
