@@ -303,8 +303,8 @@ INSERT INTO public.cloud_service (id, cost_model, description, name, provider, u
 -- Data for Name: compute_resource; Type: TABLE DATA; Schema: public; Owner: planqk
 --
 
-INSERT INTO public.compute_resource (dtype, id, name, quantum_computation_model, technology, vendor) VALUES ('ComputeResource', 'faea0025-9096-4582-b2f9-93096358dbc2', 'ibmq_16_melbourne', 0, '', 'IBM');
-INSERT INTO public.compute_resource (dtype, id, name, quantum_computation_model, technology, vendor) VALUES ('ComputeResource', 'c0fc8141-4d19-4654-910b-109882b4b99b', 'ibmq_5_yorktown', 0, NULL, 'IBM');
+INSERT INTO public.compute_resource (dtype, id, name, quantum_computation_model, technology, vendor) VALUES ('ComputeResource', 'faea0025-9096-4582-b2f9-93096358dbc2', 'ibmq_16_melbourne', 0, '', 'IBMQ');
+INSERT INTO public.compute_resource (dtype, id, name, quantum_computation_model, technology, vendor) VALUES ('ComputeResource', 'c0fc8141-4d19-4654-910b-109882b4b99b', 'ibmqx2', 0, NULL, 'IBMQ');
 INSERT INTO public.compute_resource (dtype, id, name, quantum_computation_model, technology, vendor) VALUES ('ComputeResource', '2e683cee-8363-4327-8765-3b5f957acc90', 'Rigetti 19Q', 0, 'Superconducting', 'Rigetti');
 INSERT INTO public.compute_resource (dtype, id, name, quantum_computation_model, technology, vendor) VALUES ('ComputeResource', '82df8861-b7de-464d-9dab-4adabbe78cd2', 'Rigetti 8Q', 0, 'Superconducting', 'Rigetti');
 
@@ -521,4 +521,3 @@ INSERT INTO public.quantum_algorithm (nisq_ready, quantum_computation_model, spe
 --
 -- PostgreSQL database dump complete
 --
-
