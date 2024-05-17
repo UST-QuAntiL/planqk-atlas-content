@@ -51,7 +51,6 @@ INSERT INTO public.knowledge_artifact (id, creation_date, last_modified_at) VALU
 INSERT INTO public.knowledge_artifact (id, creation_date, last_modified_at) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', NULL, NULL);
 INSERT INTO public.knowledge_artifact (id, creation_date, last_modified_at) VALUES ('03223c33-7cd2-4496-84c9-c654da405b19', NULL, NULL);
 INSERT INTO public.knowledge_artifact (id, creation_date, last_modified_at) VALUES ('14c120d2-f16e-42d0-a280-3d8857c8e7be', NULL, NULL);
-INSERT INTO public.knowledge_artifact (id, creation_date, last_modified_at) VALUES ('2dc2a6be-91d0-4bae-b508-8e3ba8166989', NULL, NULL);
 INSERT INTO public.knowledge_artifact (id, creation_date, last_modified_at) VALUES ('9b3abee3-b4dd-4924-aa65-c14bd51fcc29', NULL, NULL);
 INSERT INTO public.knowledge_artifact (id, creation_date, last_modified_at) VALUES ('be5d3003-7610-4059-8ec3-fe55c7c5a691', NULL, NULL);
 INSERT INTO public.knowledge_artifact (id, creation_date, last_modified_at) VALUES ('5e60ce85-c35d-4dda-8cb9-b2eebae0cf64', NULL, NULL);
