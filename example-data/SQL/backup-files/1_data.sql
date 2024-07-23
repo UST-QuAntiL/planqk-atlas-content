@@ -5,7 +5,7 @@
 -- Dumped from database version 12.5 (Debian 12.5-1.pgdg100+1)
 -- Dumped by pg_dump version 16.3
 
--- Started on 2024-07-23 12:40:25 CEST
+-- Started on 2024-07-23 16:50:04 CEST
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -278,6 +278,8 @@ INSERT INTO public.revinfo (rev, revtstmp) VALUES (10, 1699977744153);
 INSERT INTO public.revinfo (rev, revtstmp) VALUES (11, 1721649653100);
 INSERT INTO public.revinfo (rev, revtstmp) VALUES (12, 1721650839577);
 INSERT INTO public.revinfo (rev, revtstmp) VALUES (13, 1721650858760);
+INSERT INTO public.revinfo (rev, revtstmp) VALUES (14, 1721746106768);
+INSERT INTO public.revinfo (rev, revtstmp) VALUES (15, 1721746142522);
 
 
 --
@@ -298,6 +300,8 @@ INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date
 INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('14ad80b5-0498-482d-b3b5-d053e349b130', 11, 0, NULL, NULL);
 INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('a51667c1-e70c-45e4-b427-127e2e2d2208', 12, 0, NULL, NULL);
 INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('61a59337-853b-4fff-83a8-367946e3c365', 13, 0, NULL, NULL);
+INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('14ad80b5-0498-482d-b3b5-d053e349b130', 14, 1, NULL, NULL);
+INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('61a59337-853b-4fff-83a8-367946e3c365', 15, 1, NULL, NULL);
 
 
 --
@@ -397,6 +401,8 @@ INSERT INTO public.implementation_revisions (id, rev, assumptions, contributors,
 INSERT INTO public.implementation_revisions (id, rev, assumptions, contributors, dependencies, description, input_format, license, name, output_format, parameter, problem_statement, technology, version, implemented_algorithm_id) VALUES ('03223c33-7cd2-4496-84c9-c654da405b19', 10, NULL, NULL, NULL, NULL, NULL, NULL, 'QAOA_workflow_implementation', NULL, NULL, NULL, NULL, NULL, '0f6587f3-6b6b-4dd4-98aa-b464913b8c14');
 INSERT INTO public.implementation_revisions (id, rev, assumptions, contributors, dependencies, description, input_format, license, name, output_format, parameter, problem_statement, technology, version, implemented_algorithm_id) VALUES ('14ad80b5-0498-482d-b3b5-d053e349b130', 11, NULL, NULL, NULL, NULL, NULL, NULL, 'QSVM workflow implementation', NULL, NULL, NULL, NULL, NULL, '16aa96c5-b668-4df9-a03f-96d323708676');
 INSERT INTO public.implementation_revisions (id, rev, assumptions, contributors, dependencies, description, input_format, license, name, output_format, parameter, problem_statement, technology, version, implemented_algorithm_id) VALUES ('61a59337-853b-4fff-83a8-367946e3c365', 13, NULL, NULL, NULL, NULL, NULL, NULL, 'K-Means workflow implementation', NULL, NULL, NULL, NULL, NULL, 'a51667c1-e70c-45e4-b427-127e2e2d2208');
+INSERT INTO public.implementation_revisions (id, rev, assumptions, contributors, dependencies, description, input_format, license, name, output_format, parameter, problem_statement, technology, version, implemented_algorithm_id) VALUES ('14ad80b5-0498-482d-b3b5-d053e349b130', 14, NULL, NULL, NULL, NULL, NULL, NULL, 'QSVM workflow implementation', NULL, NULL, NULL, NULL, NULL, '16aa96c5-b668-4df9-a03f-96d323708676');
+INSERT INTO public.implementation_revisions (id, rev, assumptions, contributors, dependencies, description, input_format, license, name, output_format, parameter, problem_statement, technology, version, implemented_algorithm_id) VALUES ('61a59337-853b-4fff-83a8-367946e3c365', 15, NULL, NULL, NULL, NULL, NULL, NULL, 'K-Means workflow implementation', NULL, NULL, NULL, NULL, NULL, 'a51667c1-e70c-45e4-b427-127e2e2d2208');
 
 
 --
@@ -631,6 +637,8 @@ INSERT INTO public.pattern_relation (id, description, pattern, algorithm_id, pat
 --
 
 INSERT INTO public.pattern_uris (implementation_id, pattern_uri) VALUES ('03223c33-7cd2-4496-84c9-c654da405b19', 'pattern-languages/af7780d5-1f97-4536-8da7-4194b093ab1d/da93f915-7f4c-49df-99d0-80d91f26a337');
+INSERT INTO public.pattern_uris (implementation_id, pattern_uri) VALUES ('14ad80b5-0498-482d-b3b5-d053e349b130', 'pattern-languages/af7780d5-1f97-4536-8da7-4194b093ab1d/cc3731cf-ecbb-490f-b996-525c8f60d8a9');
+INSERT INTO public.pattern_uris (implementation_id, pattern_uri) VALUES ('61a59337-853b-4fff-83a8-367946e3c365', 'pattern-languages/af7780d5-1f97-4536-8da7-4194b093ab1d/7294c3f2-cb67-492a-8a16-c7384eb9bac2');
 
 
 --
@@ -640,6 +648,8 @@ INSERT INTO public.pattern_uris (implementation_id, pattern_uri) VALUES ('03223c
 --
 
 INSERT INTO public.pattern_uris_aud (rev, implementation_id, pattern_uri, revtype) VALUES (10, '03223c33-7cd2-4496-84c9-c654da405b19', 'pattern-languages/af7780d5-1f97-4536-8da7-4194b093ab1d/da93f915-7f4c-49df-99d0-80d91f26a337', 0);
+INSERT INTO public.pattern_uris_aud (rev, implementation_id, pattern_uri, revtype) VALUES (14, '14ad80b5-0498-482d-b3b5-d053e349b130', 'pattern-languages/af7780d5-1f97-4536-8da7-4194b093ab1d/cc3731cf-ecbb-490f-b996-525c8f60d8a9', 0);
+INSERT INTO public.pattern_uris_aud (rev, implementation_id, pattern_uri, revtype) VALUES (15, '61a59337-853b-4fff-83a8-367946e3c365', 'pattern-languages/af7780d5-1f97-4536-8da7-4194b093ab1d/7294c3f2-cb67-492a-8a16-c7384eb9bac2', 0);
 
 
 --
@@ -772,10 +782,10 @@ INSERT INTO public.solution_file (file_id, solution_id) VALUES ('dacf328e-ce3b-4
 -- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: planqk
 --
 
-SELECT pg_catalog.setval('public.hibernate_sequence', 13, true);
+SELECT pg_catalog.setval('public.hibernate_sequence', 15, true);
 
 
--- Completed on 2024-07-23 12:40:26 CEST
+-- Completed on 2024-07-23 16:50:04 CEST
 
 --
 -- PostgreSQL database dump complete
