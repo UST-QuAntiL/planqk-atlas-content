@@ -5,7 +5,7 @@
 -- Dumped from database version 12.5 (Debian 12.5-1.pgdg100+1)
 -- Dumped by pg_dump version 16.3
 
--- Started on 2024-08-29 11:12:16 CEST
+-- Started on 2024-08-29 17:07:19 CEST
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -153,11 +153,418 @@ INSERT INTO public.algorithm (acronym, algo_parameter, assumptions, computation_
 INSERT INTO public.algorithm (acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution, id) VALUES ('QRL1', NULL, NULL, 1, NULL, 'Reinforcement learning', 'Quantum Reinforcement Learning 1', NULL, 'With this algorithm, Dong et al. introduce an approach to quantum reinforcement learning (QRL) that takes advantage of effects from quantum physics and works fundamentally different than any classical RL method, however, some similarities still remain. For example, QRL, like classical RL methods, also contain a policy, reward function and an environment. However, Dong et al. note that their QRL algorithm differs to classical RL algorithms in intrinsic parts like representation, policy, parallelism and update operation. States and actions are also different in both approaches. In this QRL method, states are referred to as eigen states and actions as eigen actions and are able to be in a superposition state. Superposition allows the algorithm, among other things, to better balance exploration and exploitation. Recall that in quantum physics, whenever a qubit in superposition is measured, it collapses and takes on one state according to some probability. The algorithm takes advantage of this behaviour in the action selection policy. More specifically, an action is measured in relation to some state and hence collapses to one of its eigen actions according to some probability this action is then selected. This means that the probability of actions that are considered good should be amplified. The probability amplitudes must be updated throughout the algorithm. The method to update the probability amplitude is based on the Grover iteration from Grover’s algorithm, a famous quantum algorithm for database search. The method contains a oracle or black box that is used to tell whether an action is good or bad. Loosely formulated, the complete algorithm works as follows. The first step is to initialize the state and action. After this an action is observed and executed to receive the next state and reward. Then the state value and probability amplitudes are updated accordingly. The probability amplitudes are updated in such a way that the probability for good actions is amplified and shrunk for bad ones. This process is done repeatedly. And so, after a number of episodes, the algorithm is able to learn a policy.', NULL, '4ab28e22-cdf9-45f8-b872-f4d9d2757b6d');
 INSERT INTO public.algorithm (acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution, id) VALUES ('QSVM1', NULL, NULL, 1, NULL, 'Classification', 'Quantum Support Vector Machine 1', NULL, 'Havlicek et al. show that a quantum version of the SVM can be implemented in the following way. Two distinct approaches are available for this problem. The first method uses a variational circuit to compute the separating hyperplane while the second method estimates the kernel function in order to optimize the classifier directly. The latter method is then used used as part of a conventional SVM. In both methods the data is provided classically while the quantum state space is used as the feature space. It is furthermore noted that in order to obtain a quantum advantage, the kernel cannot be estimated classically, i.e., if the kernel is too simple, the quantum SVM does not show a quantum advantage over a normal SVM. [Supervised learning with quantum enhanced feature spaces, Havlicek et al.]', NULL, '16aa96c5-b668-4df9-a03f-96d323708676');
 INSERT INTO public.algorithm (acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution, id) VALUES ('QSVM2', NULL, NULL, 1, NULL, 'Classification', 'Quantum Support Vector Machine 2', NULL, 'The training of quantum support vector machines (QSVM) can also be run on a quantum annealer, as demonstrated by Willsch et al. in a recent paper. To achieve this, the problem, like any problem solved via quantum annealing (QA), must first be formulated as a QUBO. However, the training of SVMs entails solving equations that contain real numbers whereas a QUBO consists of binary values. Willsch et al. use a special encoding to overcome this and thus are able to formulate the problem as a QUBO. Willsch et al. investigate the performance of their QSVM on a DW2000Q quantum annealer. They note that the quantum annealer returns in addition to the global optimum, a range of solutions that are close to the optimal. They furthermore note that this is advantageous as the generalization ability may potentially be improved by using a combination of the produced solutions. In summary, a QVSM can be trained using via QA by formulating the problem as a QUBO. A QA device, such as the DW2000Q, produces optimal and near-optimal solutions and a combination of these solutions can potentially improve the generalization behaviour.', NULL, '9aa16271-6ea1-4e15-ad9d-6e6e264a0ad0');
-INSERT INTO public.algorithm (acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution, id) VALUES (NULL, NULL, NULL, 1, NULL, NULL, 'Grover-SAT', NULL, NULL, NULL, '3c7722e2-09c3-4667-9a0d-a45d3ddc42ae');
 INSERT INTO public.algorithm (acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution, id) VALUES (NULL, NULL, NULL, 1, NULL, NULL, 'Grover-Truthtable', NULL, NULL, NULL, '0e5af2cf-f3c8-48dd-9743-cfdea65f320f');
 INSERT INTO public.algorithm (acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution, id) VALUES (NULL, NULL, NULL, 1, NULL, NULL, 'Simon', NULL, NULL, NULL, '871f7eea-4722-4728-8cd9-1e61fe2dd285');
-INSERT INTO public.algorithm (acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution, id) VALUES ('QAOA', NULL, NULL, 2, NULL, NULL, 'Quantum Approximate Optimization Algorithm', NULL, NULL, NULL, '0f6587f3-6b6b-4dd4-98aa-b464913b8c14');
 INSERT INTO public.algorithm (acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution, id) VALUES (NULL, NULL, NULL, 1, NULL, NULL, 'K-Means', NULL, NULL, NULL, 'a51667c1-e70c-45e4-b427-127e2e2d2208');
+INSERT INTO public.algorithm (acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution, id) VALUES ('QAOA', '* Number of hidden units to use (given as an integer), as well as the desired connectivity of the QBM''s units.
+* Learning rate: A floating point number indicating how much the calculated error, that being the difference between the clamped and unclamped averages of a neuron''s or a pair of neurons'' value(s), should affect the resulting bias or weight in a bias or weight update (the higher, the more effect).
+* Number of epochs: Integer indicating how often to process the training data set during training.
+* Mini-batch size (optional): Number of processed input data points after which to perform an upadate of the model parameters.
+* Number of samples: Integer indicatiting how many samples from the quantum anneal (or respectively simulator) are to be taken per sampling phase to average over later (see explanation above).
+* Effective inverse temperature $\beta_{\text{eff}}$: A parameter of the Boltzmann distribution formula used in QBMs to scale the QUBO''s values and account for physical influences on the annealing process such as hardware temperature, noise and the influence of the transverse field, among others. It can be used as a hyperparameter, be absorbed into the learning rate or be calculated dynamically. Usually represented by a floating point number when specified explicitly. See section "QUBO-Formula and Pseudocode" for a more detailed description. (Benedetti 2016, Adachi 2015, Korenkevych 2016, Benedetti 2017)
+* Chain strengths: Kurowski et al. (Kurowski 2021) mention that if one whishes to increase the generalization performance of a Quantum Boltzmann Machine (i.e. its accuracy on previously unseen data points), it is beneficial to set quite large chain strenghts (passed to the D-Wave API as a floating point number) compared to the order of magnitude of the QUBO''s values have, as this makes it more likely to sample configurations other than the one with the lowest energy due to the QUBO''s values having a comparatively low impact on the systems physical energy in this case. 
+* Number of physical qubits for embedding (for very small problem sizes only): Another parameter which can be used to steer the trade off between not wanting to sample only the lowest energy configuration on the one hand and still wanting to sample from a "classical" Boltzmann distribution with little to no transverse field influence on the other hand, which occurs in problems with a very small number of qubits, is the number of physical qubits deliberately used to embed one logical qubit. Henderson et al. (Henderson 2018) recommend 3 or 2 physical qubits for one logical qubit of QBMs of size 5 respectively 9. In larger models, keeping this number as small as possible might presumably be beneficial to lower the chances of the network freezing too early (D-Wave Docs). Compare section "Limitations and necessary resources" for a more information on the topic.
+* Annealing schedule: List of lists of length two, containing the points in anneal time in $\mu s$ and the desired anneal fraction $s$ as floating point numbers, which can be passed to the D-Wave API to steer the occurence of the freeze-out point in the annealing process through quenching. Compare the [D-Wave Documentation on this topic] (https://docs.dwavesys.com/docs/latest/c_qpu_annealing.html) as well as the section "Limitations and necessary resources" for a more information. (Alternatively, use a floating number as a hyperparameter for the transverse field when using a mathematical simualtion of a bound-based QBM following Amion et al. (Amin 2018)).', NULL, 2, 'Dataset consisting of binary vectors of length $n$. In case of unsupervised learning, these $n$-dimensional vectors simply are the feature vectors of the input data. In case of supervised learning, they are a concatenation of the $k$-dimensional feature vectors of the input data points and their corresponding labels. The latter are to be represented in a $l$-bit binary fashion, e.g. as one-hot-encoding or binary number. In this case, $n = k + l$. (Theoretically, for supervised learning, real-valued feature vectors as input data should also be usable, but in practice, this might have a negative effect on performance due to the current limited precision of quantum annealers. Labels should always be representable in a binary fashion.)', 'A Quantum Boltzmann Maschine (QBM) is a type of neural network that can learn to approximate the probability distribution of the data in an input data set, meaning it can e.g. learn to complete partial datapoints from this dataset provided to it as input. In this way, it can be used for both unsupervised or supervised learning, where in the second case the labels take the role of the parts missing from the input datapoints. Additionally, the state of a QBMs hidden neurons can be used to provide information about the data in a more compact form. Thus, QBMs are applicable to a multitude of problem types in the area of machine learning (see below). Further, QBMs can be used to learn Q-function-values in reinforcement learning (see [algorithm description on Reinforcement Learning using Quantum Boltzmann Machines](https://platform.planqk.de/algorithms/634a4a5e-b33c-4838-af28-1cf39170be29/)).', 'Quantum Approximate Optimization Algorithm', 'Learned weights and biases of the Quantum Boltzmann Machine that can reproduce the data and thus represents its probability distribution.', 'Given the input data as feature vectors, find a Boltzmann probability distribution that approximates the distribution of the data as closely as possible.', 'Quantum Boltzmann Machines (QBMs) are a hybrid quantum-classical version of the Boltzmann Machines (BMs) that were introduced by Hinton et al. in the 1980s, and have since become a popular part of deep learning architectures in a restricted form. While they can also be [realized using the quantum gate model](https://platform.planqk.de/algorithms/ae9bac80-672e-432a-983f-a3a7e1a8c92c/) (see Verdon et al. 2017), following Amin et al. 2018, this algorithm description focuses on the usage of Quantum Annealing for the QBMs’ quantum part. [Quantum Annealing](https://platform.planqk.de/algorithms/786e1ff5-991e-428d-a538-b8b99bc3d175/) is a type of Quantum Computing that uses dedicated hardware to solve optimization problems. Especially in non-convex optimization problems, it offers an advantage as it can escape local optima via quantum tunneling. However, it does not always return the optimal solution to the problem, but only returns it with the highest probability. Upon executing the annealing process several times for the same problem, its results approximately follow a Boltzmann distribution. This makes Quantum Annealing ideal for employment in Boltzmann Machines. (see Amin et al. 2018, Adachi et al. 2015, Venegas-Andraca et al. 2018, Wittek 2014)
+
+
+Boltzmann Machines (BMs) are a type of neural network that aims to learn the probability distribution of an input dataset, i.e. the likelihood of certain features to occur and correlate in the data. Subsequently, it can be used to re-create only partially available data. This way, BMs can be used for both unsupervised and supervised learning applications, where in the latter case the data’s labels are the missing part of the data that will be re-created by the BM. (see Amin et al. 2018)
+
+
+A Boltzmann Machine consists of a set of arbitrarily connected artificial neurons, which are connected in an undirected manner. Each of these neurons $i$ has a certain probability of being “on” or “off”, i.e. having a state $s_i = 1$ or $s_i = 0$, which depends on the states $s_j$ of their neighboring neurons and the weights $w_{ij}$ of their connections to these neurons, as well as their biases $b_i$. Overall, the probability of finding the entire network in a in a certain configuration of neurons being “on” and “off” follows a Boltzmann distribution, where the configuration with the maximum probability is one where the BM’s energy function $E = - \sum_i b_i \cdot s_i - \sum_{ij} w_{ij} \cdot s_i \cdot s_j$ reaches its minimum. During training, the parameters $w_{ij}$ and $b_i$ of this energy function (i.e. the weights and biases of the network) are adapted in order to make the BM''s Boltzmann distribution approximate the probability distribution of the input dataset as well as possible. To do this, the two distribution''s [Kullback-Leibler divergence](https://en.wikipedia.org/wiki/Kullback–Leibler_divergence), a measure of similarity between two probability distributions, is minimized via [stochastic gradient descent](https://en.wikipedia.org/wiki/Stochastic_gradient_descent). This is done by repeatedly calculating the gradients of the Kullback-Leibler divergence for the different weights and biases of the BM: Each gradient is calculated as the differences between the expected values of “the corresponding parameter''s” neuron(s) in the probabability distribution of the BM and in the probability distribution of the input data, respectively. To calculate the latter expected value, one clamps (i.e. fixes) a certain proportion of the BM''s neurons – the visible units – to an input datapoint and then samples the Boltzmann distributed configuration of the network several times. These samples are then averaged, to obtain the expected values of the other neurons in the BM – the hidden units – given the point from the dataset. The bits of the points itself serve as expected values for the visible units in the probability distribution of the dataset. Subsequently, one does the same thing without clamping the visible units and computes the expected values of the neurons for the BM''s current free distribution. These expected values are then subtracted from eachother, and the result is used to update the BM’s parameters. Notice that while for the biases, one can simply use the state $s_i$ of “their” neuron in the sample to perform theses calculations, the weights use a product $s_i \cdot s_j$ of the states of the neurons they connect. Furthermore, the above-mentioned steps are used for unsupervised learning, but they can easily be adapted to supervised learning as well: Here, the BM learns the conditional distribution of the labels given the input datapoints, by clamping the visible units representing the inputs for both expected values. Additionally, it uses some extra visible units for the labels, which are only clamped to obtain the expected values in the data''s distribution. The rest of the procedure is analogous. (see Ackley et al. 1985, Amin et al. 2018)
+
+Especially for densely connected BMs, sampling from both the clamped as well as the free distributions can become exceedingly time consuming using classical computing, as one needs to minimize the networks’ energy function for each sample. This is done classically by iteratively calculating each neuron’s share of the energy function value and then having it turn “on” with a Boltzman probability depending on the function value, for different configurations of adjacent neurons, until it reaches an equilibrium. By replacing this long iterative process with the execution of a minimization of the energy function on a Quantum Annealer, which returns approximately Boltzmann-distributed results, one can speed up the Boltzmann Machines’ sampling procedure. According to Amin et al., the employment of this new technology also improves the BM’s training, resulting in a model distribution that is closer to the distribution of the input data than that of a BM that has been trained classically. As mentioned above, this type of BM that uses Quantum Computing for the sampling procedure is called a Quantum Boltzmann Machine (QBM). (see Ackley et al. 1985, Amin et al. 2018)
+
+###
+### QUBO-Formula and Pseudocode
+To implement the training of a Quantum Boltzmann Machine on a Quantum Annealer, one can convert its energy function to a Quadratic Unconstrained Binary Optimization Problem (QUBO) Formulation. This QUBO is of the form:
+$\text{QUBO} = \sum_i \frac{- b_i}{\beta_{\text{eff}}} s_i + \sum_{ij} \frac{- w_{ij}}{\beta_{\text{eff}}} s_i s_j$
+where $s_i$ are the logical qubits, and $b_i$ and $w_{ij}$ are the biases and weights from the QBM''s energy function (Amin et al. 2018). 
+
+The parameter $\beta_{\text{eff}}$ is the so-called inverse effective temparture (Benedetti 2016). Classically, this parameter is usually defined as $\beta_{\text{eff}} = \frac{1}{k_B T}$, where $k_B$ is the Boltzmann constant and $T$ is a parameter of the Boltzmann distribution called temperature (Amin 2015). This would be the temperature of a physical system when using the Boltzmann distribution to model the behaviour of one, and is a parameter of the Boltzmann distribution that determines its concrete shape: A high value will result in a distribution where all configurations have relatively similar probabilities, which can be determined quickly by sampling, while a low value will result in a distribution with stark differences between the probability values of configurations with highest and lowest energies, which in turn will be harder to determine (Ackley 1985). While this enables classical BMs to use $\beta_{\text{eff}}$ as a hyperparameter to steer the speed and effectiveness of the learning process (e.g. by annealing its value) (Ackley 1985), in QBMs, this parameter needs to be employed to take into account different, partially problem-specific physical properties of the annealing process, amongst which are e.g. the hardware temperature of the annealer, the energetic noise occuring during the process and the strength of the transverse field at the freeze-out point $s*$ of the annealing process (see "Limitations and necessary resources" below for a more detailed description of the annealing process) (Benedetti 2016, Adachi 2015, Korenkevych 2016). As at least some of these physical values fluctuate during training (Vinci 2020), the question of how to determine a, or multiple different, sensible value(s) for this parameter is the topic of a currently still growing body of research: Approaches range from approximating $\beta_{\text{eff}}$ with a hyperparameter after all (Adachi 2015), via absorbing its value into a (then fluctuating) learning rate (Benedetti 2017, Vinci 2020) to different techniques for calculating its approximate values dynamically throughout the learning process (Benedetti 2016, Vinci 2020, Xu 2021). As covering all of these techiques in detail is beyond the scope of this article, we kindly refer refer the interested reader to the corresponding literature on this topic.
+
+In case of supervised learning, the visible units $s_i$ representing the input data in the energy function are always clamped. When formulating the QUBO, this can be realized by adding the weights $w_{ij}$ of their connection to another unit $s_j$ to this second unit''s bias $b_j$ if $s_i = 1$, and omitting their weights and biases otherwise. Biases of the clamped units can always be omitted, as they merely would represent a fixed constant factor added to the QUBO''s value which does not change with any other units'' values in this case. This way, the variables $s_i$ representing the clamped units in the energy function can effectively be omitted in the QUBO''s formula and so can the logical qubits corresponding to these units. Thus, the number of logical qubits needed to represent the visible units can be reduced to the number of visible units $l$ needed to represent the labels in a binary fashion.
+In the clamped phase, the clamping of all visible units can be realised in the same manner for both supervised as well as unsupervised learning, saving even more qubits. Alternatively, logical qubits can be clamped by adding a large positive respectively negative number to their $\frac{- b_i}{\beta_{\text{eff}}}$-value, in order to try to “force” the Quantum Annealer towards making their value 0 respectively 1. This method is, however, not guaranteed to work if the weights grow very large, numerically, and is less qubit-efficient.
+
+#### Pseudocode for Training a QBM:
+```
+Inputs: dataset containing d training vectors x_1, ..., x_d of length n, and possibly their corresponding labels y_1, ..., y_d of length l for supervised learning, learning_rate, effective inverse temperature beta_eff, number_of_epochs, number_of_hidden_neurons and the QBM''s connectivity, number_of_samples
+Result: Trained qbm_model with learned weights and biases 
+Begin
+    if supervised {
+        dim_input = n + l;
+        dim_input_without_labels = n;
+        labels = l;
+    } else {
+        dim_input = n;
+    }
+    
+    // create and initialize qbm_model with dim_input visible_neurons - divided into k input_neurons and l label_neurons in the supervised case - 
+    // and number_of_hidden_neurons hidden_neurons, and their corresponding connections
+    qbm_model = QBM.initialize_structure(dim_input, number_of_hidden_neurons, connectivity);
+    qbm_model.initialize_weights_and_biases_randomly();
+    
+    if supervised {
+        relevant_visible_neurons = qbm_model.label_neurons
+    } else {
+        relevant_visible_neurons = qbm_model.visible_neurons
+    }
+    
+    for number_of_epochs {
+        // For sake of simplicity, we do not use mini_batching here. However, mini_batching can be used, of course.
+        for data_point in dataset {
+        
+            // clamped phase
+            // In QUBO, use one qubit s_i per neuron, biases on the diagonal (h_i), weights as coupling strengths J_ij on the off-diagonal
+            QUBO = [- weight / beta_eff, - bias / beta_eff for weights, biases in qbm_model];  
+            
+            for visible_neuron in qbm_model.visible_neurons {  
+                // this is one possible way of clamping
+                QUBO.remove(bias of visible_neuron);
+                for connections of visible_neuron {
+                    if data_point[visible_neuron] == 1:
+                        weight = QUBO.pop(connection.weight);
+                        QUBO[other_end_of_connection] = QUBO[other_end_of_connection] + weight;
+                    } else {
+                        QUBO.remove(connection.weight);
+                    }
+                }
+            }
+            
+            samples = []
+            for number_of_samples {
+                samples.append(Quantum_Annealer.sample_qubo(QUBO));
+            }
+            
+            clamped_averages_for_biases = []
+            for hidden_neuron in qbm_model.hidden_neurons {
+                clamped_averages_for_biases.append(get_average(samples[:, hidden_neuron]));
+            }
+            for visible_neuron in relevant_visible_neurons {
+                clamped_averages_for_biases.append(data_point[visible_neuron]);
+            }
+            
+            clamped_averages_for_weights = []
+            for connection in qbm_model.connections {
+                if connection.start and connection.end in qbm_model.hidden_neurons {
+                    // for every sample, multiply the connection''s start''s and end''s values and average over the results
+                    clamped_averages_for_weights.append(get_average(samples[:, connection.start] * samples[:, connection.end]));
+                } else {
+                    // multiply the samples point-wise with the datapoint-value before averaging
+                    clamped_averages_for_weights.append(get_average(samples[:, connection.hidden_endpoint] * datapoint[connection.visible_endpoint]));
+                }
+            }
+            
+            // free phase
+            // In QUBO, use one qubit s_i per neuron, biases on the diagonal (h_i), weights as coupling strengths J_ij on the off-diagonal
+            QUBO = [- weight / beta_eff, - bias / beta_eff for weights, biases in qbm_model];
+            
+            if supervised { 
+                // only clamp training data points, not labels, this time
+                for input_neuron in qbm_model.input_neurons {  
+                    // this is one possible way of clamping
+                    QUBO.remove(bias of input_neuron);
+                    for connections of input_neuron {
+                        if data_point[visible_neuron] == 1:
+                            weight = QUBO.pop(connection.weight);
+                            QUBO[other_end_of_connection] = QUBO[other_end_of_connection] + weight;
+                        } else {
+                            QUBO.remove(connection.weight);
+                        }
+                    }
+                }
+            } // else, in unsupervised case, clamp nothing
+            
+            samples = []
+            for number_of_samples {
+                samples.append(Quantum_Annealer.sample_qubo(QUBO));
+            }
+            
+            free_averages_for_biases = []
+            for hidden_neuron in qbm_model.hidden_neurons {
+                free_averages_for_biases.append(get_average(samples[:, hidden_neuron]));
+            }
+            for visible_neuron in relevant_visible_neurons { 
+                free_averages_for_biases.append(get_average(samples[:, visible_neuron]));
+            }
+            
+            free_averages_for_weights = []
+            for connection in qbm_model.connections {
+                if supervised and (connection.start or connection.end in qbm_model.input_neurons){
+                    // multiply the samples point-wise with the datapoint-value before averaging
+                    free_averages_for_weights.append(get_average(samples[:, connection.hidden_endpoint] * datapoint[connection.visible_endpoint]));
+                } else {
+                    // for every sample, multiply the connection''s start''s and end''s values and average over the results
+                    free_averages_for_weights.append(get_average(samples[:, connection.start] * samples[:, connection.end]));
+                }
+            }   
+            
+            // parameter update
+            for neuron in (qbm_model.hidden_neurons and relevant_visible_neurons){
+                neuron.bias = neuron.bias + learning_rate * (clamped_averages_for_biases[neuron] - free_averages_for_biases[neuron]);
+            }
+            for connection in qbm_model.connections{
+                connection.weight = connection.weight + learning_rate * (clamped_averages_for_weights[connection] - free_averages_for_weights[connection]);
+            }
+        }
+    }
+    
+    // save trained QBM
+    return qbm_model;
+End
+```
+
+#### Pseudocode for Testing a QBM: Supervised
+```
+Inputs: Data vector x_i and the trained qbm_model
+Result: classification, i.e. predicted class label
+Begin
+    free_averages_for_biases = qbm_model.run_free_phase_with(x_i); // like in training, see above
+    // get prediction
+    class_probabilities = []
+    for label_neuron in qbm_model.label_neurons {
+        class_probabilities[label_neuron] = free_averages_for_biases[label_neuron];
+    }
+    return prediction = argmax(class_probabilities);
+End
+```
+
+#### Pseudocode for Testing a QBM: Unsupervised
+```
+Inputs: Known data_distribution and qbm_model trained on this distribution, high_number_of_samples
+Result: Measure how well the traing has worked (the smaller the returned number, the better)
+Begin
+    // Calculate empirical marginal distribution of the model over visible variables
+    samples = qbm_model.get_samples_(); // like in training, see above (create QUBO etc.)
+    frequencies = [];
+    for visible_configuration in all_possible_configurations_of_visible_neurons {
+        frequencies[visible_configuration] = count(samples where sample[0 : num_visible_neurons] = visible_configuration]) / length(samples);
+    }
+    return Kullback–Leibler_divergence(data_distribution, frequencies);
+    
+End
+```
+The above pseudocode serves to show whether the training has been successful, but has little practical applications. In practice, one would use a QBM that is being trained in an unsupervised manner for dimensionalty reduction / data extraction or generation of new "data samples", e.g. as part of a Quantum Variantional Autoencoder (QVAE) (Koshaman 2018, Vici 2020) or a Quantum-Assisted Associative Adversarial Network (QAAAN, an architecture based on Generative Adversarial Networks (GANs)) (Wilson 2021). 
+
+
+###
+### Limitations and necessary resources
+To determine the necessary resources for and limitations of training a Quantum Boltzmann Machine on a Quantum Annealer, we need to take a closer look at the physical dynamics of the annealing process:
+In an annealing procedure, a system whose energy is described by an initial Hamiltanion $H_i$, for which all qubits are in superposition (regarding the z-axis which is used for measurement later), is slowly changed to one whose energy landscape is approxiamately described by the final Hamiltonian $H_{\text{QUBO}}$, which describes energies conforming to our QUBO-Formulation. The time dependent Hamiltonian describing this system at any state of the process can thus be formulated as
+
+$$H(s) = A(s) H_i + B(s) H_{\text{QUBO}}$$
+
+where $s$ is the fraction of the total annealing time $t_a$ that has passed already and $A(s)$ and $B(s)$ are monotonic functions, with $A(0) \gg B(0) \approx 0$ at the start of the annealing process and $B(1) \gg A(1) \approx 0$ at the end of the process. (Amin 2015)
+The procedure progresses in three phases: The first one is the quasistatic phase, when the probabilities of measuring certain states change fairly quickly and are indirectly portional to the energy levels of these states. This is followed by a freeze-out phase, in which the changing of probabilities slows down until they reach an unchanging, so-called frozen state. The last part of the procedure then consists of the frozen phase, when the system stays in this frozen state until annealing procedure ends. If the freeze-out phase is very short and the freeze-out happens approximately at the same point in time $s*$ for the entire system, and if this phase is late in the annealing process, when the influence of the transverse field $(A(s*) / B(s*)) H_i$ is low and the state of the quantum system corresponds approximately to the one described by the final Hamiltonian $H_{\text{QUBO}}$, then the results from several runs of the annealing procedure will be approximately boltzmann-distributed. If the freeze-out phase is longer, however, it is possible that the probabilities for the states of some clusters of qubits might freeze earlier than those of others, leading to an inconsistent distribution of the results. Which of these two cases applies depends on the embedding of the logical qubits onto the hardware and on the length of the total annealing time $t_a$, but also on the formulation of the problem as a QUBO, more specifically on the strength of the coupling constants $J_{ij} = \frac{- w_{ij}}{\beta_{\text{eff}}}$ inside the different physical clusters of qubits (e.g. unit cells in the Chimera hardware graph of a D-Wave 2000Q): Here, large differences between the coupling constants within the individual clusters lead to different freeze out times, while more uniform coupling constants lead to better distributions. (Amin 2015, D-Wave, Korenkevych 2016, Amin 2018)
+
+In the case of QUBO formulations that have the difficult kind of dynamics described in the second case, there are two ways of circumventing the problem of obtaining an inconsistent distribution of results because of this: 
+One option is to pause the annealing process, i.e. the process of changing the energy levels from those described by the initial Hamiltonian $H_i$ to those described by the final Hamiltonian $H_{\text{QUBO}}$, at a chosen point $s*$ in time in the freeze-out phase or even the quasistatic phase. Then, one quickly changes the energy levels of the system to the ones described by $H_{\text{QUBO}}$, in order to keep the probabilities of the not-yet-frozen parts of the system from diverging from the Boltzmann distribution at $s*$. This process of quickly ending the annealing procedure is called quenching. (D-Wave, Amin 2018)
+The second option would be to scale the intra-cluster coupling constants $J_{intra}$ down by an experimentally determined factor with value larger than the absolute values of these numbers. This brings their respective values closer together and thus lowers the difference in freeze-out time. While the resulting distribution of an unmodified annealing process using these values will still not be Boltzmann, experiments by Korenkevych et al. (Korenkevych 2016) show that the learning process of the QBM can compensate for this deviation of the QA distribution: The model distribution learned by the QBM approximates the data''s distribution very well. The downside of this approach is the need to have complete knowledge about the QBM''s embedding on the Annealer''s hardware graph in order to know which coupling constants $J_{ij}$ need to be scaled by how much. (Korenkevych 2016)
+
+Furthermore, while the freezing point $s*$ usually is so close to the end of the annealing procedure that the influence of the transverse field at this point in time is negligiable, leading to a system energy state that corresponds closely to $H_{\text{QUBO}}$ and thus produces samples approximately distributed according to the Boltzmann distribution using our QUBO as the energy function, this is not necessarily always the case (Benedetti 2016, Bendetti 2017, Amin 2018).
+As mentioned, apart from the QUBO''s coupling constants, the freeze-out time $s*$ is influenced by the total annealing time $t_a$ as well as the number of physical qubits used to embed the QUBO-formulation onto the hardware: According to [D-Wave''s documentation](https://docs.dwavesys.com/docs/latest/c_qpu_annealing.html), the shorter the total annealing time $t_a$, the earlier the freeze-out happens with respect to s. Thus, longer annealing times might be beneficial, as having a late freeze-out point decreases the chances of the influence of the transverse field still being too high (Amin 2018).
+Regarding the number of qubits required to train a Quantum Boltzmann Machine using a Quantum Annealer, the number of logical qubits needed equals the number of visible units $n$, or the number of bits $l$ needed for the labels in case of supervised learning (see above), plus the number of hidden units $m$. The ideal number of hidden units $m$ needs to be determined experimentally (Kurowski 2021). Hinton (Hinton 2012) gives advice for classical Restricted Boltzmann Machines on how to estimate a sensible number of hidden units to learn a given dataset, but whether this advices is also applicable for QBMs needs yet to be investigated (to the best knowledge of the author of this description). These logical qubits will then be embedded into the annealers hardware graph, using one or multiple physical qubits each, depending on whether the number of logical connections required is higher or lower than the number of connections one physical qubit has. Usually, in doing this, it is favourable to keep the number of physical qubits used per logical one as small as possible, to decrease the likelihood of obtaining several different values for physical qubits in a chain that represents one logical one (whose state would be then inconsistent). Another reason is that, following [D-Wave''s documentation](https://docs.dwavesys.com/docs/latest/c_qpu_annealing.html) on the topic of freeze-out points, creating long chains of physical qubits to represent logical ones could also have a negative effect on the sampling results, as it might cause the freeze-out point to occur earlier in the annealing process. For very small QBMs regarding the number of logical qubits used, Henderson et al. (Henderson 2018) mention however that it can be advantageous to deliberately choose an embedding of the QUBO onto the hardware graph that uses muliple physical qubits to represent a logical one, as this increases the chances of sampling configurations other than the one with the lowest energy. This is desireable when using the Quantum Annealer for Boltzmann sampling, as it might e.g. improve generalization of the model to previously unseen datapoints (Henderson 2018, Kurowski 2021). Henderson et al. recommend e.g. 2 physical per logical qubits for a model size of 9 units or 3 for a size of 5 (Henderson 2018).
+
+Apart from adjusting the embedding and annealing time to minimize it''s effect, there are, however also other approaches to deal with the effect of a large transverse filed at freeze out: Benedetti et al. (Benedetti 2017) created a "grey-box approach", where instead of the Boltzmann machines parameteres $w_{ij}$ and $b_i$, the parameters of the hardware embedding $J_{ij}$ and $h_i = \frac{- b_i}{\beta_{\text{eff}}}$ are learned directly, including the ones that connect several physical qubits in a chain representing one logical one. Adaptation to these latter parameters representing the chain strength then causes the QBM to be able to self-correct for noise, unknown $\beta_{\text{eff}}$ values or transverse-field influences (Bendetti 2017). Amin et al. (Amin 2018) take the opposite approach and instead include the transverse field into the energy function of their model, learning a "quantum" Boltzmann distribution instead of a classical one. They treat the transverse field parameter $\Gamma = (A(s*) / B(s*)) \cdot \beta_{\text{eff}}$ as a tunable parameter, being either a hyperparameter (in their "bound-based" QBM) or even a trainable parameter (alongside the weights and biases) in their mathematical simulation of the QBM (which they term "inefficient and basically impractical for large data sets" for the general case). When using Quantum Annealing hardware, they suggest to employ quenching, as this allows one to choose the freeze-out point s* (Amin 2018). As $A(s)$ and $B(s)$ can be read out using D-Wave''s API (compare [D-Wave''s documentation](https://docs.dwavesys.com/docs/latest/c_qpu_annealing.html)), this allows one to still determine $\Gamma$ to use as a hyperparameter (provided $\beta_{\text{eff}}$ can be approximated successfully).
+
+
+###
+### Advantages in comparison to classical algorithms
+When comparing Quantum Boltzmann Machines to classical Machine Learning solutions experimentally, there are two ways in which the employment of the former seems to have an advantage over the latter: On the one hand, they often show better results in the learning task they are given. Amin et al. (Amin 2018) for example find that, when comparing the QBM to a classical BM, the probability distribution learned by the QBM has a smaller [Kullback-Leibler divergence](https://en.wikipedia.org/wiki/Kullback–Leibler_divergence) from a given known actual distribution of a dataset than the one learned by the classical equivalent. Korenkevych et al. (Korenkevych 2016), Ajagekar et al. (Ajagekar 2021) and Benedetti et al. (Benedetti 2017) make similar observations for BMs and classical Conditional Restricted Boltzmann Machine (CRBMs) trained with the Contrastive Divergence (CD) algorithm as well as other kinds of state-of-the-art ML-methods, and a BM using exact gradient calculation as well as Simulated Annealing, respectively.
+Benedetti et al. (Benedetti 2017) suggest that a reason for this might be that "by enabling the exploration of a wider class of models [...] quantum models [...] may be able to capture higher complexity" (Benedetti 2017).
+
+However, QBMs do not always perform better than their classical equivalents: In experiments by e.g. Adachi et al. (Adachi 2015), Sato et al. (Sato 2021), Rocutto et al. (Rocutto 2021), Vinci et al. (Vinci 2020) and Dixit et al. (Dixit 2020, Dixit 2021), the quantum version shows only comparable performance to their classical equivalents, or performs better in some, but worse in other applications or variants. Thus, under exactly what circumstances QBMs lead to better results and why exactly they do this in these cases remains (to the best of the author''s knowledge) an open research question.
+One observation that can be made, however, is that in a lot (albeit not all) experiments just mentioned, *restricted* QBMs were compared with Restricted Boltzmann Machines (RBMs), which can already be trained efficiently classically. This comes, however, at the expense of only being able to approximate the samples from the model distribution with values indirectly depending on the values of data points and having to restricted the connectivity in the BM by only allowing connections between visible and hidden units, but not between units of the same kind. This latter aspect makes a model with the same amount of units less expressive however, diminishing its capacity to closely approximate a data distribution. While imposing these restrictions ion the classical case makes sense, to ensure the feasibility of the learning algorithm, imposing them in the quantum case, in which efficient sampling is said to be possible anyway (see above) seems unnecessary and thus takes away a possible advantage the quantum model could have over the classical one. (Hinton 2012, Adachi 2015, Ackley 1985)
+
+Regarding the sampling speed, Amin et al. (Amin 2018) indeed expect quantum annealing hardware to provide a sampling method that is faster than classical equivalents. This claim is backed by the experimental results of Korenkevych et al. (Korenkevych 2016), Benedetti et al. (Benedetti 2017) (at least for the beginning of the training), Adachi et al. (Adachi 2015) and Ajagekar et al. (Ajagekar 2021) on that find the quantum-equivalents of fully-visible BMs, RBMs as part of Deep Belief Networks and Conditional RBMs, respectively, to be computationally more efficient than their classical counterparts. In the first three cases, this speed-up stems from a smaller number of training iterations that is necessary to reach a certain solution quality with the quantum model (Korenkevych 2016, Adachi 2016), while in the last case the time per training iteration is measured (Ajagekar 2021). What exactly causes the former effect remains, to the best knowledge of the author of this description, an open research question.
+
+
+###
+### Quantum Computing patterns used
+The Quantum Boltzmann Machine uses the fact that the results of a Quantum Annealer are distributed approxiamately according to a "customizable" Boltzmann distribution to sample from said distribution. This kind of sampling from a probability distribution could also be usable in other types of algorithms, and thus it might become a pattern.
+
+#
+# References
+[1] David H. Ackley, Geoffrey E. Hinton and Terrence J. Sejnowski. 1985. A learning algorithm for Boltzmann machines. Cognitive science, 9(1), pp.147-169. DOI: 10.1016/S0364-0213(85)80012-4. Link: https://onlinelibrary.wiley.com/doi/pdfdirect/10.1207/s15516709cog0901_7
+[2] Steven H. Adachi and Maxwell P. Henderson. 2015. Application of quantum annealing to training of deep neural networks. arXiv: https://arxiv.org/pdf/1510.06356.pdf
+[3] Akshay Ajagekar and Fengqi You. 2021 Quantum computing based hybrid deep learning for fault diagnosis in electrical power systems. Applied Energy 303, p.117628. DOI: 10.1016/j.apenergy.2021.117628 Link: https://doi.org/10.1016/j.apenergy.2021.117628
+[4] Mohammad H. Amin. 2015. Searching for quantum speedup in quasistatic quantum annealers. Physical Review A, 92(5), p.052323. DOI: 10.1103/PhysRevA.92.052323. Link: https://www.doi.org/10.1103/PhysRevA.92.052323
+[5] Mohammad H. Amin, Evgeny Andriyash, Jason Rolfe, Bodhan Kulchytskyy and Roger Melko. 2018. Quantum boltzmann machine. Physical Review X, 8(2), p.021050. DOI: 10.1103/PhysRevX.8.021050. Link: https://journals.aps.org/prx/pdf/10.1103/PhysRevX.8.021050
+[6] Marcello Benedetti, John Realpe-Gómez, Rupak Biswas and Alejandro Perdomo-Ortiz. 2016. Estimation of effective temperatures in quantum annealers for sampling applications: A case study with possible applications in deep learning. Physical Review A, 94(2), p.022308. DOI:10.1103/PhysRevA.94.022308. Link: https://doi.org/10.1103/PhysRevA.94.022308
+[7] Marcello Benedetti, John Realpe-Gómez, Rupak Biswas and Alejandro Perdomo-Ortiz. 2017. Quantum-assisted learning of hardware-embedded probabilistic graphical models. Physical Review X, 7(4), p.041052. DOI: 10.1103/PhysRevX.7.041052. Link: https://doi.org/10.1103/PhysRevX.7.041052
+[8] Vivek Dixit, Raja Selvarajan, Muhammad A. Alam, Travis S. Humble and Sabre Kais. 2020. Training and classification using a restricted Boltzmann machine on the D-Wave 2000Q. arXiv preprint arXiv:2005.03247. Link: https://arxiv.org/pdf/2005.03247.pdf
+[9] Vivek Dixit, Raja Selvarajan, Tamer Aldwairi, Yaroslav Koshka, Mark A. Novotny, Travis S. Humble, Muhammad A. Alam, Sabre Kais. 2021. Training a quantum annealing based restricted boltzmann machine on cybersecurity data. IEEE Transactions on Emerging Topics in Computational Intelligence 6(3), pp.417–428. DOI: 10.1109/TETCI.2021.3074916. Link: https://doi.org/10.1109/TETCI.2021.3074916
+[10] D-Wave Systems Inc. 2017. Performance advantage in quantum boltzmann sampling. Burnaby, BC, Canada: D-Wave Systems Inc. https://www.dwavesys.com/media/4mrhzxes/14-1013a-a_wp_performance_advantage_in_quantum_boltzmann_sampling.pdf
+[11] Scott E. Fahlman, Geoffrey E. Hinton, and Terrence J. Sejnowski. 1983, June. Massively parallel architectures for Al: NETL, Thistle, and Boltzmann machines. In: National Conference on Artificial Intelligence, AAAI. Link: https://www.aaai.org/Papers/AAAI/1983/AAAI83-087.pdf
+[12] Maxwell Henderson, John Novak and Tristan Cook. 2019. Leveraging quantum annealing for election forecasting. Journal of the Physical Society of Japan, 88(6), p.061009. DOI: 10.7566/JPSJ.88.061009. Link: https://doi.org/10.7566/JPSJ.88.061009
+[13] Geoffrey E. Hinton. 2012. A practical guide to training restricted Boltzmann machines. In Neural networks: Tricks of the trade (pp. 599-619). Springer, Berlin, Heidelberg. DOI: 10.1007/978-3-642-35289-8_32
+[14] Amir Khoshaman, Walter Vinci, Brandon Denis, Evgeny Andriyash, Hossein Sadeghi and Mohammad H. Amin. 2018. Quantum variational autoencoder. Quantum Science and Technology, 4(1), 014001. DOI: 10.1088/2058-9565/aada1f. Link: https://doi.org/10.1088/2058-9565/aada1f
+[15] Dmytro Korenkevych, Yanbo Xue, Zhengbing Bian, Fabian Chudak, William G. Macready, Jason Rolfe and Evgeny Andriyash. 2016. Benchmarking quantum hardware for training of fully visible Boltzmann machines. arXiv preprint arXiv:1611.04528. Link: https://arxiv.org/pdf/1611.04528
+[16] Krzysztof Kurowski, Mateusz Slysz, Marek Subocz and Rafał Różycki. 2021. Applying a Quantum Annealing Based Restricted Boltzmann Machine for MNIST Handwritten Digit Classification. Computational Methods in Science and Technology, 27. DOI: 10.12921/cmst.2021.0000011. Link: http://dx.doi.org/10.12921/cmst.2021.0000011
+[17] Lorenzo Rocutto, Claudio Destri and Enrico Prati. 2021. Quantum semantic learning by reverse annealing of an adiabatic quantum computer. Advanced Quantum Technologies 4(2), p.2000133. DOI: 10.1002/qute.202000133. Link: https://doi.org/10.1002/qute.202000133
+[18] Takehito Sato, Masayuki Ohzeki and Kazuyuki Tanaka. 2021. Assessment of image generation by quantum annealer. Scientific reports 11(1), pp.1–10. DOI: 10.1038/s41598-021-92295-9. Link: https://doi.org/10.1038/s41598-021-92295-9
+[19] Salvador E. Venegas-Andraca, William Cruz-Santos, Catherine McGeoch and Marco Lanzagorta. 2018. A cross-disciplinary introduction to quantum annealing-based algorithms. Contemporary Physics, 59(2), pp.174-197. DOI: 10.1080/00107514.2018.1450720
+[20] Guillaume Verdon, Michael Broughton and Jacob Biamonte. 2017. A quantum algorithm to train neural networks using low-depth circuits. arXiv: https://arxiv.org/pdf/1712.05304.pdf
+[21] Walter Vinci, Lorenzo Buffoni, Hossein Sadeghi, Amir Khoshaman, Evgeny Andriyash, and Mohammad H. Amin. 2020. A path towards quantum advantage in training deep generative models with quantum annealers. Machine Learning: Science and Technology, 1(4), p.045028. DOI: 10.1088/2632-2153/aba220. Link: https://doi.org/10.1088/2632-2153/aba220
+[22] Max Wilson, Thomas Vandal, Tad Hogg, and Eleanor G. Rieffel. 2021. Quantum-assisted associative adversarial network: Applying quantum annealing in deep learning. Quantum Machine Intelligence, 3(1), pp.1-14. DOI: 10.1007/s42484-021-00047-9. Link:  https://doi.org/10.1007/s42484-021-00047-9
+[23] Peter Wittek. 2014. Quantum machine learning: what quantum computing means to data mining. Academic Press. ISBN: ISBN: 9780128010990. Link: https://www.researchgate.net/profile/Peter-Wittek/publication/264825604_Quantum_Machine_Learning_What_Quantum_Computing_Means_to_Data_Mining/links/5ababcfba6fdcc71647085db/Quantum-Machine-Learning-What-Quantum-Computing-Means-to-Data-Mining.pdf
+[24] Guanglei Xu and William S. Oates. 2021. Adaptive hyperparameter updating for training restricted Boltzmann machines on quantum annealers. Scientific Reports, 11(1), pp.1-10. DOI: 10.1038/s41598-021-82197-1. Link: https://doi.org/10.1038/s41598-021-82197-1
+
+##
+## Further literature on the topic (non-exhaustive listing)
+
+###
+### Applications in Reinforcement Learning
+* see [algorithm description on Reinforcement Learning using Quantum Boltzmann Machines](https://platform.planqk.de/algorithms/634a4a5e-b33c-4838-af28-1cf39170be29/)
+
+###
+### Restricted QBMs
+* Denil, M. and De Freitas, N., 2011. Toward the implementation of a quantum RBM. Link: https://ora.ox.ac.uk/objects/uuid:ea79d085-6f08-4341-9af1-5a3972542bfa/download_file?file_format=pdf&safe_filename=quantumrbm.pdf&type_of_work=Conference+item
+* Kumar, V., Bass, G. and Dulny III, J., Training Restricted Boltzmann Machines Using a Quantum Annealer. Link: http://sc16.supercomputing.org/sc-archive/tech_poster/poster_files/post202s2-file3.pdf
+* Dorband, J.E., 2015, April. A boltzmann machine implementation for the d-wave. In 2015 12th International Conference on Information Technology-New Generations (pp. 703-707). IEEE. DOI: 10.1109/ITNG.2015.118
+
+###
+### Application and Evaluation of QBMs
+* **Language Processing:**  Wiebe, N., Bocharov, A., Smolensky, P., Troyer, M. and Svore, K.M., 2019. Quantum language processing. arXiv preprint arXiv:1902.05162. DOI: https://arxiv.org/pdf/1902.05162.pdf
+* **Medical Diagnostics:** Jain, S., Ziauddin, J., Leonchyk, P., Yenkanchi, S., & Geraci, J., 2020. Quantum and classical machine learning for the classification of non-small-cell lung cancer patients. SN Applied Sciences, 2(6), pp.1-10. DOI: https://doi.org/10.1007/s42452-020-2847-4
+* **Image recognition:** Dorband, J.E., 2018. A method of finding a lower energy solution to a qubo/ising objective function. arXiv preprint arXiv:1801.04849. Link: https://arxiv.org/pdf/1801.04849.pdf
+* **Image recognition / Evaluation:** Biswas, R., Jiang, Z., Kechezhi, K., Knysh, S., Mandrà, S., O’Gorman, B., Perdomo-Ortiz, A., Petukhov, A., Realpe-Gómez, J., Rieffel, E. and Venturelli, D., 2017. A NASA perspective on quantum computing: Opportunities and challenges. Parallel Computing, 64, pp.81-98. DOI: https://doi.org/10.1016/j.parco.2016.11.002', '0f6587f3-6b6b-4dd4-98aa-b464913b8c14');
+INSERT INTO public.algorithm (acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution, id) VALUES ('Grover Algorithm', 'No additional arguments necessary.', NULL, 1, 'The oracle must be provided, which identifies the sought state $\ket{\tilde{x}}$.', 'Grover''s algorithm [[1]](https://arxiv.org/abs/quant-ph/9605043) provides one of the first useful quantum algorithms with a speedup to any known classical algorithm. It is used for an unstructured database search, where a "correct" bit string of length $N$ is sought among the set of all possible bit strings of the same length. The assumption is, that if provided to some "identifier" the correct bit string can be detected. Classically, there is no better option than handing over every bit string to the identifier and stop as soon as the correct bit string is provided. This procedure may only need one check of the identifier but in the worst case it takes $N$ checks. On average, $N/2$ checks are necessary, which implies a runtime of $\mathcal{O}(N)$.
+
+The Grover algorithm exploits quantum effects in such a way, that the runtime gets reduced to $\mathcal{O}(\sqrt{N})$, thus providing a polynomial (i.e., quadratic) speedup over the best classical method.', 'Grover-SAT', 'Before measurement: State $\ket{\psi}$ encoded on the quantum register with the largest amplitude for the $\ket{\tilde{x}}$-state.', 'The goal is to find the correct bit string $\tilde{x}\in\lbrace 0,1\rbrace^N$ for which the function
+$$\begin{gather}f: \lbrace 0,1\rbrace^N\rightarrow \lbrace 0,1\rbrace\\[.2cm]f(x)=\begin{cases} 0\quad ,\quad x\neq \tilde{x} \\ 1\quad , \quad x=\tilde{x}\end{cases}\end{gather}$$
+becomes $1$ (indicator function). The assumption is, that the function itself is provided in the form of an oracle and any bit string with length $N$ can be evaluated using it.', 'Grover''s algorithm solves the problem by introducing clever rotations acting on state vectors in order to maximize the probability for measuring the correct state $\ket{\tilde{x}}$. The following describes the general procedure, as well as certain aspects of the algorithm a bit more in depth.
+
+As is often the case for a quantum algorithm, the initial state of the data register is a uniform superposition of all basis states, which can be generated by using the standard Hadamard gate on all $n$ data qubits:
+$$
+\begin{equation}
+\ket{s} = H^{\otimes n}\ket{0}^{\otimes n} = \frac{1}{\sqrt{N}}\sum_{x=0}^{N-1}\ket{x}~,
+\end{equation}
+$$
+where $N=2^n$ is the number of all possible binary states. For simplicity, here and in the following explanations the states will be referred to in their decimal representation for $n$ qubits, e.g. for $n=5$ the state $\ket{7}$ corresponds to the binary basis state $\ket{00111}$.  
+
+The algorithm is based on the repetition of a *Grover iteration* depicted in the graphic below. In a first step, the amplitude (prefactor of basis states) of the state $\ket{\tilde{x}}$ is inverted by the oracle $U_1$ encoding the indicator function and in a second step all amplitudes are reflected on the mean amplitude, thus increasing the probability of measuring $\ket{\tilde{x}}$.
+
+::: hljs-center
+
+![](3b9fc525-59c6-41ec-96ea-f208ba936e4e)
+
+:::
+
+In the following, the transformation will be discussed in detail.
+
+## Structure of the Oracle $\left(U_1\right)$
+The so-called oracle appears in a variety of quantum algorithms and is a unitary transformation used to influence one part of the register based on the state of another part of the register it is acting on. In the case of Grover''s algorithm it encodes the indicator function and acts on the register as follows:
+$$
+\begin{equation}
+U_1: \ket{x,y}\mapsto \ket{x,y\oplus f(x)}
+\end{equation}
+$$
+Similar to the Deutsch-Josza algorithm, Grover''s algorithm requires an additional auxiliary qubit which stores the information after the oracle acted on the register (thus, Grover''s algorithm requires ${n+1}$ qubits in total).  
+The goal of the oracle is to flip the sign of the amplitude belonging to the sought state $\ket{\tilde{x}}$ which can be written in terms of the indicator function as
+$$
+\begin{equation}
+U_1\ket{x,y}=(-1)^{f(x)}\ket{x,y}~.
+\end{equation}
+$$
+This can be achieved by initializing the auxiliary qubit similar to the Deutsch-Josza algorithm in the eigenstate of the Pauli-X operator with negative eigenvalue according to (also displaying the data register)
+$$
+\begin{equation}
+\vert x,y\rangle=\big(H\ket{0}\big)^{\otimes n}\otimes \big(HX\ket{0}\big)= \frac{1}{\sqrt{N}}\sum_x \ket{x}\otimes\frac{1}{\sqrt{2}}\big(\ket{0} -\ket{1}\big)~.
+\end{equation}
+$$
+Acting with the oracle, the desired transformation is obtained:
+$$
+\begin{equation}
+U_1\ket{x,y} =  \frac{1}{\sqrt{N}}\sum_x \ket{x}\otimes\frac{1}{\sqrt{2}}\big(\ket{f(x)}-\ket{1\oplus f(x)}\big) = \frac{1}{\sqrt{N}}\sum_x (-1)^{f(x)}\ket{x}\otimes\frac{1}{\sqrt{2}}\big(\ket{0}-\ket{1}\big)~,
+\end{equation}
+$$
+where for the second equality the identity $\ket{f(x)} - \ket{1\oplus f(x)}=(-1)^{f(x)}(\ket{0} - \ket{1})$ was used.
+
+## Amplitude Transformation $\left(U_2\right)$
+After the action of the oracle, the next step of a Grover iteration is to reflect all amplitudes on the mean amplitude (action of $U_2$ depicted in the figure above). A concise derivation is given by means of the following example: Consider the following general state
+$$
+\begin{equation}
+\ket{v}=\sum_{k=0}^{N-1}\alpha_k\ket{k}=\begin{pmatrix}\alpha_0\\ \alpha_1\\ \vdots\\ \alpha_{N-1}\end{pmatrix}~,
+\end{equation}
+$$
+where $\lbrace\ket{k}\rbrace$ is an orthonormal basis set. Now, $U_2$ is supposed to transform every amplitude according to $\alpha_k\mapsto 2\bar{\alpha} - \alpha_k$ (which mathematically corresponds to the reflection of every amplitude on the mean amplitude $\bar{\alpha}=\sum\nolimits_k \alpha_k/N$). The matrix representation of this transformation can be written as
+$$
+\begin{equation}
+U_2\ket{v} = \sum_k\Big(\frac{2}{N}\sum_j\alpha_j-\alpha_k\Big)\ket{k}=\Bigg[\frac{2}{N}\begin{pmatrix}1 &\cdots & 1\\ \vdots & \ddots & \vdots\\1 & \cdots & 1\end{pmatrix}- I\Bigg]\ket{v}~.
+\end{equation}
+$$
+Now, the first matrix of eq. (9) can be rewritten as the projection operator onto the uniform probability state $\ket{s}$ from eq. (3) since
+$$
+\begin{equation}
+\ket{s}\bra{s}=\frac{1}{\sqrt{N}}\begin{pmatrix} 1\\ 1\\ \vdots \\1\end{pmatrix} \cdot \frac{1}{\sqrt{N}}\left(1,~1,\ldots 1\right)=\frac{1}{N}\begin{pmatrix}1 &\cdots & 1\\ \vdots & \ddots & \vdots\\1 & \cdots & 1\end{pmatrix}~.
+\end{equation}
+$$
+Thus, $U_2$ can be written as
+$$
+\begin{equation}
+U_2 = 2\ket{s}\bra{s}-I
+\end{equation}
+$$
+
+## Side Note: Householder Transformation
+In linear algebra, transformations as the one in eq. (11) are known as Householder transformations. They are a generalization of reflections about (hyper-)planes in a vector space. Given two elements $\ket{v},\ket{w}$ of a vector space, the transformed vector $\ket{v^\prime}$ that is the reflection $\ket{v}$ on the plane *perpendicular* to $\ket{w}$ is given by
+$$
+\begin{equation}
+\ket{v^\prime}=\left(I-2\frac{\ket{w}\bra{w}}{\vert w\vert^2}\right)\ket{v}
+\end{equation}
+$$
+For quantum states, the normalization can be omitted since they are already normalized.  
+Now, the transformation of the oracle $U_1$ can also be formulated as a Householder-matrix similar to $U_2$: Since it only negates the amplitude of the component along the solution $\ket{\tilde{x}}$ it can be viewed as a reflection of the state vector perpendicular to the solution state. Thus, the oracle can be written as
+$$
+\begin{equation}
+U_1 = I - 2\ket{\tilde{x}}\bra{\tilde{x}}
+\end{equation}
+$$
+
+## Geometric Interpretation
+As discussed earlier, the consecutive action of $U_1$ and $U_2$ increases the probability for measuring the sought state. Repeating one such Grover iteration multiple times, increases the probability further, up to a maximum number of repetitions $r$ after which the probability decreases. This can be better understood by considering the following figure which gives an geometric interpretation of the procedure.
+
+
+::: hljs-center
+
+![Grover iteration](b2b6d309-01b8-4dc9-88c9-5da8d325e4ba)
+
+:::
+
+In the figure the state $\ket{\tilde{s}}$ contains all components of the uniform superposition $\ket{s}$ except the solution, namely
+$$
+\begin{equation}
+\ket{\tilde{s}}=\frac{1}{\sqrt{N-1}}\sum_{x\neq\tilde{x}}\ket{x}~, 
+\end{equation}
+$$
+where a net normalization is necessary because one state is missing in the superposition. Now, let the angle between $\ket{s}$ and $\ket{\tilde{s}}$ be $\theta/2$. This implies
+$$
+\begin{equation}
+\braket{s\vert \tilde{s}}=\cos\left(\theta/2\right) = \frac{1}{\sqrt{N(N-1)}}\sum_{x\neq \tilde{x}} \braket{x\vert x}=\sqrt{\frac{N-1}{N}} = \sqrt{1-\frac{1}{N}}
+\end{equation}
+$$
+Pythagoras'' theorem ($\cos(x)=\sqrt{1-\sin^2(x)}$) then implies
+$$
+\begin{equation}
+\sin(\theta/2)=\frac{1}{\sqrt{N}}~.
+\end{equation}
+$$
+By assuming $N\gg 1$ the small-angle approximation can be used and gives 
+$$
+\begin{equation}
+\theta = \frac{2}{\sqrt{N}}~.
+\end{equation}
+$$
+From the (not true to scale) figure above it can seen that one Grover iteration rotates the initial state by $\theta$ towards the goal state. Thus, in order to maximize the probability the Grover iteration should be repeated as many times as it takes to close the angle (namely $\pi/2-\theta/2$). This implies for the number of repetitions
+$$
+\begin{equation}
+r\theta=\frac{\pi}{2}-\frac{\theta}{2} \qquad \Rightarrow\qquad r=\frac{\pi\sqrt{N}}{4}-\frac{1}{2}
+\end{equation}
+$$
+So, in order to maximize the probability for the sought state, the oracle must be queued $r=\mathcal{O}(\sqrt{N})$ times which implies a quadratic speed up.
+
+# References
+[1] Grover, L. K. (1996). A fast quantum mechanical algorithm for database search. In Proceedings of the Annual ACM Symposium on Theory of Computing: Vol. Part F129452 (pp. 212–219). Association for Computing Machinery. https://doi.org/10.1145/237814.237866', '3c7722e2-09c3-4667-9a0d-a45d3ddc42ae');
 
 
 --
@@ -169,6 +576,11 @@ INSERT INTO public.algorithm (acronym, algo_parameter, assumptions, computation_
 INSERT INTO public.application_area (id, name) VALUES ('ce597b06-c55e-46ce-976c-8de398e049b9', 'Cryptography');
 INSERT INTO public.application_area (id, name) VALUES ('12b0d326-8b6a-4f7c-8717-d9cc5eb4a567', 'Classification');
 INSERT INTO public.application_area (id, name) VALUES ('da982d08-30a8-48f7-8db1-204c0b4f1865', 'Machine Learning');
+INSERT INTO public.application_area (id, name) VALUES ('6469fef8-b890-439d-8633-345a5db9bef8', 'Economics');
+INSERT INTO public.application_area (id, name) VALUES ('4b0c75a4-6469-481a-a969-ddba2d43fb47', 'Drug Discovery');
+INSERT INTO public.application_area (id, name) VALUES ('4d1e60a2-91f9-4763-8f91-0e8b6a927301', 'Artificial Intelligence');
+INSERT INTO public.application_area (id, name) VALUES ('3fd4fa3f-42be-431e-853f-c726881ff065', 'Chemistry');
+INSERT INTO public.application_area (id, name) VALUES ('4da2dc41-ec5d-4444-8027-146450785c2e', 'Social Science');
 
 
 --
@@ -184,6 +596,10 @@ INSERT INTO public.algorithm_application_area (algorithm_id, application_area_id
 INSERT INTO public.algorithm_application_area (algorithm_id, application_area_id) VALUES ('16aa96c5-b668-4df9-a03f-96d323708676', '12b0d326-8b6a-4f7c-8717-d9cc5eb4a567');
 INSERT INTO public.algorithm_application_area (algorithm_id, application_area_id) VALUES ('9aa16271-6ea1-4e15-ad9d-6e6e264a0ad0', 'da982d08-30a8-48f7-8db1-204c0b4f1865');
 INSERT INTO public.algorithm_application_area (algorithm_id, application_area_id) VALUES ('9aa16271-6ea1-4e15-ad9d-6e6e264a0ad0', '12b0d326-8b6a-4f7c-8717-d9cc5eb4a567');
+INSERT INTO public.algorithm_application_area (algorithm_id, application_area_id) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', '4b0c75a4-6469-481a-a969-ddba2d43fb47');
+INSERT INTO public.algorithm_application_area (algorithm_id, application_area_id) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', '4d1e60a2-91f9-4763-8f91-0e8b6a927301');
+INSERT INTO public.algorithm_application_area (algorithm_id, application_area_id) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', '3fd4fa3f-42be-431e-853f-c726881ff065');
+INSERT INTO public.algorithm_application_area (algorithm_id, application_area_id) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', '4da2dc41-ec5d-4444-8027-146450785c2e');
 
 
 --
@@ -209,6 +625,20 @@ INSERT INTO public.algorithm_application_area (algorithm_id, application_area_id
 --
 
 INSERT INTO public.problem_type (id, name, parent_problem_type) VALUES ('76d773b5-4635-4d67-877c-e565b9f08496', 'Integer Factorization', NULL);
+INSERT INTO public.problem_type (id, name, parent_problem_type) VALUES ('c493aef8-9887-4e3b-806d-1ffe0f73b02c', 'Search', NULL);
+INSERT INTO public.problem_type (id, name, parent_problem_type) VALUES ('ba69c6a6-4a75-4178-9c1c-5a8b795f2249', 'Dimensionality Reduction', NULL);
+INSERT INTO public.problem_type (id, name, parent_problem_type) VALUES ('540d5ec1-b324-4589-b720-19d13c41b675', 'Machine Learning Problem', NULL);
+INSERT INTO public.problem_type (id, name, parent_problem_type) VALUES ('6dc960f4-c0fe-4021-b636-16028a36843c', 'Anomaly Detection', NULL);
+INSERT INTO public.problem_type (id, name, parent_problem_type) VALUES ('76a7d765-a0e1-4df7-b87a-109b2e778784', 'Association Rule Learning', NULL);
+INSERT INTO public.problem_type (id, name, parent_problem_type) VALUES ('58019f88-ee27-47e3-90ae-9fdf1e2aa684', 'Policy Learning', NULL);
+INSERT INTO public.problem_type (id, name, parent_problem_type) VALUES ('c3d64685-f209-412a-8d50-bb028566129b', 'Synthetic Data Generation', NULL);
+INSERT INTO public.problem_type (id, name, parent_problem_type) VALUES ('0a2c18bc-ea56-485c-ab22-cb03788c5ea8', 'Structured Output', NULL);
+INSERT INTO public.problem_type (id, name, parent_problem_type) VALUES ('4dc93fe1-0fac-4589-9131-c42d264d0280', 'Value Function Learning', NULL);
+INSERT INTO public.problem_type (id, name, parent_problem_type) VALUES ('c810ccf8-a269-4167-a8ea-fb3f6809a7e6', 'Clustering', NULL);
+INSERT INTO public.problem_type (id, name, parent_problem_type) VALUES ('c7c00987-42b1-4f1b-a63f-63bf20d31923', 'Regularization', NULL);
+INSERT INTO public.problem_type (id, name, parent_problem_type) VALUES ('b703e4ae-d3a3-4bda-9f13-5768f9082fa5', 'Feature Learning', NULL);
+INSERT INTO public.problem_type (id, name, parent_problem_type) VALUES ('5610448a-24e3-4f10-8b75-48b0fd3082cf', 'Classification', NULL);
+INSERT INTO public.problem_type (id, name, parent_problem_type) VALUES ('54c68993-9c19-4809-b499-e496a4196159', 'Information Extraction', NULL);
 
 
 --
@@ -218,6 +648,20 @@ INSERT INTO public.problem_type (id, name, parent_problem_type) VALUES ('76d773b
 --
 
 INSERT INTO public.algorithm_problem_type (algorithm_id, problem_type_id) VALUES ('b5df6c13-e619-496c-ada0-80fc3486f733', '76d773b5-4635-4d67-877c-e565b9f08496');
+INSERT INTO public.algorithm_problem_type (algorithm_id, problem_type_id) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 'c493aef8-9887-4e3b-806d-1ffe0f73b02c');
+INSERT INTO public.algorithm_problem_type (algorithm_id, problem_type_id) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', 'ba69c6a6-4a75-4178-9c1c-5a8b795f2249');
+INSERT INTO public.algorithm_problem_type (algorithm_id, problem_type_id) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', '540d5ec1-b324-4589-b720-19d13c41b675');
+INSERT INTO public.algorithm_problem_type (algorithm_id, problem_type_id) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', '6dc960f4-c0fe-4021-b636-16028a36843c');
+INSERT INTO public.algorithm_problem_type (algorithm_id, problem_type_id) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', '76a7d765-a0e1-4df7-b87a-109b2e778784');
+INSERT INTO public.algorithm_problem_type (algorithm_id, problem_type_id) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', '58019f88-ee27-47e3-90ae-9fdf1e2aa684');
+INSERT INTO public.algorithm_problem_type (algorithm_id, problem_type_id) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', 'c3d64685-f209-412a-8d50-bb028566129b');
+INSERT INTO public.algorithm_problem_type (algorithm_id, problem_type_id) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', '0a2c18bc-ea56-485c-ab22-cb03788c5ea8');
+INSERT INTO public.algorithm_problem_type (algorithm_id, problem_type_id) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', '4dc93fe1-0fac-4589-9131-c42d264d0280');
+INSERT INTO public.algorithm_problem_type (algorithm_id, problem_type_id) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', 'c810ccf8-a269-4167-a8ea-fb3f6809a7e6');
+INSERT INTO public.algorithm_problem_type (algorithm_id, problem_type_id) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', 'c7c00987-42b1-4f1b-a63f-63bf20d31923');
+INSERT INTO public.algorithm_problem_type (algorithm_id, problem_type_id) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', 'b703e4ae-d3a3-4bda-9f13-5768f9082fa5');
+INSERT INTO public.algorithm_problem_type (algorithm_id, problem_type_id) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', '5610448a-24e3-4f10-8b75-48b0fd3082cf');
+INSERT INTO public.algorithm_problem_type (algorithm_id, problem_type_id) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', '54c68993-9c19-4809-b499-e496a4196159');
 
 
 --
@@ -281,6 +725,21 @@ INSERT INTO public.revinfo (rev, revtstmp) VALUES (12, 1721650839577);
 INSERT INTO public.revinfo (rev, revtstmp) VALUES (13, 1721650858760);
 INSERT INTO public.revinfo (rev, revtstmp) VALUES (14, 1721746106768);
 INSERT INTO public.revinfo (rev, revtstmp) VALUES (15, 1721746142522);
+INSERT INTO public.revinfo (rev, revtstmp) VALUES (16, 1724941262140);
+INSERT INTO public.revinfo (rev, revtstmp) VALUES (17, 1724941323565);
+INSERT INTO public.revinfo (rev, revtstmp) VALUES (18, 1724941429882);
+INSERT INTO public.revinfo (rev, revtstmp) VALUES (19, 1724941490979);
+INSERT INTO public.revinfo (rev, revtstmp) VALUES (20, 1724941534845);
+INSERT INTO public.revinfo (rev, revtstmp) VALUES (21, 1724941614965);
+INSERT INTO public.revinfo (rev, revtstmp) VALUES (22, 1724941879029);
+INSERT INTO public.revinfo (rev, revtstmp) VALUES (23, 1724942001392);
+INSERT INTO public.revinfo (rev, revtstmp) VALUES (24, 1724942129081);
+INSERT INTO public.revinfo (rev, revtstmp) VALUES (25, 1724942155462);
+INSERT INTO public.revinfo (rev, revtstmp) VALUES (26, 1724942192347);
+INSERT INTO public.revinfo (rev, revtstmp) VALUES (27, 1724942233220);
+INSERT INTO public.revinfo (rev, revtstmp) VALUES (28, 1724942958670);
+INSERT INTO public.revinfo (rev, revtstmp) VALUES (29, 1724943609201);
+INSERT INTO public.revinfo (rev, revtstmp) VALUES (30, 1724943895328);
 
 
 --
@@ -303,6 +762,21 @@ INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date
 INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('61a59337-853b-4fff-83a8-367946e3c365', 13, 0, NULL, NULL);
 INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('14ad80b5-0498-482d-b3b5-d053e349b130', 14, 1, NULL, NULL);
 INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('61a59337-853b-4fff-83a8-367946e3c365', 15, 1, NULL, NULL);
+INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 16, 1, NULL, NULL);
+INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 17, 1, NULL, NULL);
+INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 18, 1, NULL, NULL);
+INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 19, 1, NULL, NULL);
+INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 20, 1, NULL, NULL);
+INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 21, 1, NULL, NULL);
+INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 22, 1, NULL, NULL);
+INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 23, 1, NULL, NULL);
+INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 24, 1, NULL, NULL);
+INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 25, 1, NULL, NULL);
+INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 26, 1, NULL, NULL);
+INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 27, 1, NULL, NULL);
+INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', 28, 1, NULL, NULL);
+INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', 29, 1, NULL, NULL);
+INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date, last_modified_at) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 30, 1, NULL, NULL);
 
 
 --
@@ -314,6 +788,992 @@ INSERT INTO public.knowledge_artifact_revisions (id, rev, revtype, creation_date
 INSERT INTO public.algorithm_revisions (id, rev, acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', 2, NULL, NULL, NULL, 2, NULL, NULL, 'Quantum Approximate Optimization Algorithm', NULL, NULL, NULL);
 INSERT INTO public.algorithm_revisions (id, rev, acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', 3, 'QAOA', NULL, NULL, 2, NULL, NULL, 'Quantum Approximate Optimization Algorithm', NULL, NULL, NULL);
 INSERT INTO public.algorithm_revisions (id, rev, acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution) VALUES ('a51667c1-e70c-45e4-b427-127e2e2d2208', 12, NULL, NULL, NULL, 1, NULL, NULL, 'K-Means', NULL, NULL, NULL);
+INSERT INTO public.algorithm_revisions (id, rev, acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 16, NULL, NULL, NULL, 1, NULL, NULL, 'Grover-SAT', NULL, NULL, NULL);
+INSERT INTO public.algorithm_revisions (id, rev, acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 17, NULL, NULL, NULL, 1, NULL, 'Grover''s algorithm [[1]](https://arxiv.org/abs/quant-ph/9605043) provides one of the first useful quantum algorithms with a speedup to any known classical algorithm. It is used for an unstructured database search, where a "correct" bit string of length $N$ is sought among the set of all possible bit strings of the same length. The assumption is, that if provided to some "identifier" the correct bit string can be detected. Classically, there is no better option than handing over every bit string to the identifier and stop as soon as the correct bit string is provided. This procedure may only need one check of the identifier but in the worst case it takes $N$ checks. On average, $N/2$ checks are necessary, which implies a runtime of $\\mathcal{O}(N)$.
+The Grover algorithm exploits quantum effects in such a way, that the runtime gets reduced to $\\mathcal{O}(\\sqrt{N})$, thus providing a polynomial (i.e., quadratic) speedup over the best classical method.', 'Grover-SAT', NULL, NULL, NULL);
+INSERT INTO public.algorithm_revisions (id, rev, acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 18, NULL, NULL, NULL, 1, NULL, 'Grover''s algorithm [[1]](https://arxiv.org/abs/quant-ph/9605043) provides one of the first useful quantum algorithms with a speedup to any known classical algorithm. It is used for an unstructured database search, where a "correct" bit string of length $N$ is sought among the set of all possible bit strings of the same length. The assumption is, that if provided to some "identifier" the correct bit string can be detected. Classically, there is no better option than handing over every bit string to the identifier and stop as soon as the correct bit string is provided. This procedure may only need one check of the identifier but in the worst case it takes $N$ checks. On average, $N/2$ checks are necessary, which implies a runtime of $\mathcal{O}(N)$.
+The Grover algorithm exploits quantum effects in such a way, that the runtime gets reduced to $\mathcal{O}(\sqrt{N})$, thus providing a polynomial (i.e., quadratic) speedup over the best classical method.', 'Grover-SAT', NULL, NULL, NULL);
+INSERT INTO public.algorithm_revisions (id, rev, acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 19, NULL, NULL, NULL, 1, NULL, 'Grover''s algorithm [[1]](https://arxiv.org/abs/quant-ph/9605043) provides one of the first useful quantum algorithms with a speedup to any known classical algorithm. It is used for an unstructured database search, where a "correct" bit string of length $N$ is sought among the set of all possible bit strings of the same length. The assumption is, that if provided to some "identifier" the correct bit string can be detected. Classically, there is no better option than handing over every bit string to the identifier and stop as soon as the correct bit string is provided. This procedure may only need one check of the identifier but in the worst case it takes $N$ checks. On average, $N/2$ checks are necessary, which implies a runtime of $\mathcal{O}(N)$.
+
+The Grover algorithm exploits quantum effects in such a way, that the runtime gets reduced to $\mathcal{O}(\sqrt{N})$, thus providing a polynomial (i.e., quadratic) speedup over the best classical method.', 'Grover-SAT', NULL, NULL, NULL);
+INSERT INTO public.algorithm_revisions (id, rev, acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 20, NULL, NULL, NULL, 1, NULL, 'Grover''s algorithm [[1]](https://arxiv.org/abs/quant-ph/9605043) provides one of the first useful quantum algorithms with a speedup to any known classical algorithm. It is used for an unstructured database search, where a "correct" bit string of length $N$ is sought among the set of all possible bit strings of the same length. The assumption is, that if provided to some "identifier" the correct bit string can be detected. Classically, there is no better option than handing over every bit string to the identifier and stop as soon as the correct bit string is provided. This procedure may only need one check of the identifier but in the worst case it takes $N$ checks. On average, $N/2$ checks are necessary, which implies a runtime of $\mathcal{O}(N)$.
+
+The Grover algorithm exploits quantum effects in such a way, that the runtime gets reduced to $\mathcal{O}(\sqrt{N})$, thus providing a polynomial (i.e., quadratic) speedup over the best classical method.', 'Grover-SAT', NULL, 'The goal is to find the correct bit string $\tilde{x}\in\lbrace 0,1\rbrace^N$ for which the function\n$$\n\begin{gather}\nf: \lbrace 0,1\rbrace^N\rightarrow \lbrace 0,1\rbrace\\[.2cm]\nf(x)=\begin{cases} 0\quad ,\quad x\neq \tilde{x} \\ 1\quad , \quad x=\tilde{x}\end{cases}\n\end{gather}\n$$\nbecomes $1$ (indicator function). The assumption is, that the function itself is provided in the form of an oracle and any bit string with length $N$ can be evaluated using it.', NULL);
+INSERT INTO public.algorithm_revisions (id, rev, acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 21, NULL, NULL, NULL, 1, NULL, 'Grover''s algorithm [[1]](https://arxiv.org/abs/quant-ph/9605043) provides one of the first useful quantum algorithms with a speedup to any known classical algorithm. It is used for an unstructured database search, where a "correct" bit string of length $N$ is sought among the set of all possible bit strings of the same length. The assumption is, that if provided to some "identifier" the correct bit string can be detected. Classically, there is no better option than handing over every bit string to the identifier and stop as soon as the correct bit string is provided. This procedure may only need one check of the identifier but in the worst case it takes $N$ checks. On average, $N/2$ checks are necessary, which implies a runtime of $\mathcal{O}(N)$.
+
+The Grover algorithm exploits quantum effects in such a way, that the runtime gets reduced to $\mathcal{O}(\sqrt{N})$, thus providing a polynomial (i.e., quadratic) speedup over the best classical method.', 'Grover-SAT', NULL, 'The goal is to find the correct bit string $\tilde{x}\in\lbrace 0,1\rbrace^N$ for which the function\n$$\n\begin{gather}
+
+f: \lbrace 0,1\rbrace^N\rightarrow \lbrace 0,1\rbrace\\[.2cm]\nf(x)=\begin{cases} 0\quad ,\quad x\neq \tilde{x} \\ 1\quad , \quad x=\tilde{x}\end{cases}\n\end{gather}\n$$
+
+becomes $1$ (indicator function). The assumption is, that the function itself is provided in the form of an oracle and any bit string with length $N$ can be evaluated using it.', NULL);
+INSERT INTO public.algorithm_revisions (id, rev, acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 22, NULL, NULL, NULL, 1, NULL, 'Grover''s algorithm [[1]](https://arxiv.org/abs/quant-ph/9605043) provides one of the first useful quantum algorithms with a speedup to any known classical algorithm. It is used for an unstructured database search, where a "correct" bit string of length $N$ is sought among the set of all possible bit strings of the same length. The assumption is, that if provided to some "identifier" the correct bit string can be detected. Classically, there is no better option than handing over every bit string to the identifier and stop as soon as the correct bit string is provided. This procedure may only need one check of the identifier but in the worst case it takes $N$ checks. On average, $N/2$ checks are necessary, which implies a runtime of $\mathcal{O}(N)$.
+
+The Grover algorithm exploits quantum effects in such a way, that the runtime gets reduced to $\mathcal{O}(\sqrt{N})$, thus providing a polynomial (i.e., quadratic) speedup over the best classical method.', 'Grover-SAT', NULL, 'The goal is to find the correct bit string $\tilde{x}\in\lbrace 0,1\rbrace^N$ for which the function
+$$\begin{gather}f: \lbrace 0,1\rbrace^N\rightarrow \lbrace 0,1\rbrace\\[.2cm]f(x)=\begin{cases} 0\quad ,\quad x\neq \tilde{x} \\ 1\quad , \quad x=\tilde{x}\end{cases}\end{gather}$$
+becomes $1$ (indicator function). The assumption is, that the function itself is provided in the form of an oracle and any bit string with length $N$ can be evaluated using it.', NULL);
+INSERT INTO public.algorithm_revisions (id, rev, acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 23, 'Grover Algorithm', NULL, NULL, 1, NULL, 'Grover''s algorithm [[1]](https://arxiv.org/abs/quant-ph/9605043) provides one of the first useful quantum algorithms with a speedup to any known classical algorithm. It is used for an unstructured database search, where a "correct" bit string of length $N$ is sought among the set of all possible bit strings of the same length. The assumption is, that if provided to some "identifier" the correct bit string can be detected. Classically, there is no better option than handing over every bit string to the identifier and stop as soon as the correct bit string is provided. This procedure may only need one check of the identifier but in the worst case it takes $N$ checks. On average, $N/2$ checks are necessary, which implies a runtime of $\mathcal{O}(N)$.
+
+The Grover algorithm exploits quantum effects in such a way, that the runtime gets reduced to $\mathcal{O}(\sqrt{N})$, thus providing a polynomial (i.e., quadratic) speedup over the best classical method.', 'Grover-SAT', NULL, 'The goal is to find the correct bit string $\tilde{x}\in\lbrace 0,1\rbrace^N$ for which the function
+$$\begin{gather}f: \lbrace 0,1\rbrace^N\rightarrow \lbrace 0,1\rbrace\\[.2cm]f(x)=\begin{cases} 0\quad ,\quad x\neq \tilde{x} \\ 1\quad , \quad x=\tilde{x}\end{cases}\end{gather}$$
+becomes $1$ (indicator function). The assumption is, that the function itself is provided in the form of an oracle and any bit string with length $N$ can be evaluated using it.', NULL);
+INSERT INTO public.algorithm_revisions (id, rev, acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 24, 'Grover Algorithm', NULL, NULL, 1, NULL, 'Grover''s algorithm [[1]](https://arxiv.org/abs/quant-ph/9605043) provides one of the first useful quantum algorithms with a speedup to any known classical algorithm. It is used for an unstructured database search, where a "correct" bit string of length $N$ is sought among the set of all possible bit strings of the same length. The assumption is, that if provided to some "identifier" the correct bit string can be detected. Classically, there is no better option than handing over every bit string to the identifier and stop as soon as the correct bit string is provided. This procedure may only need one check of the identifier but in the worst case it takes $N$ checks. On average, $N/2$ checks are necessary, which implies a runtime of $\mathcal{O}(N)$.
+
+The Grover algorithm exploits quantum effects in such a way, that the runtime gets reduced to $\mathcal{O}(\sqrt{N})$, thus providing a polynomial (i.e., quadratic) speedup over the best classical method.', 'Grover-SAT', NULL, 'The goal is to find the correct bit string $\tilde{x}\in\lbrace 0,1\rbrace^N$ for which the function
+$$\begin{gather}f: \lbrace 0,1\rbrace^N\rightarrow \lbrace 0,1\rbrace\\[.2cm]f(x)=\begin{cases} 0\quad ,\quad x\neq \tilde{x} \\ 1\quad , \quad x=\tilde{x}\end{cases}\end{gather}$$
+becomes $1$ (indicator function). The assumption is, that the function itself is provided in the form of an oracle and any bit string with length $N$ can be evaluated using it.', 'Grover''s algorithm solves the problem by introducing clever rotations acting on state vectors in order to maximize the probability for measuring the correct state $\ket{\tilde{x}}$. The following describes the general procedure, as well as certain aspects of the algorithm a bit more in depth.
+
+As is often the case for a quantum algorithm, the initial state of the data register is a uniform superposition of all basis states, which can be generated by using the standard Hadamard gate on all $n$ data qubits:
+$$
+\begin{equation}
+\ket{s} = H^{\otimes n}\ket{0}^{\otimes n} = \frac{1}{\sqrt{N}}\sum_{x=0}^{N-1}\ket{x}~,
+\end{equation}
+$$
+where $N=2^n$ is the number of all possible binary states. For simplicity, here and in the following explanations the states will be referred to in their decimal representation for $n$ qubits, e.g. for $n=5$ the state $\ket{7}$ corresponds to the binary basis state $\ket{00111}$.  
+
+The algorithm is based on the repetition of a *Grover iteration* depicted in the graphic below. In a first step, the amplitude (prefactor of basis states) of the state $\ket{\tilde{x}}$ is inverted by the oracle $U_1$ encoding the indicator function and in a second step all amplitudes are reflected on the mean amplitude, thus increasing the probability of measuring $\ket{\tilde{x}}$.
+
+::: hljs-center
+
+![](3b9fc525-59c6-41ec-96ea-f208ba936e4e)
+
+:::
+
+In the following, the transformation will be discussed in detail.
+
+## Structure of the Oracle $\left(U_1\right)$
+The so-called oracle appears in a variety of quantum algorithms and is a unitary transformation used to influence one part of the register based on the state of another part of the register it is acting on. In the case of Grover''s algorithm it encodes the indicator function and acts on the register as follows:
+$$
+\begin{equation}
+U_1: \ket{x,y}\mapsto \ket{x,y\oplus f(x)}
+\end{equation}
+$$
+Similar to the Deutsch-Josza algorithm, Grover''s algorithm requires an additional auxiliary qubit which stores the information after the oracle acted on the register (thus, Grover''s algorithm requires ${n+1}$ qubits in total).  
+The goal of the oracle is to flip the sign of the amplitude belonging to the sought state $\ket{\tilde{x}}$ which can be written in terms of the indicator function as
+$$
+\begin{equation}
+U_1\ket{x,y}=(-1)^{f(x)}\ket{x,y}~.
+\end{equation}
+$$
+This can be achieved by initializing the auxiliary qubit similar to the Deutsch-Josza algorithm in the eigenstate of the Pauli-X operator with negative eigenvalue according to (also displaying the data register)
+$$
+\begin{equation}
+\vert x,y\rangle=\big(H\ket{0}\big)^{\otimes n}\otimes \big(HX\ket{0}\big)= \frac{1}{\sqrt{N}}\sum_x \ket{x}\otimes\frac{1}{\sqrt{2}}\big(\ket{0} -\ket{1}\big)~.
+\end{equation}
+$$
+Acting with the oracle, the desired transformation is obtained:
+$$
+\begin{equation}
+U_1\ket{x,y} =  \frac{1}{\sqrt{N}}\sum_x \ket{x}\otimes\frac{1}{\sqrt{2}}\big(\ket{f(x)}-\ket{1\oplus f(x)}\big) = \frac{1}{\sqrt{N}}\sum_x (-1)^{f(x)}\ket{x}\otimes\frac{1}{\sqrt{2}}\big(\ket{0}-\ket{1}\big)~,
+\end{equation}
+$$
+where for the second equality the identity $\ket{f(x)} - \ket{1\oplus f(x)}=(-1)^{f(x)}(\ket{0} - \ket{1})$ was used.
+
+## Amplitude Transformation $\left(U_2\right)$
+After the action of the oracle, the next step of a Grover iteration is to reflect all amplitudes on the mean amplitude (action of $U_2$ depicted in the figure above). A concise derivation is given by means of the following example: Consider the following general state
+$$
+\begin{equation}
+\ket{v}=\sum_{k=0}^{N-1}\alpha_k\ket{k}=\begin{pmatrix}\alpha_0\\ \alpha_1\\ \vdots\\ \alpha_{N-1}\end{pmatrix}~,
+\end{equation}
+$$
+where $\lbrace\ket{k}\rbrace$ is an orthonormal basis set. Now, $U_2$ is supposed to transform every amplitude according to $\alpha_k\mapsto 2\bar{\alpha} - \alpha_k$ (which mathematically corresponds to the reflection of every amplitude on the mean amplitude $\bar{\alpha}=\sum\nolimits_k \alpha_k/N$). The matrix representation of this transformation can be written as
+$$
+\begin{equation}
+U_2\ket{v} = \sum_k\Big(\frac{2}{N}\sum_j\alpha_j-\alpha_k\Big)\ket{k}=\Bigg[\frac{2}{N}\begin{pmatrix}1 &\cdots & 1\\ \vdots & \ddots & \vdots\\1 & \cdots & 1\end{pmatrix}- I\Bigg]\ket{v}~.
+\end{equation}
+$$
+Now, the first matrix of eq. (9) can be rewritten as the projection operator onto the uniform probability state $\ket{s}$ from eq. (3) since
+$$
+\begin{equation}
+\ket{s}\bra{s}=\frac{1}{\sqrt{N}}\begin{pmatrix} 1\\ 1\\ \vdots \\1\end{pmatrix} \cdot \frac{1}{\sqrt{N}}\left(1,~1,\ldots 1\right)=\frac{1}{N}\begin{pmatrix}1 &\cdots & 1\\ \vdots & \ddots & \vdots\\1 & \cdots & 1\end{pmatrix}~.
+\end{equation}
+$$
+Thus, $U_2$ can be written as
+$$
+\begin{equation}
+U_2 = 2\ket{s}\bra{s}-I
+\end{equation}
+$$
+
+## Side Note: Householder Transformation
+In linear algebra, transformations as the one in eq. (11) are known as Householder transformations. They are a generalization of reflections about (hyper-)planes in a vector space. Given two elements $\ket{v},\ket{w}$ of a vector space, the transformed vector $\ket{v^\prime}$ that is the reflection $\ket{v}$ on the plane *perpendicular* to $\ket{w}$ is given by
+$$
+\begin{equation}
+\ket{v^\prime}=\left(I-2\frac{\ket{w}\bra{w}}{\vert w\vert^2}\right)\ket{v}
+\end{equation}
+$$
+For quantum states, the normalization can be omitted since they are already normalized.  
+Now, the transformation of the oracle $U_1$ can also be formulated as a Householder-matrix similar to $U_2$: Since it only negates the amplitude of the component along the solution $\ket{\tilde{x}}$ it can be viewed as a reflection of the state vector perpendicular to the solution state. Thus, the oracle can be written as
+$$
+\begin{equation}
+U_1 = I - 2\ket{\tilde{x}}\bra{\tilde{x}}
+\end{equation}
+$$
+
+## Geometric Interpretation
+As discussed earlier, the consecutive action of $U_1$ and $U_2$ increases the probability for measuring the sought state. Repeating one such Grover iteration multiple times, increases the probability further, up to a maximum number of repetitions $r$ after which the probability decreases. This can be better understood by considering the following figure which gives an geometric interpretation of the procedure.
+
+
+::: hljs-center
+
+![Grover iteration](b2b6d309-01b8-4dc9-88c9-5da8d325e4ba)
+
+:::
+
+In the figure the state $\ket{\tilde{s}}$ contains all components of the uniform superposition $\ket{s}$ except the solution, namely
+$$
+\begin{equation}
+\ket{\tilde{s}}=\frac{1}{\sqrt{N-1}}\sum_{x\neq\tilde{x}}\ket{x}~, 
+\end{equation}
+$$
+where a net normalization is necessary because one state is missing in the superposition. Now, let the angle between $\ket{s}$ and $\ket{\tilde{s}}$ be $\theta/2$. This implies
+$$
+\begin{equation}
+\braket{s\vert \tilde{s}}=\cos\left(\theta/2\right) = \frac{1}{\sqrt{N(N-1)}}\sum_{x\neq \tilde{x}} \braket{x\vert x}=\sqrt{\frac{N-1}{N}} = \sqrt{1-\frac{1}{N}}
+\end{equation}
+$$
+Pythagoras'' theorem ($\cos(x)=\sqrt{1-\sin^2(x)}$) then implies
+$$
+\begin{equation}
+\sin(\theta/2)=\frac{1}{\sqrt{N}}~.
+\end{equation}
+$$
+By assuming $N\gg 1$ the small-angle approximation can be used and gives 
+$$
+\begin{equation}
+\theta = \frac{2}{\sqrt{N}}~.
+\end{equation}
+$$
+From the (not true to scale) figure above it can seen that one Grover iteration rotates the initial state by $\theta$ towards the goal state. Thus, in order to maximize the probability the Grover iteration should be repeated as many times as it takes to close the angle (namely $\pi/2-\theta/2$). This implies for the number of repetitions
+$$
+\begin{equation}
+r\theta=\frac{\pi}{2}-\frac{\theta}{2} \qquad \Rightarrow\qquad r=\frac{\pi\sqrt{N}}{4}-\frac{1}{2}
+\end{equation}
+$$
+So, in order to maximize the probability for the sought state, the oracle must be queued $r=\mathcal{O}(\sqrt{N})$ times which implies a quadratic speed up.
+
+# References
+[1] Grover, L. K. (1996). A fast quantum mechanical algorithm for database search. In Proceedings of the Annual ACM Symposium on Theory of Computing: Vol. Part F129452 (pp. 212–219). Association for Computing Machinery. https://doi.org/10.1145/237814.237866');
+INSERT INTO public.algorithm_revisions (id, rev, acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 25, 'Grover Algorithm', NULL, NULL, 1, 'The oracle must be provided, which identifies the sought state $\ket{\tilde{x}}$.', 'Grover''s algorithm [[1]](https://arxiv.org/abs/quant-ph/9605043) provides one of the first useful quantum algorithms with a speedup to any known classical algorithm. It is used for an unstructured database search, where a "correct" bit string of length $N$ is sought among the set of all possible bit strings of the same length. The assumption is, that if provided to some "identifier" the correct bit string can be detected. Classically, there is no better option than handing over every bit string to the identifier and stop as soon as the correct bit string is provided. This procedure may only need one check of the identifier but in the worst case it takes $N$ checks. On average, $N/2$ checks are necessary, which implies a runtime of $\mathcal{O}(N)$.
+
+The Grover algorithm exploits quantum effects in such a way, that the runtime gets reduced to $\mathcal{O}(\sqrt{N})$, thus providing a polynomial (i.e., quadratic) speedup over the best classical method.', 'Grover-SAT', NULL, 'The goal is to find the correct bit string $\tilde{x}\in\lbrace 0,1\rbrace^N$ for which the function
+$$\begin{gather}f: \lbrace 0,1\rbrace^N\rightarrow \lbrace 0,1\rbrace\\[.2cm]f(x)=\begin{cases} 0\quad ,\quad x\neq \tilde{x} \\ 1\quad , \quad x=\tilde{x}\end{cases}\end{gather}$$
+becomes $1$ (indicator function). The assumption is, that the function itself is provided in the form of an oracle and any bit string with length $N$ can be evaluated using it.', 'Grover''s algorithm solves the problem by introducing clever rotations acting on state vectors in order to maximize the probability for measuring the correct state $\ket{\tilde{x}}$. The following describes the general procedure, as well as certain aspects of the algorithm a bit more in depth.
+
+As is often the case for a quantum algorithm, the initial state of the data register is a uniform superposition of all basis states, which can be generated by using the standard Hadamard gate on all $n$ data qubits:
+$$
+\begin{equation}
+\ket{s} = H^{\otimes n}\ket{0}^{\otimes n} = \frac{1}{\sqrt{N}}\sum_{x=0}^{N-1}\ket{x}~,
+\end{equation}
+$$
+where $N=2^n$ is the number of all possible binary states. For simplicity, here and in the following explanations the states will be referred to in their decimal representation for $n$ qubits, e.g. for $n=5$ the state $\ket{7}$ corresponds to the binary basis state $\ket{00111}$.  
+
+The algorithm is based on the repetition of a *Grover iteration* depicted in the graphic below. In a first step, the amplitude (prefactor of basis states) of the state $\ket{\tilde{x}}$ is inverted by the oracle $U_1$ encoding the indicator function and in a second step all amplitudes are reflected on the mean amplitude, thus increasing the probability of measuring $\ket{\tilde{x}}$.
+
+::: hljs-center
+
+![](3b9fc525-59c6-41ec-96ea-f208ba936e4e)
+
+:::
+
+In the following, the transformation will be discussed in detail.
+
+## Structure of the Oracle $\left(U_1\right)$
+The so-called oracle appears in a variety of quantum algorithms and is a unitary transformation used to influence one part of the register based on the state of another part of the register it is acting on. In the case of Grover''s algorithm it encodes the indicator function and acts on the register as follows:
+$$
+\begin{equation}
+U_1: \ket{x,y}\mapsto \ket{x,y\oplus f(x)}
+\end{equation}
+$$
+Similar to the Deutsch-Josza algorithm, Grover''s algorithm requires an additional auxiliary qubit which stores the information after the oracle acted on the register (thus, Grover''s algorithm requires ${n+1}$ qubits in total).  
+The goal of the oracle is to flip the sign of the amplitude belonging to the sought state $\ket{\tilde{x}}$ which can be written in terms of the indicator function as
+$$
+\begin{equation}
+U_1\ket{x,y}=(-1)^{f(x)}\ket{x,y}~.
+\end{equation}
+$$
+This can be achieved by initializing the auxiliary qubit similar to the Deutsch-Josza algorithm in the eigenstate of the Pauli-X operator with negative eigenvalue according to (also displaying the data register)
+$$
+\begin{equation}
+\vert x,y\rangle=\big(H\ket{0}\big)^{\otimes n}\otimes \big(HX\ket{0}\big)= \frac{1}{\sqrt{N}}\sum_x \ket{x}\otimes\frac{1}{\sqrt{2}}\big(\ket{0} -\ket{1}\big)~.
+\end{equation}
+$$
+Acting with the oracle, the desired transformation is obtained:
+$$
+\begin{equation}
+U_1\ket{x,y} =  \frac{1}{\sqrt{N}}\sum_x \ket{x}\otimes\frac{1}{\sqrt{2}}\big(\ket{f(x)}-\ket{1\oplus f(x)}\big) = \frac{1}{\sqrt{N}}\sum_x (-1)^{f(x)}\ket{x}\otimes\frac{1}{\sqrt{2}}\big(\ket{0}-\ket{1}\big)~,
+\end{equation}
+$$
+where for the second equality the identity $\ket{f(x)} - \ket{1\oplus f(x)}=(-1)^{f(x)}(\ket{0} - \ket{1})$ was used.
+
+## Amplitude Transformation $\left(U_2\right)$
+After the action of the oracle, the next step of a Grover iteration is to reflect all amplitudes on the mean amplitude (action of $U_2$ depicted in the figure above). A concise derivation is given by means of the following example: Consider the following general state
+$$
+\begin{equation}
+\ket{v}=\sum_{k=0}^{N-1}\alpha_k\ket{k}=\begin{pmatrix}\alpha_0\\ \alpha_1\\ \vdots\\ \alpha_{N-1}\end{pmatrix}~,
+\end{equation}
+$$
+where $\lbrace\ket{k}\rbrace$ is an orthonormal basis set. Now, $U_2$ is supposed to transform every amplitude according to $\alpha_k\mapsto 2\bar{\alpha} - \alpha_k$ (which mathematically corresponds to the reflection of every amplitude on the mean amplitude $\bar{\alpha}=\sum\nolimits_k \alpha_k/N$). The matrix representation of this transformation can be written as
+$$
+\begin{equation}
+U_2\ket{v} = \sum_k\Big(\frac{2}{N}\sum_j\alpha_j-\alpha_k\Big)\ket{k}=\Bigg[\frac{2}{N}\begin{pmatrix}1 &\cdots & 1\\ \vdots & \ddots & \vdots\\1 & \cdots & 1\end{pmatrix}- I\Bigg]\ket{v}~.
+\end{equation}
+$$
+Now, the first matrix of eq. (9) can be rewritten as the projection operator onto the uniform probability state $\ket{s}$ from eq. (3) since
+$$
+\begin{equation}
+\ket{s}\bra{s}=\frac{1}{\sqrt{N}}\begin{pmatrix} 1\\ 1\\ \vdots \\1\end{pmatrix} \cdot \frac{1}{\sqrt{N}}\left(1,~1,\ldots 1\right)=\frac{1}{N}\begin{pmatrix}1 &\cdots & 1\\ \vdots & \ddots & \vdots\\1 & \cdots & 1\end{pmatrix}~.
+\end{equation}
+$$
+Thus, $U_2$ can be written as
+$$
+\begin{equation}
+U_2 = 2\ket{s}\bra{s}-I
+\end{equation}
+$$
+
+## Side Note: Householder Transformation
+In linear algebra, transformations as the one in eq. (11) are known as Householder transformations. They are a generalization of reflections about (hyper-)planes in a vector space. Given two elements $\ket{v},\ket{w}$ of a vector space, the transformed vector $\ket{v^\prime}$ that is the reflection $\ket{v}$ on the plane *perpendicular* to $\ket{w}$ is given by
+$$
+\begin{equation}
+\ket{v^\prime}=\left(I-2\frac{\ket{w}\bra{w}}{\vert w\vert^2}\right)\ket{v}
+\end{equation}
+$$
+For quantum states, the normalization can be omitted since they are already normalized.  
+Now, the transformation of the oracle $U_1$ can also be formulated as a Householder-matrix similar to $U_2$: Since it only negates the amplitude of the component along the solution $\ket{\tilde{x}}$ it can be viewed as a reflection of the state vector perpendicular to the solution state. Thus, the oracle can be written as
+$$
+\begin{equation}
+U_1 = I - 2\ket{\tilde{x}}\bra{\tilde{x}}
+\end{equation}
+$$
+
+## Geometric Interpretation
+As discussed earlier, the consecutive action of $U_1$ and $U_2$ increases the probability for measuring the sought state. Repeating one such Grover iteration multiple times, increases the probability further, up to a maximum number of repetitions $r$ after which the probability decreases. This can be better understood by considering the following figure which gives an geometric interpretation of the procedure.
+
+
+::: hljs-center
+
+![Grover iteration](b2b6d309-01b8-4dc9-88c9-5da8d325e4ba)
+
+:::
+
+In the figure the state $\ket{\tilde{s}}$ contains all components of the uniform superposition $\ket{s}$ except the solution, namely
+$$
+\begin{equation}
+\ket{\tilde{s}}=\frac{1}{\sqrt{N-1}}\sum_{x\neq\tilde{x}}\ket{x}~, 
+\end{equation}
+$$
+where a net normalization is necessary because one state is missing in the superposition. Now, let the angle between $\ket{s}$ and $\ket{\tilde{s}}$ be $\theta/2$. This implies
+$$
+\begin{equation}
+\braket{s\vert \tilde{s}}=\cos\left(\theta/2\right) = \frac{1}{\sqrt{N(N-1)}}\sum_{x\neq \tilde{x}} \braket{x\vert x}=\sqrt{\frac{N-1}{N}} = \sqrt{1-\frac{1}{N}}
+\end{equation}
+$$
+Pythagoras'' theorem ($\cos(x)=\sqrt{1-\sin^2(x)}$) then implies
+$$
+\begin{equation}
+\sin(\theta/2)=\frac{1}{\sqrt{N}}~.
+\end{equation}
+$$
+By assuming $N\gg 1$ the small-angle approximation can be used and gives 
+$$
+\begin{equation}
+\theta = \frac{2}{\sqrt{N}}~.
+\end{equation}
+$$
+From the (not true to scale) figure above it can seen that one Grover iteration rotates the initial state by $\theta$ towards the goal state. Thus, in order to maximize the probability the Grover iteration should be repeated as many times as it takes to close the angle (namely $\pi/2-\theta/2$). This implies for the number of repetitions
+$$
+\begin{equation}
+r\theta=\frac{\pi}{2}-\frac{\theta}{2} \qquad \Rightarrow\qquad r=\frac{\pi\sqrt{N}}{4}-\frac{1}{2}
+\end{equation}
+$$
+So, in order to maximize the probability for the sought state, the oracle must be queued $r=\mathcal{O}(\sqrt{N})$ times which implies a quadratic speed up.
+
+# References
+[1] Grover, L. K. (1996). A fast quantum mechanical algorithm for database search. In Proceedings of the Annual ACM Symposium on Theory of Computing: Vol. Part F129452 (pp. 212–219). Association for Computing Machinery. https://doi.org/10.1145/237814.237866');
+INSERT INTO public.algorithm_revisions (id, rev, acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 26, 'Grover Algorithm', 'No additional arguments necessary.', NULL, 1, 'The oracle must be provided, which identifies the sought state $\ket{\tilde{x}}$.', 'Grover''s algorithm [[1]](https://arxiv.org/abs/quant-ph/9605043) provides one of the first useful quantum algorithms with a speedup to any known classical algorithm. It is used for an unstructured database search, where a "correct" bit string of length $N$ is sought among the set of all possible bit strings of the same length. The assumption is, that if provided to some "identifier" the correct bit string can be detected. Classically, there is no better option than handing over every bit string to the identifier and stop as soon as the correct bit string is provided. This procedure may only need one check of the identifier but in the worst case it takes $N$ checks. On average, $N/2$ checks are necessary, which implies a runtime of $\mathcal{O}(N)$.
+
+The Grover algorithm exploits quantum effects in such a way, that the runtime gets reduced to $\mathcal{O}(\sqrt{N})$, thus providing a polynomial (i.e., quadratic) speedup over the best classical method.', 'Grover-SAT', NULL, 'The goal is to find the correct bit string $\tilde{x}\in\lbrace 0,1\rbrace^N$ for which the function
+$$\begin{gather}f: \lbrace 0,1\rbrace^N\rightarrow \lbrace 0,1\rbrace\\[.2cm]f(x)=\begin{cases} 0\quad ,\quad x\neq \tilde{x} \\ 1\quad , \quad x=\tilde{x}\end{cases}\end{gather}$$
+becomes $1$ (indicator function). The assumption is, that the function itself is provided in the form of an oracle and any bit string with length $N$ can be evaluated using it.', 'Grover''s algorithm solves the problem by introducing clever rotations acting on state vectors in order to maximize the probability for measuring the correct state $\ket{\tilde{x}}$. The following describes the general procedure, as well as certain aspects of the algorithm a bit more in depth.
+
+As is often the case for a quantum algorithm, the initial state of the data register is a uniform superposition of all basis states, which can be generated by using the standard Hadamard gate on all $n$ data qubits:
+$$
+\begin{equation}
+\ket{s} = H^{\otimes n}\ket{0}^{\otimes n} = \frac{1}{\sqrt{N}}\sum_{x=0}^{N-1}\ket{x}~,
+\end{equation}
+$$
+where $N=2^n$ is the number of all possible binary states. For simplicity, here and in the following explanations the states will be referred to in their decimal representation for $n$ qubits, e.g. for $n=5$ the state $\ket{7}$ corresponds to the binary basis state $\ket{00111}$.  
+
+The algorithm is based on the repetition of a *Grover iteration* depicted in the graphic below. In a first step, the amplitude (prefactor of basis states) of the state $\ket{\tilde{x}}$ is inverted by the oracle $U_1$ encoding the indicator function and in a second step all amplitudes are reflected on the mean amplitude, thus increasing the probability of measuring $\ket{\tilde{x}}$.
+
+::: hljs-center
+
+![](3b9fc525-59c6-41ec-96ea-f208ba936e4e)
+
+:::
+
+In the following, the transformation will be discussed in detail.
+
+## Structure of the Oracle $\left(U_1\right)$
+The so-called oracle appears in a variety of quantum algorithms and is a unitary transformation used to influence one part of the register based on the state of another part of the register it is acting on. In the case of Grover''s algorithm it encodes the indicator function and acts on the register as follows:
+$$
+\begin{equation}
+U_1: \ket{x,y}\mapsto \ket{x,y\oplus f(x)}
+\end{equation}
+$$
+Similar to the Deutsch-Josza algorithm, Grover''s algorithm requires an additional auxiliary qubit which stores the information after the oracle acted on the register (thus, Grover''s algorithm requires ${n+1}$ qubits in total).  
+The goal of the oracle is to flip the sign of the amplitude belonging to the sought state $\ket{\tilde{x}}$ which can be written in terms of the indicator function as
+$$
+\begin{equation}
+U_1\ket{x,y}=(-1)^{f(x)}\ket{x,y}~.
+\end{equation}
+$$
+This can be achieved by initializing the auxiliary qubit similar to the Deutsch-Josza algorithm in the eigenstate of the Pauli-X operator with negative eigenvalue according to (also displaying the data register)
+$$
+\begin{equation}
+\vert x,y\rangle=\big(H\ket{0}\big)^{\otimes n}\otimes \big(HX\ket{0}\big)= \frac{1}{\sqrt{N}}\sum_x \ket{x}\otimes\frac{1}{\sqrt{2}}\big(\ket{0} -\ket{1}\big)~.
+\end{equation}
+$$
+Acting with the oracle, the desired transformation is obtained:
+$$
+\begin{equation}
+U_1\ket{x,y} =  \frac{1}{\sqrt{N}}\sum_x \ket{x}\otimes\frac{1}{\sqrt{2}}\big(\ket{f(x)}-\ket{1\oplus f(x)}\big) = \frac{1}{\sqrt{N}}\sum_x (-1)^{f(x)}\ket{x}\otimes\frac{1}{\sqrt{2}}\big(\ket{0}-\ket{1}\big)~,
+\end{equation}
+$$
+where for the second equality the identity $\ket{f(x)} - \ket{1\oplus f(x)}=(-1)^{f(x)}(\ket{0} - \ket{1})$ was used.
+
+## Amplitude Transformation $\left(U_2\right)$
+After the action of the oracle, the next step of a Grover iteration is to reflect all amplitudes on the mean amplitude (action of $U_2$ depicted in the figure above). A concise derivation is given by means of the following example: Consider the following general state
+$$
+\begin{equation}
+\ket{v}=\sum_{k=0}^{N-1}\alpha_k\ket{k}=\begin{pmatrix}\alpha_0\\ \alpha_1\\ \vdots\\ \alpha_{N-1}\end{pmatrix}~,
+\end{equation}
+$$
+where $\lbrace\ket{k}\rbrace$ is an orthonormal basis set. Now, $U_2$ is supposed to transform every amplitude according to $\alpha_k\mapsto 2\bar{\alpha} - \alpha_k$ (which mathematically corresponds to the reflection of every amplitude on the mean amplitude $\bar{\alpha}=\sum\nolimits_k \alpha_k/N$). The matrix representation of this transformation can be written as
+$$
+\begin{equation}
+U_2\ket{v} = \sum_k\Big(\frac{2}{N}\sum_j\alpha_j-\alpha_k\Big)\ket{k}=\Bigg[\frac{2}{N}\begin{pmatrix}1 &\cdots & 1\\ \vdots & \ddots & \vdots\\1 & \cdots & 1\end{pmatrix}- I\Bigg]\ket{v}~.
+\end{equation}
+$$
+Now, the first matrix of eq. (9) can be rewritten as the projection operator onto the uniform probability state $\ket{s}$ from eq. (3) since
+$$
+\begin{equation}
+\ket{s}\bra{s}=\frac{1}{\sqrt{N}}\begin{pmatrix} 1\\ 1\\ \vdots \\1\end{pmatrix} \cdot \frac{1}{\sqrt{N}}\left(1,~1,\ldots 1\right)=\frac{1}{N}\begin{pmatrix}1 &\cdots & 1\\ \vdots & \ddots & \vdots\\1 & \cdots & 1\end{pmatrix}~.
+\end{equation}
+$$
+Thus, $U_2$ can be written as
+$$
+\begin{equation}
+U_2 = 2\ket{s}\bra{s}-I
+\end{equation}
+$$
+
+## Side Note: Householder Transformation
+In linear algebra, transformations as the one in eq. (11) are known as Householder transformations. They are a generalization of reflections about (hyper-)planes in a vector space. Given two elements $\ket{v},\ket{w}$ of a vector space, the transformed vector $\ket{v^\prime}$ that is the reflection $\ket{v}$ on the plane *perpendicular* to $\ket{w}$ is given by
+$$
+\begin{equation}
+\ket{v^\prime}=\left(I-2\frac{\ket{w}\bra{w}}{\vert w\vert^2}\right)\ket{v}
+\end{equation}
+$$
+For quantum states, the normalization can be omitted since they are already normalized.  
+Now, the transformation of the oracle $U_1$ can also be formulated as a Householder-matrix similar to $U_2$: Since it only negates the amplitude of the component along the solution $\ket{\tilde{x}}$ it can be viewed as a reflection of the state vector perpendicular to the solution state. Thus, the oracle can be written as
+$$
+\begin{equation}
+U_1 = I - 2\ket{\tilde{x}}\bra{\tilde{x}}
+\end{equation}
+$$
+
+## Geometric Interpretation
+As discussed earlier, the consecutive action of $U_1$ and $U_2$ increases the probability for measuring the sought state. Repeating one such Grover iteration multiple times, increases the probability further, up to a maximum number of repetitions $r$ after which the probability decreases. This can be better understood by considering the following figure which gives an geometric interpretation of the procedure.
+
+
+::: hljs-center
+
+![Grover iteration](b2b6d309-01b8-4dc9-88c9-5da8d325e4ba)
+
+:::
+
+In the figure the state $\ket{\tilde{s}}$ contains all components of the uniform superposition $\ket{s}$ except the solution, namely
+$$
+\begin{equation}
+\ket{\tilde{s}}=\frac{1}{\sqrt{N-1}}\sum_{x\neq\tilde{x}}\ket{x}~, 
+\end{equation}
+$$
+where a net normalization is necessary because one state is missing in the superposition. Now, let the angle between $\ket{s}$ and $\ket{\tilde{s}}$ be $\theta/2$. This implies
+$$
+\begin{equation}
+\braket{s\vert \tilde{s}}=\cos\left(\theta/2\right) = \frac{1}{\sqrt{N(N-1)}}\sum_{x\neq \tilde{x}} \braket{x\vert x}=\sqrt{\frac{N-1}{N}} = \sqrt{1-\frac{1}{N}}
+\end{equation}
+$$
+Pythagoras'' theorem ($\cos(x)=\sqrt{1-\sin^2(x)}$) then implies
+$$
+\begin{equation}
+\sin(\theta/2)=\frac{1}{\sqrt{N}}~.
+\end{equation}
+$$
+By assuming $N\gg 1$ the small-angle approximation can be used and gives 
+$$
+\begin{equation}
+\theta = \frac{2}{\sqrt{N}}~.
+\end{equation}
+$$
+From the (not true to scale) figure above it can seen that one Grover iteration rotates the initial state by $\theta$ towards the goal state. Thus, in order to maximize the probability the Grover iteration should be repeated as many times as it takes to close the angle (namely $\pi/2-\theta/2$). This implies for the number of repetitions
+$$
+\begin{equation}
+r\theta=\frac{\pi}{2}-\frac{\theta}{2} \qquad \Rightarrow\qquad r=\frac{\pi\sqrt{N}}{4}-\frac{1}{2}
+\end{equation}
+$$
+So, in order to maximize the probability for the sought state, the oracle must be queued $r=\mathcal{O}(\sqrt{N})$ times which implies a quadratic speed up.
+
+# References
+[1] Grover, L. K. (1996). A fast quantum mechanical algorithm for database search. In Proceedings of the Annual ACM Symposium on Theory of Computing: Vol. Part F129452 (pp. 212–219). Association for Computing Machinery. https://doi.org/10.1145/237814.237866');
+INSERT INTO public.algorithm_revisions (id, rev, acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 27, 'Grover Algorithm', 'No additional arguments necessary.', NULL, 1, 'The oracle must be provided, which identifies the sought state $\ket{\tilde{x}}$.', 'Grover''s algorithm [[1]](https://arxiv.org/abs/quant-ph/9605043) provides one of the first useful quantum algorithms with a speedup to any known classical algorithm. It is used for an unstructured database search, where a "correct" bit string of length $N$ is sought among the set of all possible bit strings of the same length. The assumption is, that if provided to some "identifier" the correct bit string can be detected. Classically, there is no better option than handing over every bit string to the identifier and stop as soon as the correct bit string is provided. This procedure may only need one check of the identifier but in the worst case it takes $N$ checks. On average, $N/2$ checks are necessary, which implies a runtime of $\mathcal{O}(N)$.
+
+The Grover algorithm exploits quantum effects in such a way, that the runtime gets reduced to $\mathcal{O}(\sqrt{N})$, thus providing a polynomial (i.e., quadratic) speedup over the best classical method.', 'Grover-SAT', 'Before measurement: State $\ket{\psi}$ encoded on the quantum register with the largest amplitude for the $\ket{\tilde{x}}$-state.', 'The goal is to find the correct bit string $\tilde{x}\in\lbrace 0,1\rbrace^N$ for which the function
+$$\begin{gather}f: \lbrace 0,1\rbrace^N\rightarrow \lbrace 0,1\rbrace\\[.2cm]f(x)=\begin{cases} 0\quad ,\quad x\neq \tilde{x} \\ 1\quad , \quad x=\tilde{x}\end{cases}\end{gather}$$
+becomes $1$ (indicator function). The assumption is, that the function itself is provided in the form of an oracle and any bit string with length $N$ can be evaluated using it.', 'Grover''s algorithm solves the problem by introducing clever rotations acting on state vectors in order to maximize the probability for measuring the correct state $\ket{\tilde{x}}$. The following describes the general procedure, as well as certain aspects of the algorithm a bit more in depth.
+
+As is often the case for a quantum algorithm, the initial state of the data register is a uniform superposition of all basis states, which can be generated by using the standard Hadamard gate on all $n$ data qubits:
+$$
+\begin{equation}
+\ket{s} = H^{\otimes n}\ket{0}^{\otimes n} = \frac{1}{\sqrt{N}}\sum_{x=0}^{N-1}\ket{x}~,
+\end{equation}
+$$
+where $N=2^n$ is the number of all possible binary states. For simplicity, here and in the following explanations the states will be referred to in their decimal representation for $n$ qubits, e.g. for $n=5$ the state $\ket{7}$ corresponds to the binary basis state $\ket{00111}$.  
+
+The algorithm is based on the repetition of a *Grover iteration* depicted in the graphic below. In a first step, the amplitude (prefactor of basis states) of the state $\ket{\tilde{x}}$ is inverted by the oracle $U_1$ encoding the indicator function and in a second step all amplitudes are reflected on the mean amplitude, thus increasing the probability of measuring $\ket{\tilde{x}}$.
+
+::: hljs-center
+
+![](3b9fc525-59c6-41ec-96ea-f208ba936e4e)
+
+:::
+
+In the following, the transformation will be discussed in detail.
+
+## Structure of the Oracle $\left(U_1\right)$
+The so-called oracle appears in a variety of quantum algorithms and is a unitary transformation used to influence one part of the register based on the state of another part of the register it is acting on. In the case of Grover''s algorithm it encodes the indicator function and acts on the register as follows:
+$$
+\begin{equation}
+U_1: \ket{x,y}\mapsto \ket{x,y\oplus f(x)}
+\end{equation}
+$$
+Similar to the Deutsch-Josza algorithm, Grover''s algorithm requires an additional auxiliary qubit which stores the information after the oracle acted on the register (thus, Grover''s algorithm requires ${n+1}$ qubits in total).  
+The goal of the oracle is to flip the sign of the amplitude belonging to the sought state $\ket{\tilde{x}}$ which can be written in terms of the indicator function as
+$$
+\begin{equation}
+U_1\ket{x,y}=(-1)^{f(x)}\ket{x,y}~.
+\end{equation}
+$$
+This can be achieved by initializing the auxiliary qubit similar to the Deutsch-Josza algorithm in the eigenstate of the Pauli-X operator with negative eigenvalue according to (also displaying the data register)
+$$
+\begin{equation}
+\vert x,y\rangle=\big(H\ket{0}\big)^{\otimes n}\otimes \big(HX\ket{0}\big)= \frac{1}{\sqrt{N}}\sum_x \ket{x}\otimes\frac{1}{\sqrt{2}}\big(\ket{0} -\ket{1}\big)~.
+\end{equation}
+$$
+Acting with the oracle, the desired transformation is obtained:
+$$
+\begin{equation}
+U_1\ket{x,y} =  \frac{1}{\sqrt{N}}\sum_x \ket{x}\otimes\frac{1}{\sqrt{2}}\big(\ket{f(x)}-\ket{1\oplus f(x)}\big) = \frac{1}{\sqrt{N}}\sum_x (-1)^{f(x)}\ket{x}\otimes\frac{1}{\sqrt{2}}\big(\ket{0}-\ket{1}\big)~,
+\end{equation}
+$$
+where for the second equality the identity $\ket{f(x)} - \ket{1\oplus f(x)}=(-1)^{f(x)}(\ket{0} - \ket{1})$ was used.
+
+## Amplitude Transformation $\left(U_2\right)$
+After the action of the oracle, the next step of a Grover iteration is to reflect all amplitudes on the mean amplitude (action of $U_2$ depicted in the figure above). A concise derivation is given by means of the following example: Consider the following general state
+$$
+\begin{equation}
+\ket{v}=\sum_{k=0}^{N-1}\alpha_k\ket{k}=\begin{pmatrix}\alpha_0\\ \alpha_1\\ \vdots\\ \alpha_{N-1}\end{pmatrix}~,
+\end{equation}
+$$
+where $\lbrace\ket{k}\rbrace$ is an orthonormal basis set. Now, $U_2$ is supposed to transform every amplitude according to $\alpha_k\mapsto 2\bar{\alpha} - \alpha_k$ (which mathematically corresponds to the reflection of every amplitude on the mean amplitude $\bar{\alpha}=\sum\nolimits_k \alpha_k/N$). The matrix representation of this transformation can be written as
+$$
+\begin{equation}
+U_2\ket{v} = \sum_k\Big(\frac{2}{N}\sum_j\alpha_j-\alpha_k\Big)\ket{k}=\Bigg[\frac{2}{N}\begin{pmatrix}1 &\cdots & 1\\ \vdots & \ddots & \vdots\\1 & \cdots & 1\end{pmatrix}- I\Bigg]\ket{v}~.
+\end{equation}
+$$
+Now, the first matrix of eq. (9) can be rewritten as the projection operator onto the uniform probability state $\ket{s}$ from eq. (3) since
+$$
+\begin{equation}
+\ket{s}\bra{s}=\frac{1}{\sqrt{N}}\begin{pmatrix} 1\\ 1\\ \vdots \\1\end{pmatrix} \cdot \frac{1}{\sqrt{N}}\left(1,~1,\ldots 1\right)=\frac{1}{N}\begin{pmatrix}1 &\cdots & 1\\ \vdots & \ddots & \vdots\\1 & \cdots & 1\end{pmatrix}~.
+\end{equation}
+$$
+Thus, $U_2$ can be written as
+$$
+\begin{equation}
+U_2 = 2\ket{s}\bra{s}-I
+\end{equation}
+$$
+
+## Side Note: Householder Transformation
+In linear algebra, transformations as the one in eq. (11) are known as Householder transformations. They are a generalization of reflections about (hyper-)planes in a vector space. Given two elements $\ket{v},\ket{w}$ of a vector space, the transformed vector $\ket{v^\prime}$ that is the reflection $\ket{v}$ on the plane *perpendicular* to $\ket{w}$ is given by
+$$
+\begin{equation}
+\ket{v^\prime}=\left(I-2\frac{\ket{w}\bra{w}}{\vert w\vert^2}\right)\ket{v}
+\end{equation}
+$$
+For quantum states, the normalization can be omitted since they are already normalized.  
+Now, the transformation of the oracle $U_1$ can also be formulated as a Householder-matrix similar to $U_2$: Since it only negates the amplitude of the component along the solution $\ket{\tilde{x}}$ it can be viewed as a reflection of the state vector perpendicular to the solution state. Thus, the oracle can be written as
+$$
+\begin{equation}
+U_1 = I - 2\ket{\tilde{x}}\bra{\tilde{x}}
+\end{equation}
+$$
+
+## Geometric Interpretation
+As discussed earlier, the consecutive action of $U_1$ and $U_2$ increases the probability for measuring the sought state. Repeating one such Grover iteration multiple times, increases the probability further, up to a maximum number of repetitions $r$ after which the probability decreases. This can be better understood by considering the following figure which gives an geometric interpretation of the procedure.
+
+
+::: hljs-center
+
+![Grover iteration](b2b6d309-01b8-4dc9-88c9-5da8d325e4ba)
+
+:::
+
+In the figure the state $\ket{\tilde{s}}$ contains all components of the uniform superposition $\ket{s}$ except the solution, namely
+$$
+\begin{equation}
+\ket{\tilde{s}}=\frac{1}{\sqrt{N-1}}\sum_{x\neq\tilde{x}}\ket{x}~, 
+\end{equation}
+$$
+where a net normalization is necessary because one state is missing in the superposition. Now, let the angle between $\ket{s}$ and $\ket{\tilde{s}}$ be $\theta/2$. This implies
+$$
+\begin{equation}
+\braket{s\vert \tilde{s}}=\cos\left(\theta/2\right) = \frac{1}{\sqrt{N(N-1)}}\sum_{x\neq \tilde{x}} \braket{x\vert x}=\sqrt{\frac{N-1}{N}} = \sqrt{1-\frac{1}{N}}
+\end{equation}
+$$
+Pythagoras'' theorem ($\cos(x)=\sqrt{1-\sin^2(x)}$) then implies
+$$
+\begin{equation}
+\sin(\theta/2)=\frac{1}{\sqrt{N}}~.
+\end{equation}
+$$
+By assuming $N\gg 1$ the small-angle approximation can be used and gives 
+$$
+\begin{equation}
+\theta = \frac{2}{\sqrt{N}}~.
+\end{equation}
+$$
+From the (not true to scale) figure above it can seen that one Grover iteration rotates the initial state by $\theta$ towards the goal state. Thus, in order to maximize the probability the Grover iteration should be repeated as many times as it takes to close the angle (namely $\pi/2-\theta/2$). This implies for the number of repetitions
+$$
+\begin{equation}
+r\theta=\frac{\pi}{2}-\frac{\theta}{2} \qquad \Rightarrow\qquad r=\frac{\pi\sqrt{N}}{4}-\frac{1}{2}
+\end{equation}
+$$
+So, in order to maximize the probability for the sought state, the oracle must be queued $r=\mathcal{O}(\sqrt{N})$ times which implies a quadratic speed up.
+
+# References
+[1] Grover, L. K. (1996). A fast quantum mechanical algorithm for database search. In Proceedings of the Annual ACM Symposium on Theory of Computing: Vol. Part F129452 (pp. 212–219). Association for Computing Machinery. https://doi.org/10.1145/237814.237866');
+INSERT INTO public.algorithm_revisions (id, rev, acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', 28, 'QAOA', NULL, NULL, 2, NULL, NULL, 'Quantum Approximate Optimization Algorithm', NULL, NULL, NULL);
+INSERT INTO public.algorithm_revisions (id, rev, acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', 29, 'QAOA', '* Number of hidden units to use (given as an integer), as well as the desired connectivity of the QBM''s units.
+* Learning rate: A floating point number indicating how much the calculated error, that being the difference between the clamped and unclamped averages of a neuron''s or a pair of neurons'' value(s), should affect the resulting bias or weight in a bias or weight update (the higher, the more effect).
+* Number of epochs: Integer indicating how often to process the training data set during training.
+* Mini-batch size (optional): Number of processed input data points after which to perform an upadate of the model parameters.
+* Number of samples: Integer indicatiting how many samples from the quantum anneal (or respectively simulator) are to be taken per sampling phase to average over later (see explanation above).
+* Effective inverse temperature $\beta_{\text{eff}}$: A parameter of the Boltzmann distribution formula used in QBMs to scale the QUBO''s values and account for physical influences on the annealing process such as hardware temperature, noise and the influence of the transverse field, among others. It can be used as a hyperparameter, be absorbed into the learning rate or be calculated dynamically. Usually represented by a floating point number when specified explicitly. See section "QUBO-Formula and Pseudocode" for a more detailed description. (Benedetti 2016, Adachi 2015, Korenkevych 2016, Benedetti 2017)
+* Chain strengths: Kurowski et al. (Kurowski 2021) mention that if one whishes to increase the generalization performance of a Quantum Boltzmann Machine (i.e. its accuracy on previously unseen data points), it is beneficial to set quite large chain strenghts (passed to the D-Wave API as a floating point number) compared to the order of magnitude of the QUBO''s values have, as this makes it more likely to sample configurations other than the one with the lowest energy due to the QUBO''s values having a comparatively low impact on the systems physical energy in this case. 
+* Number of physical qubits for embedding (for very small problem sizes only): Another parameter which can be used to steer the trade off between not wanting to sample only the lowest energy configuration on the one hand and still wanting to sample from a "classical" Boltzmann distribution with little to no transverse field influence on the other hand, which occurs in problems with a very small number of qubits, is the number of physical qubits deliberately used to embed one logical qubit. Henderson et al. (Henderson 2018) recommend 3 or 2 physical qubits for one logical qubit of QBMs of size 5 respectively 9. In larger models, keeping this number as small as possible might presumably be beneficial to lower the chances of the network freezing too early (D-Wave Docs). Compare section "Limitations and necessary resources" for a more information on the topic.
+* Annealing schedule: List of lists of length two, containing the points in anneal time in $\mu s$ and the desired anneal fraction $s$ as floating point numbers, which can be passed to the D-Wave API to steer the occurence of the freeze-out point in the annealing process through quenching. Compare the [D-Wave Documentation on this topic] (https://docs.dwavesys.com/docs/latest/c_qpu_annealing.html) as well as the section "Limitations and necessary resources" for a more information. (Alternatively, use a floating number as a hyperparameter for the transverse field when using a mathematical simualtion of a bound-based QBM following Amion et al. (Amin 2018)).', NULL, 2, 'Dataset consisting of binary vectors of length $n$. In case of unsupervised learning, these $n$-dimensional vectors simply are the feature vectors of the input data. In case of supervised learning, they are a concatenation of the $k$-dimensional feature vectors of the input data points and their corresponding labels. The latter are to be represented in a $l$-bit binary fashion, e.g. as one-hot-encoding or binary number. In this case, $n = k + l$. (Theoretically, for supervised learning, real-valued feature vectors as input data should also be usable, but in practice, this might have a negative effect on performance due to the current limited precision of quantum annealers. Labels should always be representable in a binary fashion.)', 'A Quantum Boltzmann Maschine (QBM) is a type of neural network that can learn to approximate the probability distribution of the data in an input data set, meaning it can e.g. learn to complete partial datapoints from this dataset provided to it as input. In this way, it can be used for both unsupervised or supervised learning, where in the second case the labels take the role of the parts missing from the input datapoints. Additionally, the state of a QBMs hidden neurons can be used to provide information about the data in a more compact form. Thus, QBMs are applicable to a multitude of problem types in the area of machine learning (see below). Further, QBMs can be used to learn Q-function-values in reinforcement learning (see [algorithm description on Reinforcement Learning using Quantum Boltzmann Machines](https://platform.planqk.de/algorithms/634a4a5e-b33c-4838-af28-1cf39170be29/)).', 'Quantum Approximate Optimization Algorithm', 'Learned weights and biases of the Quantum Boltzmann Machine that can reproduce the data and thus represents its probability distribution.', 'Given the input data as feature vectors, find a Boltzmann probability distribution that approximates the distribution of the data as closely as possible.', 'Quantum Boltzmann Machines (QBMs) are a hybrid quantum-classical version of the Boltzmann Machines (BMs) that were introduced by Hinton et al. in the 1980s, and have since become a popular part of deep learning architectures in a restricted form. While they can also be [realized using the quantum gate model](https://platform.planqk.de/algorithms/ae9bac80-672e-432a-983f-a3a7e1a8c92c/) (see Verdon et al. 2017), following Amin et al. 2018, this algorithm description focuses on the usage of Quantum Annealing for the QBMs’ quantum part. [Quantum Annealing](https://platform.planqk.de/algorithms/786e1ff5-991e-428d-a538-b8b99bc3d175/) is a type of Quantum Computing that uses dedicated hardware to solve optimization problems. Especially in non-convex optimization problems, it offers an advantage as it can escape local optima via quantum tunneling. However, it does not always return the optimal solution to the problem, but only returns it with the highest probability. Upon executing the annealing process several times for the same problem, its results approximately follow a Boltzmann distribution. This makes Quantum Annealing ideal for employment in Boltzmann Machines. (see Amin et al. 2018, Adachi et al. 2015, Venegas-Andraca et al. 2018, Wittek 2014)
+
+
+Boltzmann Machines (BMs) are a type of neural network that aims to learn the probability distribution of an input dataset, i.e. the likelihood of certain features to occur and correlate in the data. Subsequently, it can be used to re-create only partially available data. This way, BMs can be used for both unsupervised and supervised learning applications, where in the latter case the data’s labels are the missing part of the data that will be re-created by the BM. (see Amin et al. 2018)
+
+
+A Boltzmann Machine consists of a set of arbitrarily connected artificial neurons, which are connected in an undirected manner. Each of these neurons $i$ has a certain probability of being “on” or “off”, i.e. having a state $s_i = 1$ or $s_i = 0$, which depends on the states $s_j$ of their neighboring neurons and the weights $w_{ij}$ of their connections to these neurons, as well as their biases $b_i$. Overall, the probability of finding the entire network in a in a certain configuration of neurons being “on” and “off” follows a Boltzmann distribution, where the configuration with the maximum probability is one where the BM’s energy function $E = - \sum_i b_i \cdot s_i - \sum_{ij} w_{ij} \cdot s_i \cdot s_j$ reaches its minimum. During training, the parameters $w_{ij}$ and $b_i$ of this energy function (i.e. the weights and biases of the network) are adapted in order to make the BM''s Boltzmann distribution approximate the probability distribution of the input dataset as well as possible. To do this, the two distribution''s [Kullback-Leibler divergence](https://en.wikipedia.org/wiki/Kullback–Leibler_divergence), a measure of similarity between two probability distributions, is minimized via [stochastic gradient descent](https://en.wikipedia.org/wiki/Stochastic_gradient_descent). This is done by repeatedly calculating the gradients of the Kullback-Leibler divergence for the different weights and biases of the BM: Each gradient is calculated as the differences between the expected values of “the corresponding parameter''s” neuron(s) in the probabability distribution of the BM and in the probability distribution of the input data, respectively. To calculate the latter expected value, one clamps (i.e. fixes) a certain proportion of the BM''s neurons – the visible units – to an input datapoint and then samples the Boltzmann distributed configuration of the network several times. These samples are then averaged, to obtain the expected values of the other neurons in the BM – the hidden units – given the point from the dataset. The bits of the points itself serve as expected values for the visible units in the probability distribution of the dataset. Subsequently, one does the same thing without clamping the visible units and computes the expected values of the neurons for the BM''s current free distribution. These expected values are then subtracted from eachother, and the result is used to update the BM’s parameters. Notice that while for the biases, one can simply use the state $s_i$ of “their” neuron in the sample to perform theses calculations, the weights use a product $s_i \cdot s_j$ of the states of the neurons they connect. Furthermore, the above-mentioned steps are used for unsupervised learning, but they can easily be adapted to supervised learning as well: Here, the BM learns the conditional distribution of the labels given the input datapoints, by clamping the visible units representing the inputs for both expected values. Additionally, it uses some extra visible units for the labels, which are only clamped to obtain the expected values in the data''s distribution. The rest of the procedure is analogous. (see Ackley et al. 1985, Amin et al. 2018)
+
+Especially for densely connected BMs, sampling from both the clamped as well as the free distributions can become exceedingly time consuming using classical computing, as one needs to minimize the networks’ energy function for each sample. This is done classically by iteratively calculating each neuron’s share of the energy function value and then having it turn “on” with a Boltzman probability depending on the function value, for different configurations of adjacent neurons, until it reaches an equilibrium. By replacing this long iterative process with the execution of a minimization of the energy function on a Quantum Annealer, which returns approximately Boltzmann-distributed results, one can speed up the Boltzmann Machines’ sampling procedure. According to Amin et al., the employment of this new technology also improves the BM’s training, resulting in a model distribution that is closer to the distribution of the input data than that of a BM that has been trained classically. As mentioned above, this type of BM that uses Quantum Computing for the sampling procedure is called a Quantum Boltzmann Machine (QBM). (see Ackley et al. 1985, Amin et al. 2018)
+
+###
+### QUBO-Formula and Pseudocode
+To implement the training of a Quantum Boltzmann Machine on a Quantum Annealer, one can convert its energy function to a Quadratic Unconstrained Binary Optimization Problem (QUBO) Formulation. This QUBO is of the form:
+$\text{QUBO} = \sum_i \frac{- b_i}{\beta_{\text{eff}}} s_i + \sum_{ij} \frac{- w_{ij}}{\beta_{\text{eff}}} s_i s_j$
+where $s_i$ are the logical qubits, and $b_i$ and $w_{ij}$ are the biases and weights from the QBM''s energy function (Amin et al. 2018). 
+
+The parameter $\beta_{\text{eff}}$ is the so-called inverse effective temparture (Benedetti 2016). Classically, this parameter is usually defined as $\beta_{\text{eff}} = \frac{1}{k_B T}$, where $k_B$ is the Boltzmann constant and $T$ is a parameter of the Boltzmann distribution called temperature (Amin 2015). This would be the temperature of a physical system when using the Boltzmann distribution to model the behaviour of one, and is a parameter of the Boltzmann distribution that determines its concrete shape: A high value will result in a distribution where all configurations have relatively similar probabilities, which can be determined quickly by sampling, while a low value will result in a distribution with stark differences between the probability values of configurations with highest and lowest energies, which in turn will be harder to determine (Ackley 1985). While this enables classical BMs to use $\beta_{\text{eff}}$ as a hyperparameter to steer the speed and effectiveness of the learning process (e.g. by annealing its value) (Ackley 1985), in QBMs, this parameter needs to be employed to take into account different, partially problem-specific physical properties of the annealing process, amongst which are e.g. the hardware temperature of the annealer, the energetic noise occuring during the process and the strength of the transverse field at the freeze-out point $s*$ of the annealing process (see "Limitations and necessary resources" below for a more detailed description of the annealing process) (Benedetti 2016, Adachi 2015, Korenkevych 2016). As at least some of these physical values fluctuate during training (Vinci 2020), the question of how to determine a, or multiple different, sensible value(s) for this parameter is the topic of a currently still growing body of research: Approaches range from approximating $\beta_{\text{eff}}$ with a hyperparameter after all (Adachi 2015), via absorbing its value into a (then fluctuating) learning rate (Benedetti 2017, Vinci 2020) to different techniques for calculating its approximate values dynamically throughout the learning process (Benedetti 2016, Vinci 2020, Xu 2021). As covering all of these techiques in detail is beyond the scope of this article, we kindly refer refer the interested reader to the corresponding literature on this topic.
+
+In case of supervised learning, the visible units $s_i$ representing the input data in the energy function are always clamped. When formulating the QUBO, this can be realized by adding the weights $w_{ij}$ of their connection to another unit $s_j$ to this second unit''s bias $b_j$ if $s_i = 1$, and omitting their weights and biases otherwise. Biases of the clamped units can always be omitted, as they merely would represent a fixed constant factor added to the QUBO''s value which does not change with any other units'' values in this case. This way, the variables $s_i$ representing the clamped units in the energy function can effectively be omitted in the QUBO''s formula and so can the logical qubits corresponding to these units. Thus, the number of logical qubits needed to represent the visible units can be reduced to the number of visible units $l$ needed to represent the labels in a binary fashion.
+In the clamped phase, the clamping of all visible units can be realised in the same manner for both supervised as well as unsupervised learning, saving even more qubits. Alternatively, logical qubits can be clamped by adding a large positive respectively negative number to their $\frac{- b_i}{\beta_{\text{eff}}}$-value, in order to try to “force” the Quantum Annealer towards making their value 0 respectively 1. This method is, however, not guaranteed to work if the weights grow very large, numerically, and is less qubit-efficient.
+
+#### Pseudocode for Training a QBM:
+```
+Inputs: dataset containing d training vectors x_1, ..., x_d of length n, and possibly their corresponding labels y_1, ..., y_d of length l for supervised learning, learning_rate, effective inverse temperature beta_eff, number_of_epochs, number_of_hidden_neurons and the QBM''s connectivity, number_of_samples
+Result: Trained qbm_model with learned weights and biases 
+Begin
+    if supervised {
+        dim_input = n + l;
+        dim_input_without_labels = n;
+        labels = l;
+    } else {
+        dim_input = n;
+    }
+    
+    // create and initialize qbm_model with dim_input visible_neurons - divided into k input_neurons and l label_neurons in the supervised case - 
+    // and number_of_hidden_neurons hidden_neurons, and their corresponding connections
+    qbm_model = QBM.initialize_structure(dim_input, number_of_hidden_neurons, connectivity);
+    qbm_model.initialize_weights_and_biases_randomly();
+    
+    if supervised {
+        relevant_visible_neurons = qbm_model.label_neurons
+    } else {
+        relevant_visible_neurons = qbm_model.visible_neurons
+    }
+    
+    for number_of_epochs {
+        // For sake of simplicity, we do not use mini_batching here. However, mini_batching can be used, of course.
+        for data_point in dataset {
+        
+            // clamped phase
+            // In QUBO, use one qubit s_i per neuron, biases on the diagonal (h_i), weights as coupling strengths J_ij on the off-diagonal
+            QUBO = [- weight / beta_eff, - bias / beta_eff for weights, biases in qbm_model];  
+            
+            for visible_neuron in qbm_model.visible_neurons {  
+                // this is one possible way of clamping
+                QUBO.remove(bias of visible_neuron);
+                for connections of visible_neuron {
+                    if data_point[visible_neuron] == 1:
+                        weight = QUBO.pop(connection.weight);
+                        QUBO[other_end_of_connection] = QUBO[other_end_of_connection] + weight;
+                    } else {
+                        QUBO.remove(connection.weight);
+                    }
+                }
+            }
+            
+            samples = []
+            for number_of_samples {
+                samples.append(Quantum_Annealer.sample_qubo(QUBO));
+            }
+            
+            clamped_averages_for_biases = []
+            for hidden_neuron in qbm_model.hidden_neurons {
+                clamped_averages_for_biases.append(get_average(samples[:, hidden_neuron]));
+            }
+            for visible_neuron in relevant_visible_neurons {
+                clamped_averages_for_biases.append(data_point[visible_neuron]);
+            }
+            
+            clamped_averages_for_weights = []
+            for connection in qbm_model.connections {
+                if connection.start and connection.end in qbm_model.hidden_neurons {
+                    // for every sample, multiply the connection''s start''s and end''s values and average over the results
+                    clamped_averages_for_weights.append(get_average(samples[:, connection.start] * samples[:, connection.end]));
+                } else {
+                    // multiply the samples point-wise with the datapoint-value before averaging
+                    clamped_averages_for_weights.append(get_average(samples[:, connection.hidden_endpoint] * datapoint[connection.visible_endpoint]));
+                }
+            }
+            
+            // free phase
+            // In QUBO, use one qubit s_i per neuron, biases on the diagonal (h_i), weights as coupling strengths J_ij on the off-diagonal
+            QUBO = [- weight / beta_eff, - bias / beta_eff for weights, biases in qbm_model];
+            
+            if supervised { 
+                // only clamp training data points, not labels, this time
+                for input_neuron in qbm_model.input_neurons {  
+                    // this is one possible way of clamping
+                    QUBO.remove(bias of input_neuron);
+                    for connections of input_neuron {
+                        if data_point[visible_neuron] == 1:
+                            weight = QUBO.pop(connection.weight);
+                            QUBO[other_end_of_connection] = QUBO[other_end_of_connection] + weight;
+                        } else {
+                            QUBO.remove(connection.weight);
+                        }
+                    }
+                }
+            } // else, in unsupervised case, clamp nothing
+            
+            samples = []
+            for number_of_samples {
+                samples.append(Quantum_Annealer.sample_qubo(QUBO));
+            }
+            
+            free_averages_for_biases = []
+            for hidden_neuron in qbm_model.hidden_neurons {
+                free_averages_for_biases.append(get_average(samples[:, hidden_neuron]));
+            }
+            for visible_neuron in relevant_visible_neurons { 
+                free_averages_for_biases.append(get_average(samples[:, visible_neuron]));
+            }
+            
+            free_averages_for_weights = []
+            for connection in qbm_model.connections {
+                if supervised and (connection.start or connection.end in qbm_model.input_neurons){
+                    // multiply the samples point-wise with the datapoint-value before averaging
+                    free_averages_for_weights.append(get_average(samples[:, connection.hidden_endpoint] * datapoint[connection.visible_endpoint]));
+                } else {
+                    // for every sample, multiply the connection''s start''s and end''s values and average over the results
+                    free_averages_for_weights.append(get_average(samples[:, connection.start] * samples[:, connection.end]));
+                }
+            }   
+            
+            // parameter update
+            for neuron in (qbm_model.hidden_neurons and relevant_visible_neurons){
+                neuron.bias = neuron.bias + learning_rate * (clamped_averages_for_biases[neuron] - free_averages_for_biases[neuron]);
+            }
+            for connection in qbm_model.connections{
+                connection.weight = connection.weight + learning_rate * (clamped_averages_for_weights[connection] - free_averages_for_weights[connection]);
+            }
+        }
+    }
+    
+    // save trained QBM
+    return qbm_model;
+End
+```
+
+#### Pseudocode for Testing a QBM: Supervised
+```
+Inputs: Data vector x_i and the trained qbm_model
+Result: classification, i.e. predicted class label
+Begin
+    free_averages_for_biases = qbm_model.run_free_phase_with(x_i); // like in training, see above
+    // get prediction
+    class_probabilities = []
+    for label_neuron in qbm_model.label_neurons {
+        class_probabilities[label_neuron] = free_averages_for_biases[label_neuron];
+    }
+    return prediction = argmax(class_probabilities);
+End
+```
+
+#### Pseudocode for Testing a QBM: Unsupervised
+```
+Inputs: Known data_distribution and qbm_model trained on this distribution, high_number_of_samples
+Result: Measure how well the traing has worked (the smaller the returned number, the better)
+Begin
+    // Calculate empirical marginal distribution of the model over visible variables
+    samples = qbm_model.get_samples_(); // like in training, see above (create QUBO etc.)
+    frequencies = [];
+    for visible_configuration in all_possible_configurations_of_visible_neurons {
+        frequencies[visible_configuration] = count(samples where sample[0 : num_visible_neurons] = visible_configuration]) / length(samples);
+    }
+    return Kullback–Leibler_divergence(data_distribution, frequencies);
+    
+End
+```
+The above pseudocode serves to show whether the training has been successful, but has little practical applications. In practice, one would use a QBM that is being trained in an unsupervised manner for dimensionalty reduction / data extraction or generation of new "data samples", e.g. as part of a Quantum Variantional Autoencoder (QVAE) (Koshaman 2018, Vici 2020) or a Quantum-Assisted Associative Adversarial Network (QAAAN, an architecture based on Generative Adversarial Networks (GANs)) (Wilson 2021). 
+
+
+###
+### Limitations and necessary resources
+To determine the necessary resources for and limitations of training a Quantum Boltzmann Machine on a Quantum Annealer, we need to take a closer look at the physical dynamics of the annealing process:
+In an annealing procedure, a system whose energy is described by an initial Hamiltanion $H_i$, for which all qubits are in superposition (regarding the z-axis which is used for measurement later), is slowly changed to one whose energy landscape is approxiamately described by the final Hamiltonian $H_{\text{QUBO}}$, which describes energies conforming to our QUBO-Formulation. The time dependent Hamiltonian describing this system at any state of the process can thus be formulated as
+
+$$H(s) = A(s) H_i + B(s) H_{\text{QUBO}}$$
+
+where $s$ is the fraction of the total annealing time $t_a$ that has passed already and $A(s)$ and $B(s)$ are monotonic functions, with $A(0) \gg B(0) \approx 0$ at the start of the annealing process and $B(1) \gg A(1) \approx 0$ at the end of the process. (Amin 2015)
+The procedure progresses in three phases: The first one is the quasistatic phase, when the probabilities of measuring certain states change fairly quickly and are indirectly portional to the energy levels of these states. This is followed by a freeze-out phase, in which the changing of probabilities slows down until they reach an unchanging, so-called frozen state. The last part of the procedure then consists of the frozen phase, when the system stays in this frozen state until annealing procedure ends. If the freeze-out phase is very short and the freeze-out happens approximately at the same point in time $s*$ for the entire system, and if this phase is late in the annealing process, when the influence of the transverse field $(A(s*) / B(s*)) H_i$ is low and the state of the quantum system corresponds approximately to the one described by the final Hamiltonian $H_{\text{QUBO}}$, then the results from several runs of the annealing procedure will be approximately boltzmann-distributed. If the freeze-out phase is longer, however, it is possible that the probabilities for the states of some clusters of qubits might freeze earlier than those of others, leading to an inconsistent distribution of the results. Which of these two cases applies depends on the embedding of the logical qubits onto the hardware and on the length of the total annealing time $t_a$, but also on the formulation of the problem as a QUBO, more specifically on the strength of the coupling constants $J_{ij} = \frac{- w_{ij}}{\beta_{\text{eff}}}$ inside the different physical clusters of qubits (e.g. unit cells in the Chimera hardware graph of a D-Wave 2000Q): Here, large differences between the coupling constants within the individual clusters lead to different freeze out times, while more uniform coupling constants lead to better distributions. (Amin 2015, D-Wave, Korenkevych 2016, Amin 2018)
+
+In the case of QUBO formulations that have the difficult kind of dynamics described in the second case, there are two ways of circumventing the problem of obtaining an inconsistent distribution of results because of this: 
+One option is to pause the annealing process, i.e. the process of changing the energy levels from those described by the initial Hamiltonian $H_i$ to those described by the final Hamiltonian $H_{\text{QUBO}}$, at a chosen point $s*$ in time in the freeze-out phase or even the quasistatic phase. Then, one quickly changes the energy levels of the system to the ones described by $H_{\text{QUBO}}$, in order to keep the probabilities of the not-yet-frozen parts of the system from diverging from the Boltzmann distribution at $s*$. This process of quickly ending the annealing procedure is called quenching. (D-Wave, Amin 2018)
+The second option would be to scale the intra-cluster coupling constants $J_{intra}$ down by an experimentally determined factor with value larger than the absolute values of these numbers. This brings their respective values closer together and thus lowers the difference in freeze-out time. While the resulting distribution of an unmodified annealing process using these values will still not be Boltzmann, experiments by Korenkevych et al. (Korenkevych 2016) show that the learning process of the QBM can compensate for this deviation of the QA distribution: The model distribution learned by the QBM approximates the data''s distribution very well. The downside of this approach is the need to have complete knowledge about the QBM''s embedding on the Annealer''s hardware graph in order to know which coupling constants $J_{ij}$ need to be scaled by how much. (Korenkevych 2016)
+
+Furthermore, while the freezing point $s*$ usually is so close to the end of the annealing procedure that the influence of the transverse field at this point in time is negligiable, leading to a system energy state that corresponds closely to $H_{\text{QUBO}}$ and thus produces samples approximately distributed according to the Boltzmann distribution using our QUBO as the energy function, this is not necessarily always the case (Benedetti 2016, Bendetti 2017, Amin 2018).
+As mentioned, apart from the QUBO''s coupling constants, the freeze-out time $s*$ is influenced by the total annealing time $t_a$ as well as the number of physical qubits used to embed the QUBO-formulation onto the hardware: According to [D-Wave''s documentation](https://docs.dwavesys.com/docs/latest/c_qpu_annealing.html), the shorter the total annealing time $t_a$, the earlier the freeze-out happens with respect to s. Thus, longer annealing times might be beneficial, as having a late freeze-out point decreases the chances of the influence of the transverse field still being too high (Amin 2018).
+Regarding the number of qubits required to train a Quantum Boltzmann Machine using a Quantum Annealer, the number of logical qubits needed equals the number of visible units $n$, or the number of bits $l$ needed for the labels in case of supervised learning (see above), plus the number of hidden units $m$. The ideal number of hidden units $m$ needs to be determined experimentally (Kurowski 2021). Hinton (Hinton 2012) gives advice for classical Restricted Boltzmann Machines on how to estimate a sensible number of hidden units to learn a given dataset, but whether this advices is also applicable for QBMs needs yet to be investigated (to the best knowledge of the author of this description). These logical qubits will then be embedded into the annealers hardware graph, using one or multiple physical qubits each, depending on whether the number of logical connections required is higher or lower than the number of connections one physical qubit has. Usually, in doing this, it is favourable to keep the number of physical qubits used per logical one as small as possible, to decrease the likelihood of obtaining several different values for physical qubits in a chain that represents one logical one (whose state would be then inconsistent). Another reason is that, following [D-Wave''s documentation](https://docs.dwavesys.com/docs/latest/c_qpu_annealing.html) on the topic of freeze-out points, creating long chains of physical qubits to represent logical ones could also have a negative effect on the sampling results, as it might cause the freeze-out point to occur earlier in the annealing process. For very small QBMs regarding the number of logical qubits used, Henderson et al. (Henderson 2018) mention however that it can be advantageous to deliberately choose an embedding of the QUBO onto the hardware graph that uses muliple physical qubits to represent a logical one, as this increases the chances of sampling configurations other than the one with the lowest energy. This is desireable when using the Quantum Annealer for Boltzmann sampling, as it might e.g. improve generalization of the model to previously unseen datapoints (Henderson 2018, Kurowski 2021). Henderson et al. recommend e.g. 2 physical per logical qubits for a model size of 9 units or 3 for a size of 5 (Henderson 2018).
+
+Apart from adjusting the embedding and annealing time to minimize it''s effect, there are, however also other approaches to deal with the effect of a large transverse filed at freeze out: Benedetti et al. (Benedetti 2017) created a "grey-box approach", where instead of the Boltzmann machines parameteres $w_{ij}$ and $b_i$, the parameters of the hardware embedding $J_{ij}$ and $h_i = \frac{- b_i}{\beta_{\text{eff}}}$ are learned directly, including the ones that connect several physical qubits in a chain representing one logical one. Adaptation to these latter parameters representing the chain strength then causes the QBM to be able to self-correct for noise, unknown $\beta_{\text{eff}}$ values or transverse-field influences (Bendetti 2017). Amin et al. (Amin 2018) take the opposite approach and instead include the transverse field into the energy function of their model, learning a "quantum" Boltzmann distribution instead of a classical one. They treat the transverse field parameter $\Gamma = (A(s*) / B(s*)) \cdot \beta_{\text{eff}}$ as a tunable parameter, being either a hyperparameter (in their "bound-based" QBM) or even a trainable parameter (alongside the weights and biases) in their mathematical simulation of the QBM (which they term "inefficient and basically impractical for large data sets" for the general case). When using Quantum Annealing hardware, they suggest to employ quenching, as this allows one to choose the freeze-out point s* (Amin 2018). As $A(s)$ and $B(s)$ can be read out using D-Wave''s API (compare [D-Wave''s documentation](https://docs.dwavesys.com/docs/latest/c_qpu_annealing.html)), this allows one to still determine $\Gamma$ to use as a hyperparameter (provided $\beta_{\text{eff}}$ can be approximated successfully).
+
+
+###
+### Advantages in comparison to classical algorithms
+When comparing Quantum Boltzmann Machines to classical Machine Learning solutions experimentally, there are two ways in which the employment of the former seems to have an advantage over the latter: On the one hand, they often show better results in the learning task they are given. Amin et al. (Amin 2018) for example find that, when comparing the QBM to a classical BM, the probability distribution learned by the QBM has a smaller [Kullback-Leibler divergence](https://en.wikipedia.org/wiki/Kullback–Leibler_divergence) from a given known actual distribution of a dataset than the one learned by the classical equivalent. Korenkevych et al. (Korenkevych 2016), Ajagekar et al. (Ajagekar 2021) and Benedetti et al. (Benedetti 2017) make similar observations for BMs and classical Conditional Restricted Boltzmann Machine (CRBMs) trained with the Contrastive Divergence (CD) algorithm as well as other kinds of state-of-the-art ML-methods, and a BM using exact gradient calculation as well as Simulated Annealing, respectively.
+Benedetti et al. (Benedetti 2017) suggest that a reason for this might be that "by enabling the exploration of a wider class of models [...] quantum models [...] may be able to capture higher complexity" (Benedetti 2017).
+
+However, QBMs do not always perform better than their classical equivalents: In experiments by e.g. Adachi et al. (Adachi 2015), Sato et al. (Sato 2021), Rocutto et al. (Rocutto 2021), Vinci et al. (Vinci 2020) and Dixit et al. (Dixit 2020, Dixit 2021), the quantum version shows only comparable performance to their classical equivalents, or performs better in some, but worse in other applications or variants. Thus, under exactly what circumstances QBMs lead to better results and why exactly they do this in these cases remains (to the best of the author''s knowledge) an open research question.
+One observation that can be made, however, is that in a lot (albeit not all) experiments just mentioned, *restricted* QBMs were compared with Restricted Boltzmann Machines (RBMs), which can already be trained efficiently classically. This comes, however, at the expense of only being able to approximate the samples from the model distribution with values indirectly depending on the values of data points and having to restricted the connectivity in the BM by only allowing connections between visible and hidden units, but not between units of the same kind. This latter aspect makes a model with the same amount of units less expressive however, diminishing its capacity to closely approximate a data distribution. While imposing these restrictions ion the classical case makes sense, to ensure the feasibility of the learning algorithm, imposing them in the quantum case, in which efficient sampling is said to be possible anyway (see above) seems unnecessary and thus takes away a possible advantage the quantum model could have over the classical one. (Hinton 2012, Adachi 2015, Ackley 1985)
+
+Regarding the sampling speed, Amin et al. (Amin 2018) indeed expect quantum annealing hardware to provide a sampling method that is faster than classical equivalents. This claim is backed by the experimental results of Korenkevych et al. (Korenkevych 2016), Benedetti et al. (Benedetti 2017) (at least for the beginning of the training), Adachi et al. (Adachi 2015) and Ajagekar et al. (Ajagekar 2021) on that find the quantum-equivalents of fully-visible BMs, RBMs as part of Deep Belief Networks and Conditional RBMs, respectively, to be computationally more efficient than their classical counterparts. In the first three cases, this speed-up stems from a smaller number of training iterations that is necessary to reach a certain solution quality with the quantum model (Korenkevych 2016, Adachi 2016), while in the last case the time per training iteration is measured (Ajagekar 2021). What exactly causes the former effect remains, to the best knowledge of the author of this description, an open research question.
+
+
+###
+### Quantum Computing patterns used
+The Quantum Boltzmann Machine uses the fact that the results of a Quantum Annealer are distributed approxiamately according to a "customizable" Boltzmann distribution to sample from said distribution. This kind of sampling from a probability distribution could also be usable in other types of algorithms, and thus it might become a pattern.
+
+#
+# References
+[1] David H. Ackley, Geoffrey E. Hinton and Terrence J. Sejnowski. 1985. A learning algorithm for Boltzmann machines. Cognitive science, 9(1), pp.147-169. DOI: 10.1016/S0364-0213(85)80012-4. Link: https://onlinelibrary.wiley.com/doi/pdfdirect/10.1207/s15516709cog0901_7
+[2] Steven H. Adachi and Maxwell P. Henderson. 2015. Application of quantum annealing to training of deep neural networks. arXiv: https://arxiv.org/pdf/1510.06356.pdf
+[3] Akshay Ajagekar and Fengqi You. 2021 Quantum computing based hybrid deep learning for fault diagnosis in electrical power systems. Applied Energy 303, p.117628. DOI: 10.1016/j.apenergy.2021.117628 Link: https://doi.org/10.1016/j.apenergy.2021.117628
+[4] Mohammad H. Amin. 2015. Searching for quantum speedup in quasistatic quantum annealers. Physical Review A, 92(5), p.052323. DOI: 10.1103/PhysRevA.92.052323. Link: https://www.doi.org/10.1103/PhysRevA.92.052323
+[5] Mohammad H. Amin, Evgeny Andriyash, Jason Rolfe, Bodhan Kulchytskyy and Roger Melko. 2018. Quantum boltzmann machine. Physical Review X, 8(2), p.021050. DOI: 10.1103/PhysRevX.8.021050. Link: https://journals.aps.org/prx/pdf/10.1103/PhysRevX.8.021050
+[6] Marcello Benedetti, John Realpe-Gómez, Rupak Biswas and Alejandro Perdomo-Ortiz. 2016. Estimation of effective temperatures in quantum annealers for sampling applications: A case study with possible applications in deep learning. Physical Review A, 94(2), p.022308. DOI:10.1103/PhysRevA.94.022308. Link: https://doi.org/10.1103/PhysRevA.94.022308
+[7] Marcello Benedetti, John Realpe-Gómez, Rupak Biswas and Alejandro Perdomo-Ortiz. 2017. Quantum-assisted learning of hardware-embedded probabilistic graphical models. Physical Review X, 7(4), p.041052. DOI: 10.1103/PhysRevX.7.041052. Link: https://doi.org/10.1103/PhysRevX.7.041052
+[8] Vivek Dixit, Raja Selvarajan, Muhammad A. Alam, Travis S. Humble and Sabre Kais. 2020. Training and classification using a restricted Boltzmann machine on the D-Wave 2000Q. arXiv preprint arXiv:2005.03247. Link: https://arxiv.org/pdf/2005.03247.pdf
+[9] Vivek Dixit, Raja Selvarajan, Tamer Aldwairi, Yaroslav Koshka, Mark A. Novotny, Travis S. Humble, Muhammad A. Alam, Sabre Kais. 2021. Training a quantum annealing based restricted boltzmann machine on cybersecurity data. IEEE Transactions on Emerging Topics in Computational Intelligence 6(3), pp.417–428. DOI: 10.1109/TETCI.2021.3074916. Link: https://doi.org/10.1109/TETCI.2021.3074916
+[10] D-Wave Systems Inc. 2017. Performance advantage in quantum boltzmann sampling. Burnaby, BC, Canada: D-Wave Systems Inc. https://www.dwavesys.com/media/4mrhzxes/14-1013a-a_wp_performance_advantage_in_quantum_boltzmann_sampling.pdf
+[11] Scott E. Fahlman, Geoffrey E. Hinton, and Terrence J. Sejnowski. 1983, June. Massively parallel architectures for Al: NETL, Thistle, and Boltzmann machines. In: National Conference on Artificial Intelligence, AAAI. Link: https://www.aaai.org/Papers/AAAI/1983/AAAI83-087.pdf
+[12] Maxwell Henderson, John Novak and Tristan Cook. 2019. Leveraging quantum annealing for election forecasting. Journal of the Physical Society of Japan, 88(6), p.061009. DOI: 10.7566/JPSJ.88.061009. Link: https://doi.org/10.7566/JPSJ.88.061009
+[13] Geoffrey E. Hinton. 2012. A practical guide to training restricted Boltzmann machines. In Neural networks: Tricks of the trade (pp. 599-619). Springer, Berlin, Heidelberg. DOI: 10.1007/978-3-642-35289-8_32
+[14] Amir Khoshaman, Walter Vinci, Brandon Denis, Evgeny Andriyash, Hossein Sadeghi and Mohammad H. Amin. 2018. Quantum variational autoencoder. Quantum Science and Technology, 4(1), 014001. DOI: 10.1088/2058-9565/aada1f. Link: https://doi.org/10.1088/2058-9565/aada1f
+[15] Dmytro Korenkevych, Yanbo Xue, Zhengbing Bian, Fabian Chudak, William G. Macready, Jason Rolfe and Evgeny Andriyash. 2016. Benchmarking quantum hardware for training of fully visible Boltzmann machines. arXiv preprint arXiv:1611.04528. Link: https://arxiv.org/pdf/1611.04528
+[16] Krzysztof Kurowski, Mateusz Slysz, Marek Subocz and Rafał Różycki. 2021. Applying a Quantum Annealing Based Restricted Boltzmann Machine for MNIST Handwritten Digit Classification. Computational Methods in Science and Technology, 27. DOI: 10.12921/cmst.2021.0000011. Link: http://dx.doi.org/10.12921/cmst.2021.0000011
+[17] Lorenzo Rocutto, Claudio Destri and Enrico Prati. 2021. Quantum semantic learning by reverse annealing of an adiabatic quantum computer. Advanced Quantum Technologies 4(2), p.2000133. DOI: 10.1002/qute.202000133. Link: https://doi.org/10.1002/qute.202000133
+[18] Takehito Sato, Masayuki Ohzeki and Kazuyuki Tanaka. 2021. Assessment of image generation by quantum annealer. Scientific reports 11(1), pp.1–10. DOI: 10.1038/s41598-021-92295-9. Link: https://doi.org/10.1038/s41598-021-92295-9
+[19] Salvador E. Venegas-Andraca, William Cruz-Santos, Catherine McGeoch and Marco Lanzagorta. 2018. A cross-disciplinary introduction to quantum annealing-based algorithms. Contemporary Physics, 59(2), pp.174-197. DOI: 10.1080/00107514.2018.1450720
+[20] Guillaume Verdon, Michael Broughton and Jacob Biamonte. 2017. A quantum algorithm to train neural networks using low-depth circuits. arXiv: https://arxiv.org/pdf/1712.05304.pdf
+[21] Walter Vinci, Lorenzo Buffoni, Hossein Sadeghi, Amir Khoshaman, Evgeny Andriyash, and Mohammad H. Amin. 2020. A path towards quantum advantage in training deep generative models with quantum annealers. Machine Learning: Science and Technology, 1(4), p.045028. DOI: 10.1088/2632-2153/aba220. Link: https://doi.org/10.1088/2632-2153/aba220
+[22] Max Wilson, Thomas Vandal, Tad Hogg, and Eleanor G. Rieffel. 2021. Quantum-assisted associative adversarial network: Applying quantum annealing in deep learning. Quantum Machine Intelligence, 3(1), pp.1-14. DOI: 10.1007/s42484-021-00047-9. Link:  https://doi.org/10.1007/s42484-021-00047-9
+[23] Peter Wittek. 2014. Quantum machine learning: what quantum computing means to data mining. Academic Press. ISBN: ISBN: 9780128010990. Link: https://www.researchgate.net/profile/Peter-Wittek/publication/264825604_Quantum_Machine_Learning_What_Quantum_Computing_Means_to_Data_Mining/links/5ababcfba6fdcc71647085db/Quantum-Machine-Learning-What-Quantum-Computing-Means-to-Data-Mining.pdf
+[24] Guanglei Xu and William S. Oates. 2021. Adaptive hyperparameter updating for training restricted Boltzmann machines on quantum annealers. Scientific Reports, 11(1), pp.1-10. DOI: 10.1038/s41598-021-82197-1. Link: https://doi.org/10.1038/s41598-021-82197-1
+
+##
+## Further literature on the topic (non-exhaustive listing)
+
+###
+### Applications in Reinforcement Learning
+* see [algorithm description on Reinforcement Learning using Quantum Boltzmann Machines](https://platform.planqk.de/algorithms/634a4a5e-b33c-4838-af28-1cf39170be29/)
+
+###
+### Restricted QBMs
+* Denil, M. and De Freitas, N., 2011. Toward the implementation of a quantum RBM. Link: https://ora.ox.ac.uk/objects/uuid:ea79d085-6f08-4341-9af1-5a3972542bfa/download_file?file_format=pdf&safe_filename=quantumrbm.pdf&type_of_work=Conference+item
+* Kumar, V., Bass, G. and Dulny III, J., Training Restricted Boltzmann Machines Using a Quantum Annealer. Link: http://sc16.supercomputing.org/sc-archive/tech_poster/poster_files/post202s2-file3.pdf
+* Dorband, J.E., 2015, April. A boltzmann machine implementation for the d-wave. In 2015 12th International Conference on Information Technology-New Generations (pp. 703-707). IEEE. DOI: 10.1109/ITNG.2015.118
+
+###
+### Application and Evaluation of QBMs
+* **Language Processing:**  Wiebe, N., Bocharov, A., Smolensky, P., Troyer, M. and Svore, K.M., 2019. Quantum language processing. arXiv preprint arXiv:1902.05162. DOI: https://arxiv.org/pdf/1902.05162.pdf
+* **Medical Diagnostics:** Jain, S., Ziauddin, J., Leonchyk, P., Yenkanchi, S., & Geraci, J., 2020. Quantum and classical machine learning for the classification of non-small-cell lung cancer patients. SN Applied Sciences, 2(6), pp.1-10. DOI: https://doi.org/10.1007/s42452-020-2847-4
+* **Image recognition:** Dorband, J.E., 2018. A method of finding a lower energy solution to a qubo/ising objective function. arXiv preprint arXiv:1801.04849. Link: https://arxiv.org/pdf/1801.04849.pdf
+* **Image recognition / Evaluation:** Biswas, R., Jiang, Z., Kechezhi, K., Knysh, S., Mandrà, S., O’Gorman, B., Perdomo-Ortiz, A., Petukhov, A., Realpe-Gómez, J., Rieffel, E. and Venturelli, D., 2017. A NASA perspective on quantum computing: Opportunities and challenges. Parallel Computing, 64, pp.81-98. DOI: https://doi.org/10.1016/j.parco.2016.11.002');
+INSERT INTO public.algorithm_revisions (id, rev, acronym, algo_parameter, assumptions, computation_model, input_format, intent, name, output_format, problem, solution) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 30, 'Grover Algorithm', 'No additional arguments necessary.', NULL, 1, 'The oracle must be provided, which identifies the sought state $\ket{\tilde{x}}$.', 'Grover''s algorithm [[1]](https://arxiv.org/abs/quant-ph/9605043) provides one of the first useful quantum algorithms with a speedup to any known classical algorithm. It is used for an unstructured database search, where a "correct" bit string of length $N$ is sought among the set of all possible bit strings of the same length. The assumption is, that if provided to some "identifier" the correct bit string can be detected. Classically, there is no better option than handing over every bit string to the identifier and stop as soon as the correct bit string is provided. This procedure may only need one check of the identifier but in the worst case it takes $N$ checks. On average, $N/2$ checks are necessary, which implies a runtime of $\mathcal{O}(N)$.
+
+The Grover algorithm exploits quantum effects in such a way, that the runtime gets reduced to $\mathcal{O}(\sqrt{N})$, thus providing a polynomial (i.e., quadratic) speedup over the best classical method.', 'Grover-SAT', 'Before measurement: State $\ket{\psi}$ encoded on the quantum register with the largest amplitude for the $\ket{\tilde{x}}$-state.', 'The goal is to find the correct bit string $\tilde{x}\in\lbrace 0,1\rbrace^N$ for which the function
+$$\begin{gather}f: \lbrace 0,1\rbrace^N\rightarrow \lbrace 0,1\rbrace\\[.2cm]f(x)=\begin{cases} 0\quad ,\quad x\neq \tilde{x} \\ 1\quad , \quad x=\tilde{x}\end{cases}\end{gather}$$
+becomes $1$ (indicator function). The assumption is, that the function itself is provided in the form of an oracle and any bit string with length $N$ can be evaluated using it.', 'Grover''s algorithm solves the problem by introducing clever rotations acting on state vectors in order to maximize the probability for measuring the correct state $\ket{\tilde{x}}$. The following describes the general procedure, as well as certain aspects of the algorithm a bit more in depth.
+
+As is often the case for a quantum algorithm, the initial state of the data register is a uniform superposition of all basis states, which can be generated by using the standard Hadamard gate on all $n$ data qubits:
+$$
+\begin{equation}
+\ket{s} = H^{\otimes n}\ket{0}^{\otimes n} = \frac{1}{\sqrt{N}}\sum_{x=0}^{N-1}\ket{x}~,
+\end{equation}
+$$
+where $N=2^n$ is the number of all possible binary states. For simplicity, here and in the following explanations the states will be referred to in their decimal representation for $n$ qubits, e.g. for $n=5$ the state $\ket{7}$ corresponds to the binary basis state $\ket{00111}$.  
+
+The algorithm is based on the repetition of a *Grover iteration* depicted in the graphic below. In a first step, the amplitude (prefactor of basis states) of the state $\ket{\tilde{x}}$ is inverted by the oracle $U_1$ encoding the indicator function and in a second step all amplitudes are reflected on the mean amplitude, thus increasing the probability of measuring $\ket{\tilde{x}}$.
+
+::: hljs-center
+
+![](3b9fc525-59c6-41ec-96ea-f208ba936e4e)
+
+:::
+
+In the following, the transformation will be discussed in detail.
+
+## Structure of the Oracle $\left(U_1\right)$
+The so-called oracle appears in a variety of quantum algorithms and is a unitary transformation used to influence one part of the register based on the state of another part of the register it is acting on. In the case of Grover''s algorithm it encodes the indicator function and acts on the register as follows:
+$$
+\begin{equation}
+U_1: \ket{x,y}\mapsto \ket{x,y\oplus f(x)}
+\end{equation}
+$$
+Similar to the Deutsch-Josza algorithm, Grover''s algorithm requires an additional auxiliary qubit which stores the information after the oracle acted on the register (thus, Grover''s algorithm requires ${n+1}$ qubits in total).  
+The goal of the oracle is to flip the sign of the amplitude belonging to the sought state $\ket{\tilde{x}}$ which can be written in terms of the indicator function as
+$$
+\begin{equation}
+U_1\ket{x,y}=(-1)^{f(x)}\ket{x,y}~.
+\end{equation}
+$$
+This can be achieved by initializing the auxiliary qubit similar to the Deutsch-Josza algorithm in the eigenstate of the Pauli-X operator with negative eigenvalue according to (also displaying the data register)
+$$
+\begin{equation}
+\vert x,y\rangle=\big(H\ket{0}\big)^{\otimes n}\otimes \big(HX\ket{0}\big)= \frac{1}{\sqrt{N}}\sum_x \ket{x}\otimes\frac{1}{\sqrt{2}}\big(\ket{0} -\ket{1}\big)~.
+\end{equation}
+$$
+Acting with the oracle, the desired transformation is obtained:
+$$
+\begin{equation}
+U_1\ket{x,y} =  \frac{1}{\sqrt{N}}\sum_x \ket{x}\otimes\frac{1}{\sqrt{2}}\big(\ket{f(x)}-\ket{1\oplus f(x)}\big) = \frac{1}{\sqrt{N}}\sum_x (-1)^{f(x)}\ket{x}\otimes\frac{1}{\sqrt{2}}\big(\ket{0}-\ket{1}\big)~,
+\end{equation}
+$$
+where for the second equality the identity $\ket{f(x)} - \ket{1\oplus f(x)}=(-1)^{f(x)}(\ket{0} - \ket{1})$ was used.
+
+## Amplitude Transformation $\left(U_2\right)$
+After the action of the oracle, the next step of a Grover iteration is to reflect all amplitudes on the mean amplitude (action of $U_2$ depicted in the figure above). A concise derivation is given by means of the following example: Consider the following general state
+$$
+\begin{equation}
+\ket{v}=\sum_{k=0}^{N-1}\alpha_k\ket{k}=\begin{pmatrix}\alpha_0\\ \alpha_1\\ \vdots\\ \alpha_{N-1}\end{pmatrix}~,
+\end{equation}
+$$
+where $\lbrace\ket{k}\rbrace$ is an orthonormal basis set. Now, $U_2$ is supposed to transform every amplitude according to $\alpha_k\mapsto 2\bar{\alpha} - \alpha_k$ (which mathematically corresponds to the reflection of every amplitude on the mean amplitude $\bar{\alpha}=\sum\nolimits_k \alpha_k/N$). The matrix representation of this transformation can be written as
+$$
+\begin{equation}
+U_2\ket{v} = \sum_k\Big(\frac{2}{N}\sum_j\alpha_j-\alpha_k\Big)\ket{k}=\Bigg[\frac{2}{N}\begin{pmatrix}1 &\cdots & 1\\ \vdots & \ddots & \vdots\\1 & \cdots & 1\end{pmatrix}- I\Bigg]\ket{v}~.
+\end{equation}
+$$
+Now, the first matrix of eq. (9) can be rewritten as the projection operator onto the uniform probability state $\ket{s}$ from eq. (3) since
+$$
+\begin{equation}
+\ket{s}\bra{s}=\frac{1}{\sqrt{N}}\begin{pmatrix} 1\\ 1\\ \vdots \\1\end{pmatrix} \cdot \frac{1}{\sqrt{N}}\left(1,~1,\ldots 1\right)=\frac{1}{N}\begin{pmatrix}1 &\cdots & 1\\ \vdots & \ddots & \vdots\\1 & \cdots & 1\end{pmatrix}~.
+\end{equation}
+$$
+Thus, $U_2$ can be written as
+$$
+\begin{equation}
+U_2 = 2\ket{s}\bra{s}-I
+\end{equation}
+$$
+
+## Side Note: Householder Transformation
+In linear algebra, transformations as the one in eq. (11) are known as Householder transformations. They are a generalization of reflections about (hyper-)planes in a vector space. Given two elements $\ket{v},\ket{w}$ of a vector space, the transformed vector $\ket{v^\prime}$ that is the reflection $\ket{v}$ on the plane *perpendicular* to $\ket{w}$ is given by
+$$
+\begin{equation}
+\ket{v^\prime}=\left(I-2\frac{\ket{w}\bra{w}}{\vert w\vert^2}\right)\ket{v}
+\end{equation}
+$$
+For quantum states, the normalization can be omitted since they are already normalized.  
+Now, the transformation of the oracle $U_1$ can also be formulated as a Householder-matrix similar to $U_2$: Since it only negates the amplitude of the component along the solution $\ket{\tilde{x}}$ it can be viewed as a reflection of the state vector perpendicular to the solution state. Thus, the oracle can be written as
+$$
+\begin{equation}
+U_1 = I - 2\ket{\tilde{x}}\bra{\tilde{x}}
+\end{equation}
+$$
+
+## Geometric Interpretation
+As discussed earlier, the consecutive action of $U_1$ and $U_2$ increases the probability for measuring the sought state. Repeating one such Grover iteration multiple times, increases the probability further, up to a maximum number of repetitions $r$ after which the probability decreases. This can be better understood by considering the following figure which gives an geometric interpretation of the procedure.
+
+
+::: hljs-center
+
+![Grover iteration](b2b6d309-01b8-4dc9-88c9-5da8d325e4ba)
+
+:::
+
+In the figure the state $\ket{\tilde{s}}$ contains all components of the uniform superposition $\ket{s}$ except the solution, namely
+$$
+\begin{equation}
+\ket{\tilde{s}}=\frac{1}{\sqrt{N-1}}\sum_{x\neq\tilde{x}}\ket{x}~, 
+\end{equation}
+$$
+where a net normalization is necessary because one state is missing in the superposition. Now, let the angle between $\ket{s}$ and $\ket{\tilde{s}}$ be $\theta/2$. This implies
+$$
+\begin{equation}
+\braket{s\vert \tilde{s}}=\cos\left(\theta/2\right) = \frac{1}{\sqrt{N(N-1)}}\sum_{x\neq \tilde{x}} \braket{x\vert x}=\sqrt{\frac{N-1}{N}} = \sqrt{1-\frac{1}{N}}
+\end{equation}
+$$
+Pythagoras'' theorem ($\cos(x)=\sqrt{1-\sin^2(x)}$) then implies
+$$
+\begin{equation}
+\sin(\theta/2)=\frac{1}{\sqrt{N}}~.
+\end{equation}
+$$
+By assuming $N\gg 1$ the small-angle approximation can be used and gives 
+$$
+\begin{equation}
+\theta = \frac{2}{\sqrt{N}}~.
+\end{equation}
+$$
+From the (not true to scale) figure above it can seen that one Grover iteration rotates the initial state by $\theta$ towards the goal state. Thus, in order to maximize the probability the Grover iteration should be repeated as many times as it takes to close the angle (namely $\pi/2-\theta/2$). This implies for the number of repetitions
+$$
+\begin{equation}
+r\theta=\frac{\pi}{2}-\frac{\theta}{2} \qquad \Rightarrow\qquad r=\frac{\pi\sqrt{N}}{4}-\frac{1}{2}
+\end{equation}
+$$
+So, in order to maximize the probability for the sought state, the oracle must be queued $r=\mathcal{O}(\sqrt{N})$ times which implies a quadratic speed up.
+
+# References
+[1] Grover, L. K. (1996). A fast quantum mechanical algorithm for database search. In Proceedings of the Annual ACM Symposium on Theory of Computing: Vol. Part F129452 (pp. 212–219). Association for Computing Machinery. https://doi.org/10.1145/237814.237866');
 
 
 --
@@ -695,11 +2155,11 @@ INSERT INTO public.quantum_algorithm (nisq_ready, quantum_computation_model, spe
 INSERT INTO public.quantum_algorithm (nisq_ready, quantum_computation_model, speed_up, id) VALUES (false, 0, NULL, '16aa96c5-b668-4df9-a03f-96d323708676');
 INSERT INTO public.quantum_algorithm (nisq_ready, quantum_computation_model, speed_up, id) VALUES (false, 2, NULL, '9aa16271-6ea1-4e15-ad9d-6e6e264a0ad0');
 INSERT INTO public.quantum_algorithm (nisq_ready, quantum_computation_model, speed_up, id) VALUES (false, 0, 'exponential', 'b5df6c13-e619-496c-ada0-80fc3486f733');
-INSERT INTO public.quantum_algorithm (nisq_ready, quantum_computation_model, speed_up, id) VALUES (false, 0, NULL, '3c7722e2-09c3-4667-9a0d-a45d3ddc42ae');
 INSERT INTO public.quantum_algorithm (nisq_ready, quantum_computation_model, speed_up, id) VALUES (false, 0, NULL, '0e5af2cf-f3c8-48dd-9743-cfdea65f320f');
 INSERT INTO public.quantum_algorithm (nisq_ready, quantum_computation_model, speed_up, id) VALUES (false, 0, NULL, '871f7eea-4722-4728-8cd9-1e61fe2dd285');
-INSERT INTO public.quantum_algorithm (nisq_ready, quantum_computation_model, speed_up, id) VALUES (false, 0, NULL, '0f6587f3-6b6b-4dd4-98aa-b464913b8c14');
 INSERT INTO public.quantum_algorithm (nisq_ready, quantum_computation_model, speed_up, id) VALUES (false, 0, NULL, 'a51667c1-e70c-45e4-b427-127e2e2d2208');
+INSERT INTO public.quantum_algorithm (nisq_ready, quantum_computation_model, speed_up, id) VALUES (true, 0, 'under investigation', '0f6587f3-6b6b-4dd4-98aa-b464913b8c14');
+INSERT INTO public.quantum_algorithm (nisq_ready, quantum_computation_model, speed_up, id) VALUES (false, 0, 'For bitstrings of length $N$: $\mathcal{O}(\sqrt{N})$ (quadratic Speedup)', '3c7722e2-09c3-4667-9a0d-a45d3ddc42ae');
 
 
 --
@@ -711,6 +2171,21 @@ INSERT INTO public.quantum_algorithm (nisq_ready, quantum_computation_model, spe
 INSERT INTO public.quantum_algorithm_revisions (id, rev, nisq_ready, quantum_computation_model, speed_up) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', 2, false, 0, NULL);
 INSERT INTO public.quantum_algorithm_revisions (id, rev, nisq_ready, quantum_computation_model, speed_up) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', 3, false, 0, NULL);
 INSERT INTO public.quantum_algorithm_revisions (id, rev, nisq_ready, quantum_computation_model, speed_up) VALUES ('a51667c1-e70c-45e4-b427-127e2e2d2208', 12, false, 0, NULL);
+INSERT INTO public.quantum_algorithm_revisions (id, rev, nisq_ready, quantum_computation_model, speed_up) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 16, false, 0, 'For bitstrings of length $N$: $\\mathcal{O}(\\sqrt{N})$ (quadratic Speedup)');
+INSERT INTO public.quantum_algorithm_revisions (id, rev, nisq_ready, quantum_computation_model, speed_up) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 17, false, 0, 'For bitstrings of length $N$: $\\mathcal{O}(\\sqrt{N})$ (quadratic Speedup)');
+INSERT INTO public.quantum_algorithm_revisions (id, rev, nisq_ready, quantum_computation_model, speed_up) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 18, false, 0, 'For bitstrings of length $N$: $\\mathcal{O}(\\sqrt{N})$ (quadratic Speedup)');
+INSERT INTO public.quantum_algorithm_revisions (id, rev, nisq_ready, quantum_computation_model, speed_up) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 19, false, 0, 'For bitstrings of length $N$: $\\mathcal{O}(\\sqrt{N})$ (quadratic Speedup)');
+INSERT INTO public.quantum_algorithm_revisions (id, rev, nisq_ready, quantum_computation_model, speed_up) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 20, false, 0, 'For bitstrings of length $N$: $\\mathcal{O}(\\sqrt{N})$ (quadratic Speedup)');
+INSERT INTO public.quantum_algorithm_revisions (id, rev, nisq_ready, quantum_computation_model, speed_up) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 21, false, 0, 'For bitstrings of length $N$: $\\mathcal{O}(\\sqrt{N})$ (quadratic Speedup)');
+INSERT INTO public.quantum_algorithm_revisions (id, rev, nisq_ready, quantum_computation_model, speed_up) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 22, false, 0, 'For bitstrings of length $N$: $\\mathcal{O}(\\sqrt{N})$ (quadratic Speedup)');
+INSERT INTO public.quantum_algorithm_revisions (id, rev, nisq_ready, quantum_computation_model, speed_up) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 23, false, 0, 'For bitstrings of length $N$: $\\mathcal{O}(\\sqrt{N})$ (quadratic Speedup)');
+INSERT INTO public.quantum_algorithm_revisions (id, rev, nisq_ready, quantum_computation_model, speed_up) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 24, false, 0, 'For bitstrings of length $N$: $\\mathcal{O}(\\sqrt{N})$ (quadratic Speedup)');
+INSERT INTO public.quantum_algorithm_revisions (id, rev, nisq_ready, quantum_computation_model, speed_up) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 25, false, 0, 'For bitstrings of length $N$: $\\mathcal{O}(\\sqrt{N})$ (quadratic Speedup)');
+INSERT INTO public.quantum_algorithm_revisions (id, rev, nisq_ready, quantum_computation_model, speed_up) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 26, false, 0, 'For bitstrings of length $N$: $\\mathcal{O}(\\sqrt{N})$ (quadratic Speedup)');
+INSERT INTO public.quantum_algorithm_revisions (id, rev, nisq_ready, quantum_computation_model, speed_up) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 27, false, 0, 'For bitstrings of length $N$: $\\mathcal{O}(\\sqrt{N})$ (quadratic Speedup)');
+INSERT INTO public.quantum_algorithm_revisions (id, rev, nisq_ready, quantum_computation_model, speed_up) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', 28, true, 0, 'under investigation');
+INSERT INTO public.quantum_algorithm_revisions (id, rev, nisq_ready, quantum_computation_model, speed_up) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', 29, true, 0, 'under investigation');
+INSERT INTO public.quantum_algorithm_revisions (id, rev, nisq_ready, quantum_computation_model, speed_up) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 30, false, 0, 'For bitstrings of length $N$: $\mathcal{O}(\sqrt{N})$ (quadratic Speedup)');
 
 
 --
@@ -789,10 +2264,10 @@ INSERT INTO public.solution_file (file_id, solution_id) VALUES ('dacf328e-ce3b-4
 -- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: planqk
 --
 
-SELECT pg_catalog.setval('public.hibernate_sequence', 15, true);
+SELECT pg_catalog.setval('public.hibernate_sequence', 30, true);
 
 
--- Completed on 2024-08-29 11:12:17 CEST
+-- Completed on 2024-08-29 17:07:19 CEST
 
 --
 -- PostgreSQL database dump complete

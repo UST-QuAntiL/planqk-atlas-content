@@ -5,7 +5,7 @@
 -- Dumped from database version 12.5 (Debian 12.5-1.pgdg100+1)
 -- Dumped by pg_dump version 16.3
 
--- Started on 2024-08-29 11:11:34 CEST
+-- Started on 2024-08-29 17:06:55 CEST
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2012,7 +2012,7 @@ REVOKE USAGE ON SCHEMA public FROM PUBLIC;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2024-08-29 11:11:34 CEST
+-- Completed on 2024-08-29 17:06:56 CEST
 
 --
 -- PostgreSQL database dump complete
