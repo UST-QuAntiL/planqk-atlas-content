@@ -5,7 +5,7 @@
 -- Dumped from database version 12.5 (Debian 12.5-1.pgdg100+1)
 -- Dumped by pg_dump version 16.3
 
--- Started on 2024-08-29 17:24:56 CEST
+-- Started on 2024-09-02 12:52:34 CEST
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -581,6 +581,9 @@ INSERT INTO public.application_area (id, name) VALUES ('4b0c75a4-6469-481a-a969-
 INSERT INTO public.application_area (id, name) VALUES ('4d1e60a2-91f9-4763-8f91-0e8b6a927301', 'Artificial Intelligence');
 INSERT INTO public.application_area (id, name) VALUES ('3fd4fa3f-42be-431e-853f-c726881ff065', 'Chemistry');
 INSERT INTO public.application_area (id, name) VALUES ('4da2dc41-ec5d-4444-8027-146450785c2e', 'Social Science');
+INSERT INTO public.application_area (id, name) VALUES ('a18c807e-66c6-4d91-b2f0-e91ab082dca1', 'Unstructured Search');
+INSERT INTO public.application_area (id, name) VALUES ('ce7717cb-4346-49d1-8840-3be85f4ed41b', 'Optimization Problems');
+INSERT INTO public.application_area (id, name) VALUES ('12efa60f-1620-49d6-8b96-5d4f1a956668', 'Satisfiability Problems');
 
 
 --
@@ -600,6 +603,9 @@ INSERT INTO public.algorithm_application_area (algorithm_id, application_area_id
 INSERT INTO public.algorithm_application_area (algorithm_id, application_area_id) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', '4d1e60a2-91f9-4763-8f91-0e8b6a927301');
 INSERT INTO public.algorithm_application_area (algorithm_id, application_area_id) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', '3fd4fa3f-42be-431e-853f-c726881ff065');
 INSERT INTO public.algorithm_application_area (algorithm_id, application_area_id) VALUES ('0f6587f3-6b6b-4dd4-98aa-b464913b8c14', '4da2dc41-ec5d-4444-8027-146450785c2e');
+INSERT INTO public.algorithm_application_area (algorithm_id, application_area_id) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 'a18c807e-66c6-4d91-b2f0-e91ab082dca1');
+INSERT INTO public.algorithm_application_area (algorithm_id, application_area_id) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', 'ce7717cb-4346-49d1-8840-3be85f4ed41b');
+INSERT INTO public.algorithm_application_area (algorithm_id, application_area_id) VALUES ('3c7722e2-09c3-4667-9a0d-a45d3ddc42ae', '12efa60f-1620-49d6-8b96-5d4f1a956668');
 
 
 --
@@ -2272,7 +2278,7 @@ INSERT INTO public.solution_file (file_id, solution_id) VALUES ('dacf328e-ce3b-4
 SELECT pg_catalog.setval('public.hibernate_sequence', 30, true);
 
 
--- Completed on 2024-08-29 17:24:56 CEST
+-- Completed on 2024-09-02 12:52:35 CEST
 
 --
 -- PostgreSQL database dump complete
