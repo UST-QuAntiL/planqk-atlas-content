@@ -1,0 +1,12 @@
+{
+  "identifiers": [
+    "AmazonBraket_LocalSimulator",
+    "qiskit-executor",
+    "cirq-simulator",
+    "mqt-simulator",
+    "pennylane-simulator",
+    "pytket_qulacsBackend-simulator",
+    "qiskit-simulator"
+  ],
+  "tags": ["circuit-executor"]
+}

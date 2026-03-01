@@ -2121,10 +2121,10 @@ INSERT INTO public.pattern_relation (id, description, pattern, algorithm_id, pat
 -- Data for Name: pattern_uris; Type: TABLE DATA; Schema: public; Owner: planqk
 --
 
-INSERT INTO public.pattern_uris (implementation_id, pattern_uri) VALUES ('03223c33-7cd2-4496-84c9-c654da405b19', 'pattern-languages/af7780d5-1f97-4536-8da7-4194b093ab1d/da93f915-7f4c-49df-99d0-80d91f26a337');
-INSERT INTO public.pattern_uris (implementation_id, pattern_uri) VALUES ('14ad80b5-0498-482d-b3b5-d053e349b130', 'pattern-languages/af7780d5-1f97-4536-8da7-4194b093ab1d/cc3731cf-ecbb-490f-b996-525c8f60d8a9');
-INSERT INTO public.pattern_uris (implementation_id, pattern_uri) VALUES ('61a59337-853b-4fff-83a8-367946e3c365', 'pattern-languages/af7780d5-1f97-4536-8da7-4194b093ab1d/7294c3f2-cb67-492a-8a16-c7384eb9bac2');
-INSERT INTO public.pattern_uris (implementation_id, pattern_uri) VALUES ('3f12c844-eaba-4fc3-a3fc-088e8c4c8295', 'pattern-languages/af7780d5-1f97-4536-8da7-4194b093ab1d/27a5d147-a323-4c6a-84ef-45d80cae923d');
+INSERT INTO public.pattern_uris (implementation_id, pattern_uri) VALUES ('03223c33-7cd2-4496-84c9-c654da405b19', 'patternLanguages/af7780d5-1f97-4536-8da7-4194b093ab1d/patterns/da93f915-7f4c-49df-99d0-80d91f26a337');
+INSERT INTO public.pattern_uris (implementation_id, pattern_uri) VALUES ('14ad80b5-0498-482d-b3b5-d053e349b130', 'patternLanguages/af7780d5-1f97-4536-8da7-4194b093ab1d/patterns/cc3731cf-ecbb-490f-b996-525c8f60d8a9');
+INSERT INTO public.pattern_uris (implementation_id, pattern_uri) VALUES ('61a59337-853b-4fff-83a8-367946e3c365', 'patternLanguages/af7780d5-1f97-4536-8da7-4194b093ab1d/patterns/7294c3f2-cb67-492a-8a16-c7384eb9bac2');
+INSERT INTO public.pattern_uris (implementation_id, pattern_uri) VALUES ('3f12c844-eaba-4fc3-a3fc-088e8c4c8295', 'patternLanguages/af7780d5-1f97-4536-8da7-4194b093ab1d/patterns/27a5d147-a323-4c6a-84ef-45d80cae923d');
 
 
 --
@@ -2133,10 +2133,10 @@ INSERT INTO public.pattern_uris (implementation_id, pattern_uri) VALUES ('3f12c8
 -- Data for Name: pattern_uris_aud; Type: TABLE DATA; Schema: public; Owner: planqk
 --
 
-INSERT INTO public.pattern_uris_aud (rev, implementation_id, pattern_uri, revtype) VALUES (10, '03223c33-7cd2-4496-84c9-c654da405b19', 'pattern-languages/af7780d5-1f97-4536-8da7-4194b093ab1d/da93f915-7f4c-49df-99d0-80d91f26a337', 0);
-INSERT INTO public.pattern_uris_aud (rev, implementation_id, pattern_uri, revtype) VALUES (14, '14ad80b5-0498-482d-b3b5-d053e349b130', 'pattern-languages/af7780d5-1f97-4536-8da7-4194b093ab1d/cc3731cf-ecbb-490f-b996-525c8f60d8a9', 0);
-INSERT INTO public.pattern_uris_aud (rev, implementation_id, pattern_uri, revtype) VALUES (15, '61a59337-853b-4fff-83a8-367946e3c365', 'pattern-languages/af7780d5-1f97-4536-8da7-4194b093ab1d/7294c3f2-cb67-492a-8a16-c7384eb9bac2', 0);
-INSERT INTO public.pattern_uris_aud (rev, implementation_id, pattern_uri, revtype) VALUES (32, '3f12c844-eaba-4fc3-a3fc-088e8c4c8295', 'pattern-languages/af7780d5-1f97-4536-8da7-4194b093ab1d/27a5d147-a323-4c6a-84ef-45d80cae923d', 0);
+INSERT INTO public.pattern_uris_aud (rev, implementation_id, pattern_uri, revtype) VALUES (10, '03223c33-7cd2-4496-84c9-c654da405b19', 'patternLanguages/af7780d5-1f97-4536-8da7-4194b093ab1d/patterns/da93f915-7f4c-49df-99d0-80d91f26a337', 0);
+INSERT INTO public.pattern_uris_aud (rev, implementation_id, pattern_uri, revtype) VALUES (14, '14ad80b5-0498-482d-b3b5-d053e349b130', 'patternLanguages/af7780d5-1f97-4536-8da7-4194b093ab1d/patterns/cc3731cf-ecbb-490f-b996-525c8f60d8a9', 0);
+INSERT INTO public.pattern_uris_aud (rev, implementation_id, pattern_uri, revtype) VALUES (15, '61a59337-853b-4fff-83a8-367946e3c365', 'patternLanguages/af7780d5-1f97-4536-8da7-4194b093ab1d/patterns/7294c3f2-cb67-492a-8a16-c7384eb9bac2', 0);
+INSERT INTO public.pattern_uris_aud (rev, implementation_id, pattern_uri, revtype) VALUES (32, '3f12c844-eaba-4fc3-a3fc-088e8c4c8295', 'patternLanguages/af7780d5-1f97-4536-8da7-4194b093ab1d/patterns/27a5d147-a323-4c6a-84ef-45d80cae923d', 0);
 
 
 --

@@ -1,0 +1,131 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "name": "My Model",
+    "description": "This is a model.",
+    "author": "",
+    "containsPlaceholder": false,
+    "id": "flow-1770577671099",
+    "timestamp": "2026-02-08T19:07:51.099Z"
+  },
+  "nodes": [
+    {
+      "id": "63535ded-b5f0-48c8-84fc-5731fb9cf975",
+      "type": "statePreparationNode",
+      "position": {
+        "x": 780,
+        "y": 315
+      },
+      "data": {
+        "label": "Angle Encoding",
+        "inputs": [
+          {
+            "id": "80f4e165-f4d5-4c8c-8064-822663101dca",
+            "edgeId": "ec6432ca-d1f1-486a-9e6b-5956e4ca55fd",
+            "outputIdentifier": "",
+            "targetHandle": "classicalHandleStatePreparationInput063535ded-b5f0-48c8-84fc-5731fb9cf975",
+            "identifiers": [
+              "q437804"
+            ]
+          },
+          {
+            "id": "80f4e165-f4d5-4c8c-8064-822663101dca",
+            "edgeId": "ec6432ca-d1f1-486a-9e6b-5956e4ca55fd",
+            "outputIdentifier": "",
+            "identifiers": [
+              "q437804"
+            ],
+            "targetHandle": "classicalHandleStatePreparationInput063535ded-b5f0-48c8-84fc-5731fb9cf975"
+          }
+        ],
+        "children": [],
+        "implementation": "",
+        "implementationType": "",
+        "uncomputeImplementationType": "",
+        "uncomputeImplementation": "",
+        "completionGuaranteed": false,
+        "compactOptions": [
+          false
+        ],
+        "identifiers": [
+          "q437804"
+        ],
+        "inputTypes": [
+          "array"
+        ],
+        "outputTypes": [
+          "quantum register"
+        ],
+        "encodingType": "Angle Encoding"
+      },
+      "width": 320,
+      "height": 373,
+      "positionAbsolute": {
+        "x": 780,
+        "y": 315
+      },
+      "dragging": true
+    },
+    {
+      "id": "80f4e165-f4d5-4c8c-8064-822663101dca",
+      "type": "dataTypeNode",
+      "position": {
+        "x": 180,
+        "y": 315
+      },
+      "data": {
+        "label": "Array",
+        "inputs": [],
+        "children": [],
+        "implementation": "",
+        "implementationType": "",
+        "uncomputeImplementationType": "",
+        "uncomputeImplementation": "",
+        "completionGuaranteed": true,
+        "compactOptions": [
+          true,
+          false
+        ],
+        "identifiers": [
+          "q437804"
+        ],
+        "dataType": "Array",
+        "value": "",
+        "outputIdentifier": "",
+        "inputTypes": [],
+        "outputTypes": {
+          "0": "Array"
+        }
+      },
+      "width": 450,
+      "height": 270,
+      "positionAbsolute": {
+        "x": 180,
+        "y": 315
+      },
+      "dragging": true
+    }
+  ],
+  "edges": [
+    {
+      "source": "80f4e165-f4d5-4c8c-8064-822663101dca",
+      "sourceHandle": "classicalHandleDataTypeOutput080f4e165-f4d5-4c8c-8064-822663101dca",
+      "target": "63535ded-b5f0-48c8-84fc-5731fb9cf975",
+      "targetHandle": "classicalHandleStatePreparationInput063535ded-b5f0-48c8-84fc-5731fb9cf975",
+      "type": "classicalEdge",
+      "id": "ec6432ca-d1f1-486a-9e6b-5956e4ca55fd",
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 20,
+        "height": 20,
+        "color": "#F5A843",
+        "hidden": false
+      }
+    }
+  ],
+  "viewport": {
+    "x": -55.24723546320581,
+    "y": -13.886608014861679,
+    "zoom": 0.7492491591019266
+  }
+}

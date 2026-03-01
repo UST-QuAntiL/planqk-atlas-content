@@ -1,6 +1,12 @@
 #!/bin/bash
 echo "checking if ssh key for the atlas content repo is present"
 FILE=/run/secrets/ssh_secret
+# If the content repo is already mounted locally, use it without SSH.
+if [ -d "${QC_ATLAS_CONTENT_REPOSITORY_PATH}/${SUBFOLDER_CONTENT_REPO_BACKUP_FILES}" ]; then
+    echo "local content repo detected, initializing db from local files"
+    cp ${QC_ATLAS_CONTENT_REPOSITORY_PATH}/${SUBFOLDER_CONTENT_REPO_BACKUP_FILES}/* /docker-entrypoint-initdb.d/
+    exit 0
+fi
 # if ssh key is not empty, init the db with data:
 if test -f "$FILE"; then
     echo "ssh key present"

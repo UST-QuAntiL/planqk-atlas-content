@@ -1,0 +1,27 @@
+{
+  "identifiers": [
+    "quantum-cnn",
+    "qnn",
+    "quantum-parzen-window",
+    "vqc",
+    "svm"
+  ],
+  "tags": [
+    {
+      "match": "all",
+      "tags": ["classification", "quantum"]
+    },
+    {
+      "match": "all",
+      "tags": ["classification", "QML"]
+    },
+    {
+      "match": "all",
+      "tags": ["neural-network", "quantum"]
+    },
+    {
+      "match": "all",
+      "tags": ["neural-network", "QML"]
+    }
+  ]
+}

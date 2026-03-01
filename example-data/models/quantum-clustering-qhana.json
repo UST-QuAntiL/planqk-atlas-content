@@ -1,0 +1,17 @@
+{
+  "identifiers": [
+    "max_cut",
+    "quantum-k-nearest-neighbours",
+    "quantum-k-means"
+  ],
+  "tags": [
+    {
+      "match": "all",
+      "tags": ["clustering", "quantum"]
+    },
+    {
+      "match": "all",
+      "tags": ["clustering", "QML"]
+    }
+  ]
+}
