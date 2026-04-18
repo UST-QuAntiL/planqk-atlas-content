@@ -1,0 +1,318 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "name": "Quantum Clustering",
+    "description": "This is a model.",
+    "author": "",
+    "containsPlaceholder": false,
+    "id": "flow-1776518031000",
+    "timestamp": "2026-04-18T13:13:51.001Z"
+  },
+  "nodes": [
+    {
+      "id": "c69dbd48-e8e1-448d-8e5e-2345b918b4cc",
+      "type": "pluginNode",
+      "position": {
+        "x": 960,
+        "y": 405
+      },
+      "data": {
+        "label": "Quantum Clustering",
+        "pluginName": "Quantum Clustering",
+        "tags": [],
+        "dataInputs": [
+          {
+            "parameter": "entityPointsUrl",
+            "data_type": "entity/vector",
+            "content_type": [
+              "application/json",
+              "text/csv"
+            ],
+            "required": true
+          },
+          {
+            "parameter": "numberOfClusters",
+            "data_type": "int",
+            "content_type": [
+              "text/plain"
+            ],
+            "required": true
+          },
+          {
+            "parameter": "variant",
+            "data_type": "string",
+            "content_type": [
+              "text/plain"
+            ],
+            "required": true
+          },
+          {
+            "parameter": "tolerance",
+            "data_type": "float",
+            "content_type": [
+              "text/plain"
+            ],
+            "required": false
+          },
+          {
+            "parameter": "maxIterations",
+            "data_type": "int",
+            "content_type": [
+              "text/plain"
+            ],
+            "required": false
+          }
+        ],
+        "dataOutputs": [
+          {
+            "name": "Cluster Labels",
+            "data_type": "entity/label",
+            "content_type": [
+              "application/json"
+            ],
+            "required": true
+          },
+          {
+            "name": "Visualization",
+            "data_type": "plot",
+            "content_type": [
+              "text/html"
+            ],
+            "required": false
+          }
+        ],
+        "inputs": [
+          {
+            "id": "a45dd798-abd8-4b14-8266-cbcf5b6b8185",
+            "edgeId": "793ed39f-8a4c-49a8-9177-68f73dbacda2",
+            "outputIdentifier": "",
+            "identifiers": [
+              "q714245"
+            ],
+            "targetHandle": "classicalHandlePluginInput0c69dbd48-e8e1-448d-8e5e-2345b918b4cc"
+          },
+          {
+            "id": "89e4c739-3e39-45c9-be64-07caecd39428",
+            "edgeId": "40c95d41-e053-4e76-a4ed-cbad1f2a71e1",
+            "outputIdentifier": "",
+            "identifiers": [
+              "q382083"
+            ],
+            "targetHandle": "classicalHandlePluginInput1c69dbd48-e8e1-448d-8e5e-2345b918b4cc"
+          },
+          {
+            "id": "7cf0ea01-9f8d-4783-8c4c-e7d7f80eb228",
+            "edgeId": "c0ff5410-b818-4999-a2fb-446d70f11222",
+            "outputIdentifier": "",
+            "identifiers": [
+              "q328768"
+            ],
+            "targetHandle": "classicalHandlePluginInput2c69dbd48-e8e1-448d-8e5e-2345b918b4cc"
+          }
+        ],
+        "children": [],
+        "implementation": "",
+        "implementationType": "",
+        "uncomputeImplementationType": "",
+        "uncomputeImplementation": "",
+        "identifiers": [
+          "q328768"
+        ],
+        "inputTypes": [
+          "file",
+          "number",
+          "string",
+          "number",
+          "number"
+        ],
+        "outputTypes": {
+          "0": "array",
+          "1": "any"
+        }
+      },
+      "width": 320,
+      "height": 590,
+      "positionAbsolute": {
+        "x": 960,
+        "y": 405
+      },
+      "dragging": true,
+      "hidden": true
+    },
+    {
+      "id": "a45dd798-abd8-4b14-8266-cbcf5b6b8185",
+      "type": "dataTypeNode",
+      "position": {
+        "x": 375,
+        "y": 195
+      },
+      "data": {
+        "label": "File",
+        "inputs": [],
+        "children": [],
+        "implementation": "",
+        "implementationType": "",
+        "uncomputeImplementationType": "",
+        "uncomputeImplementation": "",
+        "completionGuaranteed": true,
+        "compactOptions": [
+          true,
+          false
+        ],
+        "identifiers": [
+          "q714245"
+        ],
+        "dataType": "File",
+        "value": "",
+        "outputIdentifier": "",
+        "inputTypes": [],
+        "outputTypes": {
+          "0": "File"
+        }
+      },
+      "width": 450,
+      "height": 270,
+      "positionAbsolute": {
+        "x": 375,
+        "y": 195
+      },
+      "dragging": true,
+      "hidden": false
+    },
+    {
+      "id": "89e4c739-3e39-45c9-be64-07caecd39428",
+      "type": "dataTypeNode",
+      "position": {
+        "x": 375,
+        "y": 480
+      },
+      "data": {
+        "label": "Number",
+        "inputs": [],
+        "children": [],
+        "implementation": "",
+        "implementationType": "",
+        "uncomputeImplementationType": "",
+        "uncomputeImplementation": "",
+        "completionGuaranteed": true,
+        "compactOptions": [
+          true,
+          false
+        ],
+        "identifiers": [
+          "q382083"
+        ],
+        "dataType": "Number",
+        "value": "",
+        "outputIdentifier": "",
+        "inputTypes": [],
+        "outputTypes": {
+          "0": "Number"
+        }
+      },
+      "width": 450,
+      "height": 270,
+      "positionAbsolute": {
+        "x": 375,
+        "y": 480
+      },
+      "dragging": true,
+      "hidden": false
+    },
+    {
+      "id": "7cf0ea01-9f8d-4783-8c4c-e7d7f80eb228",
+      "type": "dataTypeNode",
+      "position": {
+        "x": 375,
+        "y": 765
+      },
+      "data": {
+        "label": "String",
+        "inputs": [],
+        "children": [],
+        "implementation": "",
+        "implementationType": "",
+        "uncomputeImplementationType": "",
+        "uncomputeImplementation": "",
+        "completionGuaranteed": true,
+        "compactOptions": [
+          true,
+          false
+        ],
+        "identifiers": [
+          "q328768"
+        ],
+        "dataType": "String",
+        "value": "",
+        "outputIdentifier": "",
+        "inputTypes": [],
+        "outputTypes": {
+          "0": "String"
+        }
+      },
+      "width": 450,
+      "height": 270,
+      "positionAbsolute": {
+        "x": 375,
+        "y": 765
+      },
+      "dragging": true,
+      "hidden": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "7cf0ea01-9f8d-4783-8c4c-e7d7f80eb228",
+      "sourceHandle": "classicalHandleDataTypeOutput07cf0ea01-9f8d-4783-8c4c-e7d7f80eb228",
+      "target": "c69dbd48-e8e1-448d-8e5e-2345b918b4cc",
+      "targetHandle": "classicalHandlePluginInput2c69dbd48-e8e1-448d-8e5e-2345b918b4cc",
+      "type": "classicalEdge",
+      "id": "c0ff5410-b818-4999-a2fb-446d70f11222",
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 20,
+        "height": 20,
+        "color": "#F5A843",
+        "hidden": false
+      },
+      "hidden": true
+    },
+    {
+      "source": "89e4c739-3e39-45c9-be64-07caecd39428",
+      "sourceHandle": "classicalHandleDataTypeOutput089e4c739-3e39-45c9-be64-07caecd39428",
+      "target": "c69dbd48-e8e1-448d-8e5e-2345b918b4cc",
+      "targetHandle": "classicalHandlePluginInput1c69dbd48-e8e1-448d-8e5e-2345b918b4cc",
+      "type": "classicalEdge",
+      "id": "40c95d41-e053-4e76-a4ed-cbad1f2a71e1",
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 20,
+        "height": 20,
+        "color": "#F5A843",
+        "hidden": false
+      },
+      "hidden": true
+    },
+    {
+      "source": "a45dd798-abd8-4b14-8266-cbcf5b6b8185",
+      "sourceHandle": "classicalHandleDataTypeOutput0a45dd798-abd8-4b14-8266-cbcf5b6b8185",
+      "target": "c69dbd48-e8e1-448d-8e5e-2345b918b4cc",
+      "targetHandle": "classicalHandlePluginInput0c69dbd48-e8e1-448d-8e5e-2345b918b4cc",
+      "type": "classicalEdge",
+      "id": "793ed39f-8a4c-49a8-9177-68f73dbacda2",
+      "markerEnd": {
+        "type": "arrowclosed",
+        "width": 20,
+        "height": 20,
+        "color": "#F5A843",
+        "hidden": false
+      },
+      "hidden": true
+    }
+  ],
+  "viewport": {
+    "x": -297,
+    "y": -97,
+    "zoom": 1
+  }
+}
