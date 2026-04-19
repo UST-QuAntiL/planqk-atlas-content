@@ -5,8 +5,8 @@
     "description": "This is a model.",
     "author": "",
     "containsPlaceholder": false,
-    "id": "flow-1776518031000",
-    "timestamp": "2026-04-18T13:13:51.001Z"
+    "id": "flow-1776631920051",
+    "timestamp": "2026-04-19T20:52:00.051Z"
   },
   "nodes": [
     {
@@ -102,7 +102,7 @@
           },
           {
             "id": "7cf0ea01-9f8d-4783-8c4c-e7d7f80eb228",
-            "edgeId": "c0ff5410-b818-4999-a2fb-446d70f11222",
+            "edgeId": "e6829bb3-e6e5-4150-9180-d1b2506cea72",
             "outputIdentifier": "",
             "identifiers": [
               "q328768"
@@ -128,7 +128,8 @@
         "outputTypes": {
           "0": "array",
           "1": "any"
-        }
+        },
+        "clusteringAlgorithm": "k-means"
       },
       "width": 320,
       "height": 590,
@@ -136,8 +137,7 @@
         "x": 960,
         "y": 405
       },
-      "dragging": true,
-      "hidden": true
+      "dragging": true
     },
     {
       "id": "a45dd798-abd8-4b14-8266-cbcf5b6b8185",
@@ -176,8 +176,7 @@
         "x": 375,
         "y": 195
       },
-      "dragging": true,
-      "hidden": false
+      "dragging": true
     },
     {
       "id": "89e4c739-3e39-45c9-be64-07caecd39428",
@@ -216,8 +215,7 @@
         "x": 375,
         "y": 480
       },
-      "dragging": true,
-      "hidden": false
+      "dragging": true
     },
     {
       "id": "7cf0ea01-9f8d-4783-8c4c-e7d7f80eb228",
@@ -256,8 +254,7 @@
         "x": 375,
         "y": 765
       },
-      "dragging": true,
-      "hidden": false
+      "dragging": true
     }
   ],
   "edges": [
@@ -267,15 +264,14 @@
       "target": "c69dbd48-e8e1-448d-8e5e-2345b918b4cc",
       "targetHandle": "classicalHandlePluginInput2c69dbd48-e8e1-448d-8e5e-2345b918b4cc",
       "type": "classicalEdge",
-      "id": "c0ff5410-b818-4999-a2fb-446d70f11222",
+      "id": "e6829bb3-e6e5-4150-9180-d1b2506cea72",
       "markerEnd": {
         "type": "arrowclosed",
         "width": 20,
         "height": 20,
         "color": "#F5A843",
         "hidden": false
-      },
-      "hidden": true
+      }
     },
     {
       "source": "89e4c739-3e39-45c9-be64-07caecd39428",
@@ -290,8 +286,7 @@
         "height": 20,
         "color": "#F5A843",
         "hidden": false
-      },
-      "hidden": true
+      }
     },
     {
       "source": "a45dd798-abd8-4b14-8266-cbcf5b6b8185",
@@ -307,12 +302,12 @@
         "color": "#F5A843",
         "hidden": false
       },
-      "hidden": true
+      "selected": false
     }
   ],
   "viewport": {
-    "x": -297,
-    "y": -97,
-    "zoom": 1
+    "x": -69.59006610822166,
+    "y": -36.865134358002706,
+    "zoom": 0.8538177143912449
   }
 }
